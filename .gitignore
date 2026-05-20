@@ -1,0 +1,8 @@
+# Generated lore corpus — never committed (Hypergryph game IP + large).
+# Rebuild deterministically: python3 tools/build_raw_data.py
+/data/
+
+# Python
+__pycache__/
+*.pyc
+.venv/

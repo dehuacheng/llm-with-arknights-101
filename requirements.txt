@@ -1,0 +1,10 @@
+# llm-with-arknights-101 — Python dependencies
+#
+# Raw-data generation is the only stage in this repo so far, and
+# tools/build_raw_data.py uses the Python standard library exclusively. It
+# re-execs under the parser repo's own virtualenv for parsing deps (pypinyin);
+# see README.md -> "Environment setup". So no packages are pinned here yet.
+#
+# Later stages (tokenizer / pretrain / sft / dpo / eval) will pin their
+# training deps — torch, transformers, peft, trl, datasets — as they land,
+# in per-stage requirement files. This root file stays minimal until then.
