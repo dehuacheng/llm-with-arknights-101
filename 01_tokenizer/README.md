@@ -288,3 +288,43 @@ Trained tokenizers and the full `merge_log.txt` land under
 `data/tokenizers/<name>/` — git-ignored, because the merge table holds many
 short byte-fragments of the corpus. The merge examples quoted in this report
 are byte pairs and public faction/operator names, which are IP-safe to share.
+
+---
+
+## 7. A note for the learner — `EXERCISE` blocks
+
+This is a learning project, and this stage is meant to be *re-implemented*, not
+just read. To make that concrete, the four pieces of `lib/bpe.py` that *are*
+the algorithm are wrapped in `EXERCISE` markers:
+
+| Block | What you implement |
+|-------|--------------------|
+| `train-merge-loop` | The BPE training loop — learn the merges from pair counts. §3 is its visual answer key. |
+| `apply-merges` | Re-apply the learned merges to one pre-token, lowest rank first. |
+| `encode` | Text → token ids: special tokens, pre-tokenization, BOS/EOS. |
+| `decode` | Token ids → text, buffering bytes across character boundaries. |
+
+Each block looks like this — the spec the learner needs is in the header:
+
+```python
+# === EXERCISE START: decode ========================================
+# Concept / Given / Produce / Steps  — the full spec lives here
+# --------------------------------------------------------------------
+        ...reference implementation...
+# === EXERCISE END: decode ==========================================
+```
+
+To learn it, **delete the lines between the two markers** and rewrite them from
+the spec in the block's header. The committed code *is* the reference solution
+— `git diff lib/bpe.py` shows how far your version has drifted. To find out
+whether it actually works, retrain a tiny tokenizer and let the sanity checks
+(§5) grade you:
+
+```sh
+python3 01_tokenizer/train_tokenizer.py --config 01_tokenizer/configs/vocab_4k.yaml --smoke-test
+```
+
+Everything outside the `EXERCISE` blocks — the regex pre-tokenizer, the JSON
+save/load, `trace()` — is given scaffolding; the four blocks are the parts
+worth building yourself. The same convention carries into later from-scratch
+(Track A) stages.

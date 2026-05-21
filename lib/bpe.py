@@ -116,6 +116,25 @@ class ByteBPE:
                 for chunk in PRETOKENIZE_RE.findall(piece):
                     word_freqs[chunk.encode("utf-8")] += 1
 
+        # === EXERCISE START: train-merge-loop ==============================
+        # Concept: BPE *learns* its vocabulary by greedily merging the most
+        #   frequent adjacent pair of tokens, again and again, until the
+        #   vocabulary is full. Each merge becomes one new token.
+        # Given:   word_freqs -- Counter of {pre-token bytes: occurrences}.
+        # Produce: merges       -- ordered list of (left_id, right_id) pairs,
+        #          merge_counts -- each pair's frequency the moment it won.
+        # Steps:   1) start every word as its list of raw byte ids
+        #          2) count every adjacent pair, weighted by word frequency
+        #          3) take the most frequent pair; record it as a new token
+        #          4) rewrite all words, replacing that pair with the new id
+        #          5) repeat from (2) until n_merges tokens are learned
+        # The reference below keeps pair stats in an incremental max-heap so a
+        # merge only re-scans the words it changed -- an optimisation of steps
+        # (2)-(4), not a different algorithm. A plain full rescan each loop is
+        # also correct, just slower.
+        # Learning mode: delete the body below and rewrite it from the spec;
+        #   the committed code is the reference (`git diff` shows your delta).
+        # --------------------------------------------------------------------
         # 2. BPE merge loop. Each word is a mutable list of token ids; `freqs`
         #    runs parallel to `words`. Pair statistics are kept incrementally
         #    so a merge only re-scans the words it actually changes.
@@ -181,6 +200,7 @@ class ByteBPE:
         if verbose:
             print(f"  learned {len(merges):,} merges "
                   f"(requested {n_merges:,})")
+        # === EXERCISE END: train-merge-loop ================================
         return cls(special_tokens, merges, merge_counts)
 
     # -- encoding / decoding ------------------------------------------------
@@ -190,6 +210,22 @@ class ByteBPE:
         cached = self._encode_cache.get(raw)
         if cached is not None:
             return cached
+        # === EXERCISE START: apply-merges ==================================
+        # Concept: encoding re-applies the learned merges to fresh text. For
+        #   one pre-token's bytes, repeatedly apply the *lowest-rank* (i.e.
+        #   earliest-learned, most-frequent) merge available, until none fits.
+        #   Rank order matters: it reproduces the order training merged in.
+        # Given:   raw -- the pre-token's bytes; self.merge_rank {pair: rank};
+        #          self.merge_id {pair: merged token id}.
+        # Produce: word -- the list of token ids for this pre-token.
+        # Steps:   1) start `word` as the list of raw byte values
+        #          2) among adjacent pairs in `word` that have a merge, find
+        #             the one with the smallest rank
+        #          3) replace every occurrence of that pair with its merged id
+        #          4) repeat until no adjacent pair has a merge
+        # Learning mode: delete the body below and rewrite it from the spec;
+        #   the committed code is the reference (`git diff` shows your delta).
+        # --------------------------------------------------------------------
         word = list(raw)
         while len(word) >= 2:
             best_rank, best_at = None, None
@@ -210,11 +246,29 @@ class ByteBPE:
                     merged.append(word[k])
                     k += 1
             word = merged
+        # === EXERCISE END: apply-merges ====================================
         self._encode_cache[raw] = word
         return word
 
     def encode(self, text, add_bos=False, add_eos=False):
         """Text -> list of token ids."""
+        # === EXERCISE START: encode ========================================
+        # Concept: turn a string into token ids. Special tokens are matched
+        #   atomically first (they must never be split into bytes or merged);
+        #   ordinary text is pre-tokenized into character-class runs, and each
+        #   run is byte-encoded + merged by _encode_chunk.
+        # Given:   text; add_bos/add_eos flags; self.bos_id / self.eos_id;
+        #          self.special_to_id; _split_specials(); PRETOKENIZE_RE.
+        # Produce: ids -- list[int], optionally bracketed by BOS / EOS.
+        # Steps:   1) if add_bos, emit self.bos_id
+        #          2) split text into special / non-special pieces
+        #          3) a special piece -> its reserved id, as one token
+        #          4) a non-special piece -> for each PRETOKENIZE_RE run,
+        #             extend ids with _encode_chunk(run.encode("utf-8"))
+        #          5) if add_eos, emit self.eos_id
+        # Learning mode: delete the body below and rewrite it from the spec;
+        #   the committed code is the reference (`git diff` shows your delta).
+        # --------------------------------------------------------------------
         ids = []
         if add_bos:
             ids.append(self.bos_id)
@@ -226,10 +280,27 @@ class ByteBPE:
                     ids.extend(self._encode_chunk(chunk.encode("utf-8")))
         if add_eos:
             ids.append(self.eos_id)
+        # === EXERCISE END: encode ==========================================
         return ids
 
     def decode(self, ids):
         """List of token ids -> text. Lossless for ids produced by encode()."""
+        # === EXERCISE START: decode ========================================
+        # Concept: invert encode(). Every non-special token maps to a fixed
+        #   byte string (self.id_bytes); concatenate those bytes and UTF-8
+        #   decode. A token's bytes may end mid-character, so bytes are
+        #   buffered and only decoded at a boundary -- flush the buffer right
+        #   before each special token, and once more at the end.
+        # Given:   ids; self.id_to_special {id: str}; self.id_bytes {id: bytes}.
+        # Produce: the decoded string.
+        # Steps:   1) keep a bytearray buffer; walk ids in order
+        #          2) special id -> flush+decode the buffer, then emit the
+        #             special string verbatim
+        #          3) ordinary id -> append self.id_bytes[id] to the buffer
+        #          4) at the end, flush+decode whatever is left
+        # Learning mode: delete the body below and rewrite it from the spec;
+        #   the committed code is the reference (`git diff` shows your delta).
+        # --------------------------------------------------------------------
         out, buf = [], bytearray()
         for i in ids:
             special = self.id_to_special.get(i)
@@ -242,6 +313,7 @@ class ByteBPE:
                 buf += self.id_bytes[i]
         if buf:
             out.append(buf.decode("utf-8", errors="replace"))
+        # === EXERCISE END: decode ==========================================
         return "".join(out)
 
     # -- inspection ---------------------------------------------------------

@@ -61,6 +61,12 @@ source of truth for **why**.
   run.
 - The ~200-question evaluation set is authored *before* training begins, so
   every stage can be re-scored against it.
+- Learning mode: in from-scratch (Track A) code, the pedagogically central
+  regions are wrapped in `# === EXERCISE START/END: <slug> ===` comment blocks
+  carrying a Concept/Given/Produce/Steps spec. The committed file stays the
+  working reference; a learner reimplements within the markers (`git diff`
+  recovers the reference). Markers only — no generated stub file. Carry this
+  into every Track A stage.
 
 ## Fixed decisions
 
@@ -89,4 +95,5 @@ source of truth for **why**.
 - `01_tokenizer/` **implemented** — `lib/bpe.py` (from-scratch `ByteBPE`),
   `train_tokenizer.py`, `fertility.py`, `trace.py`, `configs/vocab_*.yaml`.
   Vocab sweep run; experiment report (EN + 中文) is `01_tokenizer/README*.md`,
-  raw sweep data in `01_tokenizer/docs/RESULTS.md`.
+  raw sweep data in `01_tokenizer/docs/RESULTS.md`. `lib/bpe.py` core regions
+  carry `EXERCISE` learning-mode markers (see README §7).
