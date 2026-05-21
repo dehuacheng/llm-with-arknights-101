@@ -1,0 +1,4 @@
+# Stage 00 — data preparation.
+# No third-party packages: clean_corpus.py / derive_split.py / apply_split.py
+# use only the Python standard library (3.9+). derive_split.py additionally
+# shells out to `git` for the one-time wiki delta.

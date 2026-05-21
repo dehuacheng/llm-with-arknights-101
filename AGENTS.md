@@ -6,8 +6,10 @@ terse and current — when a decision changes, update this file.
 
 ## What this project is
 
-An educational, end-to-end project that continued-pretrains and post-trains a
-sub-1B LLM (**Qwen3-0.6B base**) on *Arknights* (明日方舟) lore. The
+An educational, end-to-end project about training a small LLM on *Arknights*
+(明日方舟) lore. It runs **two tracks and compares them**: Track A builds a
+tokenizer and a small model *from scratch* (for learning the mechanics);
+Track B continued-pretrains and post-trains **Qwen3-0.6B base**. The
 reader-facing overview and staged roadmap are in `README.md`. The detailed
 rationale for each decision lives in the planning workspace `plan.md`, kept
 alongside this repo but **not committed here** (a sibling `arknights-llm/`
@@ -26,8 +28,8 @@ source of truth for **why**.
 
 2. **Do not take a runtime dependency on `arknights_lore_wiki_lib`.** It is a
    build-time parser, imported *only* by `tools/build_raw_data.py`. It is not
-   vendored, not in `requirements.txt`, and nothing in a future `tokenizer/`,
-   `pretrain/`, etc. may import it. The project depends on the two *data* repos
+   vendored, not in `requirements.txt`, and nothing in a future `01_tokenizer/`,
+   `02_…/`, etc. may import it. The project depends on the two *data* repos
    (`ArknightsGameData`, `arknights_lore_wiki`) as inputs.
 
 3. **The three source repos are siblings**, cloned under the same parent
@@ -40,8 +42,13 @@ source of truth for **why**.
 
 ## Conventions (carry into future stages)
 
-- Each stage gets its own top-level folder (`tokenizer/`, `pretrain/`, `sft/`,
-  …), independently runnable, producing the artifact the next stage consumes.
+- Stages are **numbered top-level folders** (`00_data_prep/`, `01_tokenizer/`,
+  `02_…/`). Each folder owns that stage's guide/notes, scripts, experiment
+  attempts, and results — kept together, independently runnable, producing the
+  artifact the next stage consumes.
+- Shared, reusable code lives in a top-level `lib/` (an importable package),
+  not inside a stage folder. Stage folders hold stage-specific scripts; `lib/`
+  holds what more than one stage needs.
 - Each stage pins its own deps in a per-stage requirements file; the root
   `requirements.txt` stays minimal.
 - Stack: transparent `transformers + peft + trl` — **not** Unsloth (chosen for
@@ -57,12 +64,26 @@ source of truth for **why**.
 
 ## Fixed decisions
 
-- Model: **Qwen3-0.6B base** (best sub-1B CJK tokenizer; Apache-2.0; has
-  base / instruct / thinking variants for ablations).
+- **Two tracks, compared at the end.** Track A — build a tokenizer and a small
+  LM *from scratch* on the Arknights corpus; for learning the full mechanics,
+  not expected to be strong (small data). Track B — continued-pretrain /
+  fine-tune Qwen3-0.6B. The payoff is the A-vs-B comparison on a shared eval.
+- Track B base model: **Qwen3-0.6B base** (best sub-1B CJK tokenizer;
+  Apache-2.0; has base / instruct / thinking variants for ablations).
+- Track A tokenizer: **byte-level BPE implemented from scratch** — pure Python,
+  **no HuggingFace dependency**. `lib/bpe.py` (`ByteBPE`: train / encode /
+  decode / save / load, custom JSON format), trained on the train split only.
+  Stage 02 loads it via `ByteBPE.load`, not an HF tokenizer. See `01_tokenizer/`.
+- **Nested test sets.** Track A's split is a *family* of growing test sets
+  T0 ⊂ T1 ⊂ T2, so models trained with different held-out content are scored on
+  a common yardstick (T0). Design in `00_data_prep/`.
 - Code license target: **Apache-2.0**; evaluation set: **CC-BY-4.0**.
 - Default branch: `main`.
 
 ## Current status
 
 - Raw-data generation complete: `tools/build_raw_data.py`.
-- No training code yet — `tokenizer/`, `pretrain/`, … not created.
+- `00_data_prep/` **implemented** — `clean_corpus.py` (cleaning), `derive_split.py`
+  (one-time split derivation → committed `split_manifest.json`), `apply_split.py`
+  (manifest → `data/clean/splits.json`). Shared code in `lib/corpus.py`.
+- `01_tokenizer/` scoped — design in its `README.md`; no implementation yet.
