@@ -86,4 +86,7 @@ source of truth for **why**.
 - `00_data_prep/` **implemented** — `clean_corpus.py` (cleaning), `derive_split.py`
   (one-time split derivation → committed `split_manifest.json`), `apply_split.py`
   (manifest → `data/clean/splits.json`). Shared code in `lib/corpus.py`.
-- `01_tokenizer/` scoped — design in its `README.md`; no implementation yet.
+- `01_tokenizer/` **implemented** — `lib/bpe.py` (from-scratch `ByteBPE`),
+  `train_tokenizer.py`, `fertility.py`, `trace.py`, `configs/vocab_*.yaml`.
+  Vocab sweep run; experiment report (EN + 中文) is `01_tokenizer/README*.md`,
+  raw sweep data in `01_tokenizer/docs/RESULTS.md`.

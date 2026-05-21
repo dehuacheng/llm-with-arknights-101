@@ -1,0 +1,4 @@
+# Stage 01 — tokenizer.
+# The BPE itself (lib/bpe.py) is pure standard library, by design — no
+# HuggingFace, no `tokenizers`. PyYAML is only used to read experiment configs.
+pyyaml>=6.0

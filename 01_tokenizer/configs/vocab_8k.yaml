@@ -1,0 +1,3 @@
+# Stage 01 tokenizer experiment. Clone this file for a new run — never edit in place.
+name: vocab_8k
+vocab_size: 8192
