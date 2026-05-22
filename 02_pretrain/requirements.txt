@@ -1,0 +1,15 @@
+# Stage 02 — pretrain the from-scratch model.
+#
+# torch is the only heavy dependency. einops + jaxtyping keep lib/model.py
+# aligned with Stanford CS336's conventions: named-axis tensor ops
+# (rearrange / einsum) instead of .view()/.transpose()/.reshape(), and
+# shape-typed signatures. numpy backs the token-stream cache; pyyaml reads
+# the experiment configs.
+#
+# Install into a virtualenv (Ubuntu's system Python is PEP-668 locked):
+#   python3 -m venv .venv && .venv/bin/pip install -r 02_pretrain/requirements.txt
+torch>=2.2
+einops>=0.7
+jaxtyping>=0.2
+numpy>=1.24
+pyyaml>=6.0

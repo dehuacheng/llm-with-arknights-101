@@ -1,0 +1,29 @@
+# Stage 02 experiment config. Clone for a new run — never edit in place.
+#
+# This is the SHARED CELL of the two-axis sweep (see 02_pretrain/README.md):
+# the scale axis varies `scale` at this tokenizer; the vocab axis varies
+# `tokenizer` at this scale. Everything else is held constant so each
+# comparison changes exactly one thing.
+name: small_32k
+
+# Which stage-01 tokenizer feeds the model — data/tokenizers/<tokenizer>/.
+tokenizer: vocab_32k
+
+# Architecture — a scale preset (lib/model.SCALE_PRESETS) + context window.
+scale: small          # tiny | small | large
+block_size: 512
+dropout: 0.1
+
+# Optimisation — held constant across the whole sweep so the comparison is
+# fair: every run sees the same number of tokens (max_steps x batch x block).
+batch_size: 32
+learning_rate: 3.0e-4
+weight_decay: 0.1
+max_steps: 8000
+warmup_steps: 300
+grad_clip: 1.0
+
+# Evaluation cadence + RNG seed.
+eval_interval: 500
+eval_steps: 100
+seed: 1337
