@@ -11,49 +11,61 @@ the [Stanford CS336](https://stanford-cs336.github.io/) convention: named-axis
 `einops` (`rearrange` / `einsum`) instead of `.view()` / `.transpose()`, so a
 reshape reads as the equation it is.
 
-> Status: **scaffolded** — code complete, the sweep is not yet run. Numbers in
-> this guide are parameter counts (exact) and corpus sizes (measured); the
-> perplexity tables in [`docs/RESULTS.md`](docs/RESULTS.md) are still blank.
+> Status: **all three axes complete** (9 runs). Result tables are in
+> [`docs/RESULTS.md`](docs/RESULTS.md); the inference probes are written up,
+> in-universe, in [`docs/FIELD_REPORT.md`](docs/FIELD_REPORT.md).
 
 The corpus is tiny — the Stage 00 `train` split is **11.66M characters**, only
-~7–9M tokens depending on the vocabulary. That is far too little to train a
+~6–9M tokens depending on the vocabulary. That is far too little to train a
 good language model, and that is *fine*: this stage is not chasing a good
-model. It is an **experiment** about what happens when you change two knobs —
-how big the model is, and how big the tokenizer's vocabulary is — on a corpus
-this small. The lesson is the shape of the curves, not the final number.
+model. It is an **experiment** about what happens when you change three knobs —
+the model size, the tokenizer's vocabulary, and the context length — on a
+corpus this small. The lesson is the shape of the curves, not the final number.
 
 ---
 
-## 1. The experiment — a two-axis sweep
+## 1. The experiment — a three-axis sweep
 
-There are two things worth varying, so we vary them one at a time (a full grid
-would confuse two effects together — controlling one variable at a time is the
-point):
+Three things are worth varying. We vary them one at a time, holding the rest
+fixed — a full grid would tangle the effects together; controlling one variable
+at a time is the point.
 
-- **Scale axis** — fix the tokenizer at 32k, train all three model sizes.
-  *Teaches:* how model size trades against a fixed, small dataset.
-- **Vocab axis** — fix the model at `small`, train on the 8k / 16k / 32k
+- **Scale axis** — fix tokenizer 32k and block 512, train all three model
+  sizes. *Teaches:* how model size trades against a fixed, small dataset.
+- **Vocab axis** — fix `small` and block 512, train on the 8k / 16k / 32k
   tokenizers. *Teaches:* how vocabulary size changes the model.
+- **Context axis** — fix `small` and tokenizer 32k, train at block size
+  256 / 512 / 1024 / 2048 / 4096. *Teaches:* how much context length helps,
+  against its quadratic memory cost.
 
-That is **5 runs** — the `small` + 32k cell is shared by both axes:
+That is **9 runs** — `small_32k` (scale `small`, vocab 32k, block 512) is the
+shared centre of all three axes. Configs are `configs/<run>.yaml`:
 
-| Run | Config | Scale | Tokenizer | Total params |
-|-----|--------|-------|-----------|--------------|
-| `tiny_32k`  | `configs/tiny_32k.yaml`  | tiny  | vocab_32k | 11.7M |
-| `small_32k` | `configs/small_32k.yaml` | small | vocab_32k | 23.4M |
-| `large_32k` | `configs/large_32k.yaml` | large | vocab_32k | 42.3M |
-| `small_8k`  | `configs/small_8k.yaml`  | small | vocab_8k  | 14.0M |
-| `small_16k` | `configs/small_16k.yaml` | small | vocab_16k | 17.1M |
+| Axis    | Run         | What varies     | Total params |
+|---------|-------------|-----------------|--------------|
+| scale   | `tiny_32k`  | scale tiny      | 11.7M |
+| scale   | `small_32k` | *shared centre* | 23.4M |
+| scale   | `large_32k` | scale large     | 42.3M |
+| vocab   | `small_8k`  | vocab 8k        | 14.0M |
+| vocab   | `small_16k` | vocab 16k       | 17.1M |
+| context | `ctx_256`   | block 256       | 23.3M |
+| context | `ctx_1024`  | block 1024      | 23.6M |
+| context | `ctx_2048`  | block 2048      | 24.0M |
+| context | `ctx_4096`  | block 4096      | 24.8M |
 
-Every run sees the **same number of tokens** (`max_steps × batch × block`), so
-the comparison is fair. Five runs is the starting point; expand to the full
-3×3 grid later if the cross design leaves a question open.
+Every run sees the **same token budget** — `effective_batch × block_size ×
+max_steps` ≈ 131M tokens — so the comparison is fair. The context axis trades
+those factors off (a longer window → smaller batch → fewer steps) while holding
+the product *and* the effective batch constant; **gradient accumulation** lets
+a long-context run keep an effective batch of 32 even when only a micro-batch
+of 1–4 sequences fits in memory.
 
-**What to watch.** On a corpus this small, the bigger models will drive *train*
-loss down while *validation* perplexity stalls or climbs — that gap is
+**What to watch.** On a corpus this small, the bigger models drive *train* loss
+down while *validation* perplexity stalls or climbs — that gap is
 **overfitting**, and making it visible is the headline result of the scale
-axis. `train.py` keeps the checkpoint with the best val loss, so the run
-records its own best moment even if it overfits afterwards.
+axis. On the context axis, watch whether a longer window actually lowers
+perplexity or just burns memory. `train.py` keeps the checkpoint with the best
+val loss, so each run records its own best moment even if it overfits after.
 
 ## 2. The model (`lib/model.py`)
 
@@ -65,6 +77,20 @@ A GPT-style decoder-only transformer, classic GPT-2 shape:
 - Multi-head **causal** self-attention (a position attends only to the past).
 - **Weight-tied** head: the output projection reuses the embedding matrix.
 - GELU MLP with a 4× hidden expansion.
+
+**A note on document packing — a deliberate simplification.** The corpus is
+concatenated into one flat token stream, each document bracketed by
+`<|bos|>` … `<|eos|>`, and `get_batch` samples training windows at random
+offsets — so a `block_size`-token window can straddle a document boundary.
+The causal mask only forbids attending to the *future*; it does **not** reset
+at `<|eos|>`. So when a window spans `… docA <|eos|> <|bos|> docB …`, tokens in
+docB *can* attend back into docA. We do not mask that out — instead the model
+is expected to learn, from the `<|bos|>` / `<|eos|>` markers (which are real,
+predicted tokens), that content before a boundary is no longer relevant. This
+is the GPT-2 / nanoGPT convention. The stricter alternative — **intra-document
+(block-diagonal) attention masking**, which resets attention at every `<|eos|>`
+— is left as a possible extension; its value grows with longer context windows,
+which straddle more boundaries.
 
 Three scale presets (`lib/model.SCALE_PRESETS`) — each fixes only depth and
 width:
@@ -118,7 +144,13 @@ python3 -m venv .venv
 
 # generate from a checkpoint
 .venv/bin/python 02_pretrain/sample.py --name small_32k --prompt '罗德岛'
+
+# probe every trained run — generation, temperature dial, cloze, Q&A
+.venv/bin/python 02_pretrain/eval_probes.py
 ```
+
+The probe set `eval_probes.py` reads — free-generation prompts, cloze
+sentences, and questions — lives in the editable `probes.txt`, not the code.
 
 The token stream is encoded once and cached under `data/tokenized/<tokenizer>/`;
 checkpoints land in `data/checkpoints/<run>/`. Both are git-ignored.
@@ -137,8 +169,9 @@ the `Concept / Given / Produce / Steps` spec in the block header.
 | `transformer-block` | `lib/model.py` | the pre-norm residual wiring |
 | `gpt-forward`       | `lib/model.py` | embed → blocks → logits → loss |
 | `get-batch`         | `02_pretrain/train.py` | sampling (input, target) windows |
-| `train-step`        | `02_pretrain/train.py` | forward → loss → backward → step |
+| `train-step`        | `02_pretrain/train.py` | gradient accumulation + the optimiser step |
 | `sample-loop`       | `02_pretrain/sample.py` | autoregressive decoding |
+| `cloze-nll`         | `02_pretrain/eval_probes.py` | scoring a known answer in bits-per-char |
 
 ```python
 # === EXERCISE START: attention ========================================
@@ -162,8 +195,11 @@ grader — if it runs end-to-end and the loss falls, your code works.
   README.md            this guide
   train.py             training loop          (EXERCISE: get-batch, train-step)
   sample.py            generate from a checkpoint   (EXERCISE: sample-loop)
+  eval_probes.py       probe trained runs           (EXERCISE: cloze-nll)
+  probes.txt           the probe set — prompts, cloze items, questions
   requirements.txt     torch, einops, jaxtyping, numpy, pyyaml
   configs/             one YAML per run — clone, never edit in place
-  docs/RESULTS.md      perplexity tables (filled as runs complete)
+  docs/RESULTS.md      perplexity tables — the three-axis sweep
+  docs/FIELD_REPORT.md inference probes, written up in-universe (EN + 中文)
 lib/model.py           the GPT   (EXERCISE: attention, transformer-block, gpt-forward)
 ```

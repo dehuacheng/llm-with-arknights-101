@@ -28,7 +28,7 @@ from lib import bpe, corpus  # noqa: E402
 from lib import model as model_lib  # noqa: E402
 
 # --smoke-test overrides: a tiny model on a handful of files, <2-minute run.
-SMOKE = dict(scale="tiny", block_size=128, batch_size=8,
+SMOKE = dict(scale="tiny", block_size=128, batch_size=4, grad_accum=2,
              max_steps=20, warmup_steps=5, eval_interval=10, eval_steps=5)
 SMOKE_TRAIN_FILES, SMOKE_VAL_FILES = 15, 5
 
@@ -201,7 +201,8 @@ def main():
         [{"params": decay, "weight_decay": cfg["weight_decay"]},
          {"params": no_decay, "weight_decay": 0.0}],
         lr=cfg["learning_rate"], betas=(0.9, 0.95))
-    batch_size, block_size = cfg["batch_size"], gcfg.block_size
+    micro_batch, block_size = cfg["batch_size"], gcfg.block_size
+    grad_accum = cfg.get("grad_accum", 1)  # micro-batches per optimiser step
     max_steps, grad_clip = cfg["max_steps"], cfg["grad_clip"]
     gen = torch.Generator().manual_seed(cfg["seed"])
 
@@ -210,7 +211,8 @@ def main():
     ckpt_path = ckpt_dir / "ckpt.pt"
     best_val = float("inf")
 
-    print(f"  training   : {max_steps:,} steps, batch {batch_size} x "
+    print(f"  training   : {max_steps:,} steps, batch {micro_batch}x"
+          f"{grad_accum} (effective {micro_batch * grad_accum}) x "
           f"block {block_size}\n")
     t0 = time.time()
     model.train()
@@ -218,27 +220,29 @@ def main():
         for g in opt.param_groups:
             g["lr"] = lr_at(step, cfg["learning_rate"],
                             cfg["warmup_steps"], max_steps)
-        x, y = get_batch(train_data, batch_size, block_size, device, gen)
-
         # === EXERCISE START: train-step ===================================
-        # Concept: one optimisation step. Predict the next tokens, measure
-        #   the loss, propagate gradients back through every layer, clip the
-        #   gradient norm so one freak batch cannot wreck the weights, then
-        #   let the optimiser apply the update.
-        # Given:   model (in train mode); the batch x, y; opt; grad_clip.
-        # Produce: loss (a tensor, for logging) -- and model parameters
-        #          updated in place by the optimiser.
-        # Steps:   1) run the model on (x, y) -> take the loss
-        #          2) opt.zero_grad(set_to_none=True)
-        #          3) loss.backward()
-        #          4) torch.nn.utils.clip_grad_norm_(params, grad_clip)
-        #          5) opt.step()
+        # Concept: one optimisation step, with gradient accumulation. To
+        #   train at an effective batch larger than fits in GPU memory, run
+        #   grad_accum micro-batches and sum their gradients before a single
+        #   optimiser update. Each micro-loss is divided by grad_accum so the
+        #   accumulated gradient equals that of one full-size batch.
+        # Given:   model (train mode); train_data; get_batch(); gen;
+        #          micro_batch, block_size, grad_accum; opt; grad_clip; device.
+        # Produce: one optimiser update built from grad_accum micro-batches.
+        # Steps:   1) opt.zero_grad(set_to_none=True)
+        #          2) grad_accum times: sample a micro-batch with get_batch,
+        #             forward to a loss, then (loss / grad_accum).backward()
+        #             -- .backward() *adds* to the existing gradients
+        #          3) torch.nn.utils.clip_grad_norm_(params, grad_clip)
+        #          4) opt.step()
         # Learning mode: delete the body below and rewrite it from the spec;
         #   the committed code is the reference (`git diff` shows your delta).
         # ------------------------------------------------------------------
-        _, loss = model(x, y)
         opt.zero_grad(set_to_none=True)
-        loss.backward()
+        for _ in range(grad_accum):
+            x, y = get_batch(train_data, micro_batch, block_size, device, gen)
+            _, loss = model(x, y)
+            (loss / grad_accum).backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
         opt.step()
         # === EXERCISE END: train-step =====================================
@@ -247,10 +251,10 @@ def main():
             # Measure train and val loss the same way — averaged over
             # eval_steps batches with dropout off — so the train/val gap (the
             # overfitting signal) is a like-for-like comparison.
-            train_loss = estimate_loss(model, train_data, batch_size,
+            train_loss = estimate_loss(model, train_data, micro_batch,
                                        block_size, device,
                                        cfg["eval_steps"], cfg["seed"])
-            val_loss = estimate_loss(model, val_data, batch_size, block_size,
+            val_loss = estimate_loss(model, val_data, micro_batch, block_size,
                                      device, cfg["eval_steps"], cfg["seed"])
             train_ppl = math.exp(min(20.0, train_loss))
             val_ppl = math.exp(min(20.0, val_loss))

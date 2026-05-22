@@ -101,9 +101,13 @@ source of truth for **why**.
   Vocab sweep run; experiment report (EN + 中文) is `01_tokenizer/README*.md`,
   raw sweep data in `01_tokenizer/docs/RESULTS.md`. `lib/bpe.py` core regions
   carry `EXERCISE` learning-mode markers (see README §7).
-- `02_pretrain/` **scaffolded** (code complete, sweep not yet run) — hand-rolled
-  GPT in `lib/model.py`; `train.py`, `sample.py`, `configs/{tiny,small,large}_32k`
-  + `small_{8k,16k}`. Five-run two-axis sweep (scale × vocab); design + metrics
-  in `02_pretrain/README.md`, result tables in `02_pretrain/docs/RESULTS.md`.
-  `lib/model.py` + `train.py` + `sample.py` carry `EXERCISE` markers. Repo venv
-  at `.venv/` (git-ignored); `data/tokenized/` + `data/checkpoints/` git-ignored.
+- `02_pretrain/` **implemented** — hand-rolled GPT in `lib/model.py`; `train.py`
+  (with gradient accumulation), `sample.py`, `eval_probes.py` (inference probes,
+  reading the editable `probes.txt`), `configs/` for a nine-run three-axis
+  sweep (scale × vocab × context: `{tiny,small,large}_32k`, `small_{8k,16k}`,
+  `ctx_{256,1024,2048,4096}`). All nine runs complete. Design + metrics in
+  `02_pretrain/README.md`, result tables in `02_pretrain/docs/RESULTS.md`,
+  in-universe inference write-up in `02_pretrain/docs/FIELD_REPORT.md`
+  (EN + 中文). `lib/model.py`, `train.py`, `sample.py`,
+  `eval_probes.py` carry `EXERCISE` markers. Repo venv at `.venv/`
+  (git-ignored); `data/tokenized/` + `data/checkpoints/` git-ignored.
