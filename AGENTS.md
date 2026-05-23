@@ -102,15 +102,15 @@ source of truth for **why**.
   raw sweep data in `01_tokenizer/docs/RESULTS.md`. `lib/bpe.py` core regions
   carry `EXERCISE` learning-mode markers (see README §7).
 - `02_pretrain/` **implemented** — hand-rolled GPT in `lib/model.py`; `train.py`
-  (with gradient accumulation), `sample.py`, `eval_probes.py` (inference probes,
-  reading the editable `probes.txt`), `configs/` for a nine-run three-axis
-  sweep (scale × vocab × context: `{tiny,small,large}_32k`, `small_{8k,16k}`,
-  `ctx_{256,1024,2048,4096}`). All nine runs complete. Design + metrics in
-  `02_pretrain/README.md`, result tables in `02_pretrain/docs/RESULTS.md`,
-  in-universe inference write-up in `02_pretrain/docs/FIELD_REPORT.md`
-  (EN + 中文). `lib/model.py`, `train.py`, `sample.py`,
-  `eval_probes.py` carry `EXERCISE` markers. Repo venv at `.venv/`
-  (git-ignored); `data/tokenized/` + `data/checkpoints/` git-ignored.
+  (with gradient accumulation + early stopping), `sample.py`, `eval_probes.py`
+  (inference probes, reading the editable `probes.txt`), `configs/` for a
+  nine-run three-axis sweep (scale × vocab × context: `{tiny,small,large}_32k`,
+  `small_{8k,16k}`, `ctx_{256,1024,2048,4096}`). All nine runs complete. Design
+  + metrics in `02_pretrain/README.md`, result tables in
+  `02_pretrain/docs/RESULTS.md`, in-universe inference write-up in
+  `02_pretrain/docs/FIELD_REPORT.md` (EN + 中文). `lib/model.py`, `train.py`,
+  `sample.py`, `eval_probes.py` carry `EXERCISE` markers. Repo venv at
+  `.venv/` (git-ignored); `data/tokenized/` + `data/checkpoints/` git-ignored.
 - `eval/` **scaffolded** — the shared, hand-graded ~200-question evaluation
   set every later stage is scored against; **CC-BY-4.0** (rest of the repo is
   Apache-2.0). Design + schema + a 15-item seed authored before Stage 03

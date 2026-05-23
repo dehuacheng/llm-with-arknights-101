@@ -15,6 +15,7 @@ import argparse
 import hashlib
 import json
 import math
+import os
 import sys
 import time
 from pathlib import Path
@@ -28,8 +29,12 @@ from lib import bpe, corpus  # noqa: E402
 from lib import model as model_lib  # noqa: E402
 
 # --smoke-test overrides: a tiny model on a handful of files, <2-minute run.
+# patience=2 with eval_interval=10 + max_steps=20 means the early-stop break
+# path is reachable (one eval can register no-improvement on the last step);
+# patience=5 there would make the break path unreachable in smoke mode.
 SMOKE = dict(scale="tiny", block_size=128, batch_size=4, grad_accum=2,
-             max_steps=20, warmup_steps=5, eval_interval=10, eval_steps=5)
+             max_steps=20, warmup_steps=5, eval_interval=10, eval_steps=5,
+             patience=2)
 SMOKE_TRAIN_FILES, SMOKE_VAL_FILES = 15, 5
 
 
@@ -113,12 +118,16 @@ def get_batch(data, batch_size, block_size, device, generator):
     return x.to(device), y.to(device)
 
 
-def lr_at(step, base_lr, warmup, max_steps):
-    """Learning rate schedule: linear warmup, then cosine decay to 10%."""
+def lr_at(step, base_lr, warmup):
+    """Learning rate: linear warmup, then held constant.
+
+    Constant — not decayed — on purpose. The sweep trains every run to its own
+    validation minimum and early-stops there (see `main`). A decaying LR makes
+    val loss keep creeping down even as the model overfits, blurring that
+    minimum; a flat LR keeps 'val loss turned upward' a clean stop signal."""
     if step < warmup:
         return base_lr * step / warmup
-    progress = min(1.0, (step - warmup) / max(1, max_steps - warmup))
-    return base_lr * (0.1 + 0.9 * 0.5 * (1.0 + math.cos(math.pi * progress)))
+    return base_lr
 
 
 @torch.no_grad()
@@ -209,17 +218,19 @@ def main():
     ckpt_dir = corpus.DATA_DIR / "checkpoints" / name
     ckpt_dir.mkdir(parents=True, exist_ok=True)
     ckpt_path = ckpt_dir / "ckpt.pt"
-    best_val = float("inf")
+    best_val, best_step = float("inf"), 0
+    patience = cfg.get("patience", 10)  # evals without improvement before stop
+    evals_no_improve = 0
+    stop_reason = "hit the max_steps cap"
 
-    print(f"  training   : {max_steps:,} steps, batch {micro_batch}x"
+    print(f"  training   : up to {max_steps:,} steps, batch {micro_batch}x"
           f"{grad_accum} (effective {micro_batch * grad_accum}) x "
-          f"block {block_size}\n")
+          f"block {block_size}; early-stop patience {patience} evals\n")
     t0 = time.time()
     model.train()
     for step in range(1, max_steps + 1):
         for g in opt.param_groups:
-            g["lr"] = lr_at(step, cfg["learning_rate"],
-                            cfg["warmup_steps"], max_steps)
+            g["lr"] = lr_at(step, cfg["learning_rate"], cfg["warmup_steps"])
         # === EXERCISE START: train-step ===================================
         # Concept: one optimisation step, with gradient accumulation. To
         #   train at an effective batch larger than fits in GPU memory, run
@@ -258,24 +269,40 @@ def main():
                                      device, cfg["eval_steps"], cfg["seed"])
             train_ppl = math.exp(min(20.0, train_loss))
             val_ppl = math.exp(min(20.0, val_loss))
-            tag = ""
+            # Early stopping: keep the best-val checkpoint, and stop once val
+            # loss has failed to beat it for `patience` consecutive evals —
+            # i.e. once the model has clearly turned the corner into
+            # overfitting. Every run is thus compared at its own optimum.
             if val_loss < best_val:
-                best_val = val_loss
+                best_val, best_step = val_loss, step
+                evals_no_improve = 0
+                # Atomic save: write to .tmp then os.replace. Early-stop now
+                # rewrites this file many times per run; a Ctrl-C or kill
+                # mid-write would otherwise leave a half-written ckpt.pt.
+                tmp_path = ckpt_path.with_suffix(".pt.tmp")
                 torch.save({"config": vars(gcfg), "model": model.state_dict(),
                             "tokenizer": tokenizer_name, "step": step,
-                            "val_loss": val_loss}, ckpt_path)
+                            "val_loss": val_loss}, tmp_path)
+                os.replace(tmp_path, ckpt_path)
                 tag = "  <- saved (best val)"
+            else:
+                evals_no_improve += 1
+                tag = f"  (no improvement {evals_no_improve}/{patience})"
             print(f"  step {step:>6}/{max_steps}  "
                   f"train ppl {train_ppl:8.2f}  val ppl {val_ppl:8.2f}{tag}")
+            if evals_no_improve >= patience:
+                stop_reason = (f"early-stopped — val loss did not improve for "
+                               f"{patience} evals")
+                break
 
     # bits-per-character is comparable across tokenizers; perplexity is not
     # (a token means a different amount of text under each vocabulary). The
     # token count includes the per-document BOS/EOS sentinels (no characters
     # of their own) — a <0.1% inflation, near-constant across the sweep.
     val_bpc = best_val / math.log(2) * (val_data.numel() / val_chars)
-    print(f"\n  done in {(time.time() - t0) / 60:.1f} min")
+    print(f"\n  done in {(time.time() - t0) / 60:.1f} min  ({stop_reason})")
     print(f"  best val   : ppl {math.exp(min(20.0, best_val)):.2f}  "
-          f"({val_bpc:.3f} bits/char)")
+          f"({val_bpc:.3f} bits/char)  at step {best_step}")
     print(f"  checkpoint : {ckpt_path}")
     print(f"  sample     : python3 02_pretrain/sample.py --name {name} "
           f"--prompt '罗德岛'")

@@ -53,19 +53,23 @@ shared centre of all three axes. Configs are `configs/<run>.yaml`:
 | context | `ctx_2048`  | block 2048      | 24.0M |
 | context | `ctx_4096`  | block 4096      | 24.8M |
 
-Every run sees the **same token budget** — `effective_batch × block_size ×
-max_steps` ≈ 131M tokens — so the comparison is fair. The context axis trades
-those factors off (a longer window → smaller batch → fewer steps) while holding
-the product *and* the effective batch constant; **gradient accumulation** lets
-a long-context run keep an effective batch of 32 even when only a micro-batch
-of 1–4 sequences fits in memory.
+Every run is **trained to its own validation minimum** — a constant learning
+rate plus **early stopping**: training halts once val loss has not improved for
+10 evaluations, and the best-val checkpoint is kept. Each model is thus compared
+at *its own* optimum, not at an arbitrary shared step count. The one quantity
+held constant is the **effective batch of 32**; for the long-context runs
+**gradient accumulation** rebuilds that 32 even when only a micro-batch of 2–16
+sequences fits in memory. (An earlier design instead fixed the *token budget* —
+the same ≈131M tokens for every run — but that starved the long-context runs of
+optimiser steps and made the context comparison unfair; training each run to
+convergence is the fix.)
 
 **What to watch.** On a corpus this small, the bigger models drive *train* loss
 down while *validation* perplexity stalls or climbs — that gap is
 **overfitting**, and making it visible is the headline result of the scale
 axis. On the context axis, watch whether a longer window actually lowers
-perplexity or just burns memory. `train.py` keeps the checkpoint with the best
-val loss, so each run records its own best moment even if it overfits after.
+perplexity or just costs memory. `train.py` early-stops each run at its best
+val loss, so every model is recorded at its own peak.
 
 ## 2. The model (`lib/model.py`)
 

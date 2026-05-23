@@ -2,8 +2,7 @@
 #
 # Context axis, block 2048 of {256, 512, 1024, 2048, 4096} — see
 # 02_pretrain/README.md. Fixes scale=small and tokenizer=vocab_32k; only
-# block_size (and the batch/step accounting that keeps the token budget fair)
-# varies down this axis. small_32k.yaml is the block-512 point.
+# block_size varies down this axis. small_32k.yaml is the block-512 point.
 name: ctx_2048
 
 # Which stage-01 tokenizer feeds the model — data/tokenizers/<tokenizer>/.
@@ -15,14 +14,17 @@ block_size: 2048
 dropout: 0.1
 
 # Optimisation. Effective batch = batch_size x grad_accum = 32, held constant
-# across the context axis; max_steps is scaled so every run still sees the
-# same ~131M tokens (effective_batch x block_size x max_steps).
+# across the whole sweep. A 2048-token window leaves room for only a small
+# micro-batch in VRAM, so gradient accumulation rebuilds the effective batch
+# of 32. The LR is constant after warmup; each run trains until val loss stops
+# improving for `patience` evals (early stopping). max_steps is a safety cap.
 batch_size: 4         # micro-batch — what is resident on the GPU at once
 grad_accum: 8         # micro-batches summed per optimiser step
 learning_rate: 3.0e-4
 weight_decay: 0.1
-max_steps: 2000
-warmup_steps: 75
+max_steps: 8000
+warmup_steps: 100
+patience: 10          # evals without val improvement before early-stopping
 grad_clip: 1.0
 
 # Evaluation cadence + RNG seed.

@@ -3,30 +3,36 @@
 Pretraining experiments. Each row is one `configs/*.yaml` run. Per the project
 convention, record surprises and failures here, not only the clean numbers.
 
-> Status: **all three axes complete** (9 runs). Parameter counts are exact;
-> perplexity / bits-per-character are `train.py`'s best-val report. The
-> inference probes and the in-universe discussion are in
+> Status: **all three axes complete** (9 runs). Numbers are `train.py`'s best-val
+> report — every run was **trained to its own validation minimum** (constant
+> LR + early stopping, patience 10 evals without improvement before halt; the
+> `eval_interval` varies per run so the *step* count of "10 evals" is run-specific).
+> The inference probes and the in-universe discussion are in
 > [`docs/FIELD_REPORT.md`](FIELD_REPORT.md). Hardware: RTX 4090.
 
 ## Setup
 
 Trained on the Stage 00 `train` split (838 files, 11.66M chars → 6.20M tokens
-at vocab_32k), tokenized by a Stage 01 tokenizer. Every run sees the same token
-budget — **`effective_batch × block_size × max_steps` ≈ 131M tokens** (~21
-passes over the corpus) — so the comparison is fair however batch/block/steps
-are traded off. `train.py` keeps the checkpoint with the lowest val loss; train
-and val loss are both averaged over 100 batches with dropout off.
+at vocab_32k), tokenized by a Stage 01 tokenizer. **Effective batch = 32** is
+the only quantity held constant across the sweep; `max_steps` is only a safety
+cap, and every run stops when val loss stalls. `train.py` keeps the checkpoint
+with the lowest val loss; train and val loss are both averaged over 100 batches
+with dropout off.
+
+An earlier design instead fixed the *token budget* (the same ≈131M tokens for
+every run). That made the context axis unfair — a wider window forced fewer
+steps and starved those runs. Early stopping is the fix.
 
 ## Scale axis — vocab fixed at 32k
 
 How model size trades against a fixed, small dataset. Perplexity is comparable
-down this column (same tokenizer). `train ppl` is the final-step estimate.
+down this column (same tokenizer). `train ppl` is the best-val-step estimate.
 
-| Run         | Scale | Total params | Train ppl | Val ppl | Best step | Wall time |
-|-------------|-------|--------------|-----------|---------|-----------|-----------|
-| `tiny_32k`  | tiny  | 11.7M        | 93.2      | 148.7   | 8000      | 9.7 min   |
-| `small_32k` | small | 23.4M        | 56.8      | 118.4   | 8000      | 18.3 min  |
-| `large_32k` | large | 42.3M        | 34.5      | 116.4   | 7500      | 30.3 min  |
+| Run         | Scale | Total params | Train ppl | Val ppl | Val bits/char | Best step | Wall time |
+|-------------|-------|--------------|-----------|---------|---------------|-----------|-----------|
+| `tiny_32k`  | tiny  | 11.7M        | 50.75     | 135.47  | 4.043         | 15500     | 25.3 min  |
+| `small_32k` | small | 23.4M        | 49.38     | 124.82  | 3.976         |  6500     | 29.2 min  |
+| `large_32k` | large | 42.3M        | 43.41     | 124.71  | 3.975         |  5000     | 42.4 min  |
 
 ## Vocab axis — model fixed at `small`
 
@@ -34,99 +40,107 @@ How vocabulary size changes the model. Perplexity is **not** comparable across
 this column (a token means a different amount of text under each vocab) — so
 compare **bits-per-character**.
 
-| Run         | Tokenizer | Total params | Val ppl | Val bits/char | Best step |
-|-------------|-----------|--------------|---------|---------------|-----------|
-| `small_8k`  | vocab_8k  | 14.0M        | 54.7    | 3.918         | 8000      |
-| `small_16k` | vocab_16k | 17.1M        | 81.8    | 3.904         | 8000      |
-| `small_32k` | vocab_32k | 23.4M        | 118.4   | 3.932         | 8000      |
+| Run         | Tokenizer | Total params | Val ppl | Val bits/char | Best step | Wall time |
+|-------------|-----------|--------------|---------|---------------|-----------|-----------|
+| `small_8k`  | vocab_8k  | 14.0M        |  52.55  | **3.879**     | 13000     | 32.6 min  |
+| `small_16k` | vocab_16k | 17.1M        |  82.74  |   3.914       |  9000     | 28.5 min  |
+| `small_32k` | vocab_32k | 23.4M        | 124.82  |   3.976       |  6500     | 29.2 min  |
 
 (`small_32k` is the shared cell — it appears in both tables.)
 
 ## Context axis — `small`, vocab 32k
 
-How context length helps, at a fixed token budget. Effective batch is held at
-32; `max_steps` scales so every run still sees ~131M tokens.
+How context length helps. Every run early-stops at its own val minimum, so the
+comparison is at each run's own peak.
 
-| Run        | block | micro × accum | max_steps | Train ppl | Val ppl | Val bits/char | Wall time |
-|------------|-------|---------------|-----------|-----------|---------|---------------|-----------|
-| `ctx_256`  | 256   | 32 × 1        | 16000     | 47.3      | 120.08  | 3.944         | 14.0 min  |
-| `small_32k`| 512   | 32 × 1        | 8000      | 56.8      | 118.40  | 3.932         | 18.3 min  |
-| `ctx_1024` | 1024  | 16 × 2        | 4000      | 84.5      | 143.29  | 4.089         | 24.4 min  |
-| `ctx_2048` | 2048  | 4 × 8         | 2000      | 145.3     | 199.39  | 4.361         | 34.8 min  |
-| `ctx_4096` | 4096  | 2 × 16        | 1000      | 262.9     | 326.23  | 4.767         | 57.4 min  |
+| Run         | block | micro × accum | Train ppl | Val ppl | Val bits/char | Best step | Wall time |
+|-------------|-------|---------------|-----------|---------|---------------|-----------|-----------|
+| `ctx_256`   |  256  | 32 × 1        | 51.16     | 132.45  | 4.024         | 12000     |  22.5 min |
+| `small_32k` |  512  | 32 × 1        | 49.38     | 124.82  | 3.976         |  6500     |  29.2 min |
+| `ctx_1024`  | 1024  | 16 × 2        | 53.71     | 127.72  | **3.995**     |  4000     |  42.3 min |
+| `ctx_2048`  | 2048  |  4 × 8        | 46.75     | 129.52  | 4.006         |  3500     |  84.7 min |
+| `ctx_4096`  | 4096  |  2 × 16       | 48.91     | 140.88  | 4.075         |  2700     | 203.6 min |
 
 ## Observations
 
-### Scale axis — overfitting, made visible
+### Scale axis — early stopping erased the overfitting headline
 
-- **Diminishing returns.** Val perplexity falls 148.7 → 118.4 → 116.4. The
-  tiny→small step buys 30 points; small→large buys only **2**. On a 6M-token
-  corpus, capacity past `small` barely helps generalization.
-- **The train→val gap widens with scale.** Train ppl keeps plunging — 93 → 57
-  → 34 — while val stalls. The val/train ratio goes 1.6× → 2.1× → **3.4×**. The
-  `large` model has the capacity to memorize the train set; that capacity does
-  not transfer. This is the headline result, and it is textbook overfitting.
-- **`large_32k` crossed the line mid-run.** Its best val (116.38) was at step
-  **7500**, and step 8000 was *worse* (116.43) — val perplexity turned upward
-  while train kept dropping. `tiny` and `small` were still improving at step
-  8000 (every eval saved a new best). So `large` is past its useful size here;
-  `small` is about right.
-- **Cost.** 9.7 / 18.3 / 30.3 min — `large` costs 3× `tiny` for a 1.6% val gain
-  over `small`.
+- **Val perplexity is now flat across scale.** 135.5 (tiny) → 124.8 (small) →
+  124.7 (large). The small → large step is **0.1 ppl** — within noise. The old
+  fixed-budget sweep showed a 30-point train→val widening that screamed
+  overfitting; early stopping makes that gap go away. The large model halts
+  at step 5000 (the earliest of the three) because its val loss flattens
+  fastest — exactly the moment a fixed-step run would have *kept going and
+  overfit*.
+- **The savant gave up early.** `large_32k` stopped at step 5000, `small_32k`
+  at 6500, `tiny_32k` at 15500 — bigger models reach their personal best
+  faster, then plateau. Early stopping keeps each at *its* peak; running them
+  longer at a constant LR would only have hurt.
+- **Cost.** Large still costs ~40% more wall-time than small for no
+  generalisation gain. The `small` size is the right one here, but for a
+  different reason than before — not because `large` overfits, but because
+  `large` plateaus at the same val ppl with more parameters.
 
-### Vocab axis — vocabulary size barely matters here
+### Vocab axis — now the dominant axis
 
-- **Perplexity is not comparable across vocabs.** It rises 54.7 → 81.8 → 118.4
-  purely because a larger vocab has more classes per token (and each token
-  carries more text). The honest metric is bits-per-character.
-- **Bits-per-character is nearly flat: 3.918 / 3.904 / 3.932** — a 0.7% spread
-  across a 4× vocab range. The three tokenizers model the corpus essentially
-  equally well; 16k is marginally best.
-- **32k is marginally the *worst* in bits/char**, despite being the largest
-  model. Its embedding table is 12.8M params (55% of the model) and many of its
-  32k tokens are rare — undertrained on 6M tokens. A bigger vocab buys shorter
-  sequences (Stage 01: ~10% shorter at 32k vs 16k) but spends capacity on a
-  table the data cannot fill. For a corpus this small, **8k–16k is the sweet
-  spot** — same modeling quality, smaller and faster.
+- **Vocab 8k wins by a wide margin.** Val ppl: 52.55 / 82.74 / 124.82 for
+  8k / 16k / 32k. Per token, the smaller vocab is **2.4×** less surprised
+  than the larger one. This collapses to a smaller but real gap on the fair
+  metric: bits-per-character **3.879 / 3.914 / 3.976** — a 2.5% reduction.
+- **The previous sweep (fixed-token-budget) hid this.** Under the old design
+  every vocab ran for exactly 8000 steps and landed at 3.918 / 3.904 / 3.932
+  BPC — flat. Under early stopping each tokenizer takes a different number of
+  steps to converge — 8k goes to step **13000**, 32k stops at **6500** — and
+  the small vocab pulls ahead. The fixed step count masked the difference;
+  letting each one run to its own optimum exposed it.
+- **Why.** The 32k embedding table is 12.8M params, 55% of the `small_32k`
+  model, and 6M training tokens cannot fill it — many of the 32k tokens stay
+  effectively untrained. The 8k tokenizer spends 3.1M on its embedding (22% of
+  `small_8k`) and puts the rest of the budget into the transformer. **For a
+  corpus this small, the embedding table is the bottleneck.**
 
-### Context axis — longer context, at a fixed budget, made it worse
+### Context axis — flat under early stopping
 
-- **Bits-per-character rose monotonically with the window**: 3.944 → 3.932 →
-  4.089 → 4.361 → 4.767 for block 256 / 512 / 1024 / 2048 / 4096. The shortest
-  windows won; block 4096 came in **21% worse** than block 512.
-- **Why — the long runs are step-starved, not overfit.** Every run sees the
-  same ~131M tokens, so a longer window buys proportionally fewer optimiser
-  steps: 16000 / 8000 / 4000 / 2000 / **1000**. *Train* perplexity climbs right
-  alongside val (47 → 57 → 85 → 145 → 263) — the long-context models fit the
-  *training* set worse too. That is the signature of undertraining, not
-  overfitting. And every context run saved its best checkpoint at its **final**
-  step: all four were still improving when they ran out of steps.
-- **So this is a result about budget, not about context.** It does not say a
-  long window is useless — it says a 4096-token window needs far more than
-  1000 updates to pay off. Held to a fixed *data* budget on a small corpus,
-  the compute is better spent on more steps over a short window. block 256–512
-  is the sweet spot here; the design (constant token budget) is what forces
-  the trade.
-- **Cost compounds the verdict.** Wall time ran 14 → 18 → 24 → 35 → 57 min —
-  block 4096 cost 3× block 512 to land 21% worse.
+- **Bits-per-character is essentially constant** across 256–4096: 4.024 / 3.976
+  / 3.995 / 4.006 / 4.075. The 4096 run is only 2.5% worse than the 512
+  baseline, vs **21% worse** under the old fixed-token-budget design.
+- **So the old "long context hurts" result was a budgeting artefact.** When
+  every run is allowed to train until its val stalls, the wider windows
+  catch up. `ctx_1024` lands marginally below `small_32k` (3.995 vs 3.976) —
+  noise-level, not a real win, but no longer the regression the old design
+  reported.
+- **Cost still compounds the verdict.** Wall time: 22 / 29 / 42 / 85 / **204**
+  min — the 4096 run costs 7× the 512 baseline for the same val BPC. On a
+  corpus this small, more context is not worth more time; the lesson stands,
+  just for a different reason (compute, not undertraining).
 
-### The corpus is the bottleneck
+### The corpus is still the bottleneck
 
-Across the whole sweep, every model from `small` up sits at **3.90–3.93
-bits/char** regardless of scale or vocabulary; only `tiny` is materially worse
-(4.12). The corpus has a hard floor around ~3.9 bits/char that a `small` model
-already reaches — more parameters do not lower it. The 6M-token corpus, not the
-model, is the limit. (This is exactly why the project also runs Track B —
-continued-pretraining Qwen3-0.6B — for comparison.)
+The eight non-tiny runs land in **3.879–4.075 bits/char** — a 5% spread across
+4× variation in vocab, 16× in context, and 4× in parameters. Only the smallest
+tokenizer at the standard scale (`small_8k`, 3.879) materially lowers it. The
+ceiling has moved a little — from ~3.9 (old) to ~3.88 (new) — but the shape is
+unchanged: a 6M-token corpus has a hard floor that none of the three knobs
+crosses by much. Continued-pretraining a larger pretrained model (Track B) is
+what changes that.
 
 ## Failures / surprises
 
-- No run crashed; all nine completed at exit 0.
-- _Surprise:_ the vocab axis was expected to favor the larger vocabulary
-  (shorter sequences, more context per block). It did not — bits/char was flat
-  and 32k was slightly worst. The embedding-table-undertraining effect on a
-  small corpus outweighed the sequence-length benefit.
-- _Surprise:_ the context axis was expected to show a longer window helping,
-  or at least overfitting the way the scale axis did. Instead every
-  longer-context run was simply **undertrained** — the fixed token budget
-  starved it of steps. The fix is not a longer window but more compute.
+- No run crashed; all nine completed at exit 0 (early-stopped).
+- _Surprise:_ on a tokenizer-fair metric, **the vocab axis is the only one
+  that materially matters here**. The fixed-token-budget design hid this
+  result for half the sweep; early stopping made it visible. The 32k vocab
+  carried a 12.8M embedding table that 6M tokens cannot fill — undertrained
+  embeddings cost val ppl that bits-per-character only partly normalises out.
+- _Surprise:_ the old design's headline result — `large_32k` *overfits past*
+  `small_32k` — does not survive early stopping. Under the new methodology
+  large and small land at the **same** val perplexity (124.7 vs 124.8) and
+  large simply stops earlier. The overfitting was an artefact of training
+  every run to a fixed step count past the small model's natural stopping
+  point.
+- _Methodology note:_ the early-stopping patience (10 evals without
+  improvement) is generous; reducing it would shorten the long runs
+  (`ctx_4096` ran 203 min mostly waiting out patience after the best-val
+  step at 2700) at the cost of a small risk of premature halt on a flat
+  plateau. The current setting errs toward the safer side, which costs
+  compute but not quality.

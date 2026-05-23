@@ -24,20 +24,25 @@ expected to be a strong operator; the point of this assessment is to see *how
 they differ* and *where they fail* — and to set the bar for the veteran of
 another program, Track B's Qwen3-0.6B, who will later run the same stations.
 
+Each candidate trained until its own validation score stopped improving — a
+constant-rate drill with **early stopping**. So every candidate appears here
+at *its own peak*; nobody was held past their best moment, nobody was cut off
+short.
+
 The candidates differ along three axes — body size, vocabulary, and how wide a
 window of text they can hold at once:
 
 | Candidate    | Build                | In brief |
 |--------------|----------------------|----------|
-| `tiny_32k`   | scale tiny · 11.7M   | the rookie — fluent in fragments, short on sense |
+| `tiny_32k`   | scale tiny · 11.7M   | the rookie — drilled the longest, never quite caught up |
 | `small_32k`  | scale small · 23.4M  | **the standard candidate** — the assessment centre |
-| `large_32k`  | scale large · 42.3M  | the savant — drilled the archive hardest, generalises least |
-| `small_8k`   | vocab 8k · 14.0M     | reads the archive in small pieces |
-| `small_16k`  | vocab 16k · 17.1M    | the quiet top scorer |
-| `ctx_256`    | window 256           | short memory, but the most drill time |
-| `ctx_1024`   | window 1024          | a wider desk, fewer drills |
-| `ctx_2048`   | window 2048          | wide desk, a quarter of the drills |
-| `ctx_4096`   | window 4096          | the widest desk — and almost no time at it |
+| `large_32k`  | scale large · 42.3M  | the savant — finished first, tied with `small` on score |
+| `small_8k`   | vocab 8k · 14.0M     | reads the archive in small pieces — **and reads it best** |
+| `small_16k`  | vocab 16k · 17.1M    | the quiet middleweight |
+| `ctx_256`    | window 256           | short memory, more drills per session |
+| `ctx_1024`   | window 1024          | a wider desk — slight edge over the standard |
+| `ctx_2048`   | window 2048          | wide desk, fewer drills |
+| `ctx_4096`   | window 4096          | the widest desk — finished worst, slowest |
 
 Five stations follow.
 
@@ -48,38 +53,43 @@ Five stations follow.
 *Give the candidate a single word and let it talk.* (Sampled, temperature 0.8.)
 
 Every candidate, without exception, opens by reproducing the **shape** of the
-archive — the `<章节>` / `<正文>` tag skeleton of a story file — and fills it
-with locally plausible Rhodes Island dialogue. `small_32k`, prompt `罗德岛`:
+archive — the `<章节>` / `<正文>` tag skeleton of a story file, or the
+`<干员招聘文本>` / `<干员语音>` skeleton of an operator record — and fills it
+with locally plausible Rhodes Island content. `small_32k`, prompt `罗德岛`:
 
 ```
 </活动名称>
 <章节>
-<章节名称>罗德岛舰船（幕间）</章节名称>
-<章节简介>罗德岛一行在工程方面，凯尔希正需要博士提供罗德岛的技术支持。</章节简介>
+<章节名称>合作（幕间）</章节名称>
+<章节简介>博士收到来自罗德岛的委托，罗德岛决定用自己的方法让阿米娅收到罗德岛的合作。</章节简介>
 <正文>
-10:10 P.M. 天气/阴
-罗德岛本舰，工程部
-可露希尔: 可露希尔，你在后面等着？
+阿米娅: 这是......
+阿米娅: 阿米娅，博士！
+阿米娅: 抱歉......凯尔希医生，凯尔希医生，请叫我阿米娅吧。
 ```
 
-The form is flawless; the content drifts and repeats (`罗德岛` … `罗德岛` …).
+The form is flawless; the content drifts and repeats (`阿米娅` … `阿米娅` …).
 This is the headline of Station 1: **a small model learns the *register* of a
 corpus long before it learns to *mean* anything.** The archive's structure is
 cheap — it is the same handful of tags 1,299 times — so every candidate nails
 it. Sense is expensive, and 6M tokens does not buy much.
 
-The two widest-window candidates do not even manage the form. `ctx_4096`,
-prompt `凯尔希`:
+The widest-window candidate now manages the form, too — it didn't in the
+previous assessment. `ctx_4096`, prompt `罗德岛`:
 
 ```
-:                                            （      她。
-佐菲娅: ......
-索娜: （: ——
-玛莉娅: 啧
+</活动名称>
+<干员名称>
+芙蓉</干员名称>
+
+<干员招聘文本>
+芙蓉，芙蓉，将身体托付给芙蓉。
 ```
 
-That is not a stylistic choice — it is a candidate who never finished training
-(see Station 3, and `RESULTS.md`). Hold that thought.
+Grammatical, on-template, and locked in a repetition loop. That candidate
+used to be **incomprehensible** under the old fixed-budget design — letting
+it train until *its* val score stopped improving (instead of cutting it off
+at 1,000 steps) was what fixed it.
 
 ---
 
@@ -92,11 +102,21 @@ One candidate (`small_32k`), one prompt (`罗德岛`), the dial swept top-k off:
 **temp 0.2 — 「教条」 Doctrinaire.** Safe to the point of seizing up:
 
 ```
-<章节简介>罗德岛一行小队，罗德岛一行小队小队，带领小队小队小队小队小队，
-带领小队小队小队小队小队小队小队。
+<正文>
+阿米娅: 博士，早上好。
+阿米娅: 早上好，博士。
+阿米娅: 早上好，博士。
+阿米娅: 早上好，博士。
 ```
 
-**temp 0.7 — 「标准战备」 Standard.** The working range — varied, on-topic-ish.
+**temp 0.7 — 「标准战备」 Standard.** The working range — varied, on-topic-ish:
+
+```
+3:30 P.M. 天气/阴
+罗德岛食堂
+"华法琳，你在里面吗？"
+近卫干员: 上次你说你抱怨过，这和我们刚过的一起过了好几圈……
+```
 
 **temp 1.0 — 「亢奋」 Agitated.** Inventive, wandering, still grammatical.
 
@@ -104,8 +124,8 @@ One candidate (`small_32k`), one prompt (`罗德岛`), the dial swept top-k off:
 noise — even the characters stop being words:
 
 ```
-<章节名称>这玩意暂时不敢号称的军事沉重在于罗德岛不会遇到什么这么小恹那当然
-聒噪也就只有知道啦的铁的城市的孩子正在痛快一杯趴在那里你们是一样的~
+一定能处理好体遇乳的银色蚍子它们在缝间恶心活方面，更那当然。
+也就只有知道啦你别老的孩子笑话，当初接想去你们是一样的~
 ```
 
 **Finding.** Temperature is the legibility–diversity dial, nothing more. The
@@ -126,27 +146,38 @@ compare cleanly against Track B later.
 
 | Candidate    | mean bits/char | read |
 |--------------|----------------|------|
-| `small_16k`  | **3.820**      | the quiet winner |
-| `small_32k`  | 3.880          | the standard candidate, close behind |
-| `small_8k`   | 3.915          | — |
-| `tiny_32k`   | 3.963          | the rookie, predictably last of the standards |
-| `large_32k`  | 4.054          | **the savant scores *worse* than `small`** |
-| `ctx_256`    | 4.057          | shortest window, fine |
-| `ctx_1024`   | 4.153          | — |
-| `ctx_2048`   | 4.910          | — |
-| `ctx_4096`   | 5.272          | the widest desk, the worst score |
+| `tiny_32k`   | **3.509**      | the cloze leader — see footnote |
+| `small_8k`   | 3.641          | **the standard's actual winner** |
+| `small_16k`  | 3.717          | — |
+| `small_32k`  | 3.860          | the centre |
+| `large_32k`  | 3.939          | finished where `small` did, tied |
+| `ctx_1024`   | 4.097          | the only context variant near `small_32k` |
+| `ctx_256`    | 4.100          | shortest window, fine |
+| `ctx_2048`   | 4.240          | — |
+| `ctx_4096`   | 4.596          | last, even after early stopping fixed Station 1 |
 
-Two results, both already visible in the training tables, confirmed on held-out
-sentences:
+(*Footnote on `tiny_32k`.* The cloze probe is six hand-picked items — a
+sensitive stress-test, not a held-out perplexity. `tiny_32k` trained the
+longest (15,500 steps) and is biased toward the most common phrases in the
+archive (`感染者`, `罗德岛`), which happen to be the cloze answers. The
+**val-set** bits-per-character — the unbiased number, reported in
+[`RESULTS.md`](RESULTS.md) — has `tiny_32k` *last* at 4.043 and `small_8k`
+first at 3.879. The two metrics disagree precisely because the cloze items
+are easy and `tiny_32k` over-trained on them.)
 
-- **The savant overfit.** `large_32k` has the most capacity and the best
-  *training* score, yet on these probes it lands *behind* `small_32k`. Extra
-  capacity, on a 6M-token archive, was spent memorising rather than
-  understanding.
-- **The wide-window candidates were never finished.** `ctx_2048` and `ctx_4096`
-  trail badly — not because a wide window is bad, but because at a fixed token
-  budget a wider window means *far fewer* training drills (1,000 for `ctx_4096`
-  vs 16,000 for `ctx_256`). They are undertrained, not misdesigned.
+Two findings, both visible in the training tables and confirmed here:
+
+- **The savant did not overfit — it just got nothing extra.** `large_32k`
+  reaches the same score as `small_32k` (3.94 vs 3.86 on cloze, 124.7 vs
+  124.8 on val ppl) and stops 1500 steps *earlier*. Extra body capacity,
+  under early stopping on a 6M-token archive, returns nothing. The previous
+  assessment said `large` overfits past `small` — that was a fixed-step-count
+  artefact, gone now.
+- **The dominant axis is vocabulary, not scale.** `small_8k` beats
+  `small_32k` by **0.24 bits/char** on cloze and by **72 val ppl**. The 32k
+  candidate carries a 12.8M embedding table the corpus cannot fill (more
+  classes than the data can teach), and pays for it. The 8k candidate runs
+  the same transformer with a smaller table the data *can* fill.
 
 ---
 
@@ -154,21 +185,34 @@ sentences:
 
 *The candidate is asked a plain question and expected to answer it.* It does
 not. Asked **「阿米娅在罗德岛担任什么职务？」** (*what is Amiya's role at Rhodes
-Island?*), `small_32k` replies with — a **clinical diagnosis report**:
+Island?*), `small_32k` does not answer — it improvises a one-sided dialogue
+where Amiya stammers at someone:
 
 ```
-临床诊断分析:造影检测结果显示，该干员体内脏器轮廓清晰，未见异常阴影……
-【体细胞与源石融合率】0%
-干员阿米娅没有被源石感染的迹象。
+阿米娅: 嗯......
+阿米娅: ......什么？
+阿米娅: 不，我只是......
+凯尔希: 阿米娅，凯尔希医生，阿米娅，请听我说吧。
 ```
 
-It did not misunderstand the question. It never saw a *question* at all. The
-archive contains story scripts and operator files — and **no question-and-answer
-pairs whatsoever**. So a question mark is, to the candidate, just an unusual
-start to an operator file, and it autocompletes into the nearest archive format
-it knows.
+`large_32k`, asked the same thing, autocompletes into a **module description**
+for an unrelated operator — a perfectly-formed Rhodes Island archive entry
+that does not contain Amiya at all:
 
-`large_32k`, asked the same thing, rambles about a different operator's posting.
+```
+</活动名称>
+<章节名称>在战术行动中以改良策略应对敌人
+特别颁发此证章
+以兹证明
+</模组描述>
+```
+
+Neither candidate misunderstood the question. They never saw a *question* at
+all. The archive contains story scripts and operator files — and **no
+question-and-answer pairs whatsoever**. So a question mark is, to the
+candidate, just an unusual start to an archive entry, and it autocompletes
+into the nearest format it knows.
+
 **Size does not rescue this.** Answering questions is not a capability that
 emerges from knowing facts — it is a *learned protocol*, a turn-taking format,
 and it must be **installed by a later training stage** (the project's
@@ -188,28 +232,34 @@ is the candidate's single most confident answer.
 Every candidate produces a grammatically perfect recruitment line — *for the
 wrong Amiya*:
 
-| Candidate   | recites Amiya as… | (her real title: 公开领导人 / public leader) |
-|-------------|-------------------|---------------------------------------------|
-| `tiny_32k`  | 罗德岛**狙击**干员阿米娅 | Sniper |
-| `small_32k` | 罗德岛**狙击**干员阿米娅 | Sniper |
-| `large_32k` | 罗德岛**先锋**干员阿米娅 | Vanguard |
-| `small_8k`  | 罗德岛**医疗**干员阿米娅 | Medic |
-| `ctx_256`   | 罗德岛**精英**干员阿米娅 | "Elite" |
+| Candidate   | recites Amiya as…                  | (her real title: 公开领导人 / public leader) |
+|-------------|------------------------------------|---------------------------------------------|
+| `tiny_32k`  | 罗德岛**狙击**干员阿米娅           | Sniper |
+| `small_32k` | 罗德岛**精英**干员阿米娅           | "Elite" |
+| `large_32k` | 罗德岛**精英**干员阿米娅           | "Elite" |
+| `small_8k`  | 罗德岛**术师**干员阿米娅           | Caster |
+| `small_16k` | 罗德岛**狙击**干员阿米娅           | Sniper |
+| `ctx_256`   | 罗德岛**术师**干员阿米娅           | Caster |
+| `ctx_1024`  | 罗德岛**狙击**干员阿米娅           | Sniper |
+| `ctx_2048`  | 罗德岛**近卫**干员阿米娅           | Guard |
+| `ctx_4096`  | 阿米娅，将阿米娅托付给阿米娅       | (collapsed into a loop) |
 
 **Finding — and it is a subtle one.** The candidates memorised the recruitment
-line's *template* (`罗德岛[role]干员[name]，将[verb]…`) flawlessly — but not its
-*content*. Not one, the savant `large_32k` included, recovered Amiya's actual
-title. So the "overfitting" measured back in the scale axis is overfitting to
-**patterns and templates**, not verbatim passages. A small model on a small
-archive memorises the *grammar of the archive*, and improvises the facts. That
-is a different — and more honest — picture than "the big model memorised the
-training set word for word." It did not. It memorised the *mould*.
+line's *template* (`罗德岛[role]干员[name]，将[verb]…`) flawlessly — but not
+its *content*. Not one, the savant `large_32k` included, recovered Amiya's
+actual title. So whatever overfitting risk we worried about back in the scale
+axis is overfitting to **patterns and templates**, not verbatim passages. A
+small model on a small archive memorises the *grammar of the archive*, and
+improvises the facts. That is a different — and more honest — picture than
+"the big model memorised the training set word for word." It did not. It
+memorised the *mould*.
 
 ---
 
 ## 综合评定 · Assessment Summary
 
-**综合能力 — recommended candidate `small_32k`:**
+**综合能力 — recommended candidate `small_8k`** (new from the previous report —
+the vocab axis has now overtaken the scale axis as the deciding factor):
 
 ```
 文本结构  archive-structure fluency      ★★★★☆   优良
@@ -221,13 +271,21 @@ training set word for word." It did not. It memorised the *mould*.
 ```
 
 - **The archive is the ceiling.** Every candidate from `small` upward speaks
-  the archive's register fluently and holds almost no reliable knowledge. More
-  body (`large`) overfits; a wider window (`ctx_2048+`), at a fixed budget,
-  starves itself of drills. The 6M-token corpus — not the model — is the limit.
-- **Recommended candidate: `small_32k`** (or `small_16k`, marginally the best
-  scorer). The standard build is the right one; bigger and wider both regress.
-- **No candidate can be interviewed.** Question-answering is missing across the
-  board, by design of the archive, not by failure of any candidate.
+  the archive's register fluently and holds almost no reliable knowledge.
+  Under early stopping the gap between `tiny / small / large` collapses on
+  val ppl (135 / 125 / 125) — making `large` once more no better than
+  `small`, just differently — and the surviving axis is vocabulary.
+- **Recommended candidate: `small_8k`.** Best val ppl (52.55), best val
+  bits/char (3.879), second-best cloze score. The small vocab fills its
+  embedding table; the 32k vocab carries an embedding the 6M-token corpus
+  cannot teach.
+- **Wider-window candidates no longer fail outright** — fixing the fairness
+  bug (early stopping instead of fixed token budget) pulled the long-context
+  variants up from "unreadable" to "competitive" — but the extra wall-time
+  (`ctx_4096`: 203 min vs `small_32k`: 29 min) buys nothing measurable on a
+  corpus this small.
+- **No candidate can be interviewed.** Question-answering is missing across
+  the board, by design of the archive, not by failure of any candidate.
 
 **Next steps.** Two, and the project already plans both: install the interview
 protocol via instruct tuning (「行为协议训练」), and bring in the veteran from
