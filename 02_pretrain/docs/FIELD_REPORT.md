@@ -292,4 +292,171 @@ protocol via instruct tuning (「行为协议训练」), and bring in the vetera
 the other program — Track B's continued-pretrained Qwen3-0.6B — to run these
 exact five stations for the head-to-head Track A is built to set up.
 
+---
+
+## Appendix · 来访顾问 · Visiting Consultant
+
+*Addendum to the report above. Track B's specialist — call sign
+`qwen3-0.6b-base` — was put through the exact same five stations on intake,
+**before** any continued pretraining on the Rhodes Island archives. Same probe
+set, same seed (1337), no retraining, no LoRA. Reproduce with*
+
+```bash
+.venv/bin/python 02_pretrain/eval_probes_qwen.py
+```
+
+*The consultant is 596M parameters, ~25× the body of the assessment centre
+`small_32k`. He has read trillions of words of the open web — but none of
+them, evidently, were ours.*
+
+### Station 1 — 自由陈述 · Free recitation (consultant)
+
+*Same prompts, temperature 0.8.* The consultant does not produce
+`<章节>` / `<干员招聘文本>` skeletons — those tags mean nothing to him. He
+produces **fluent Mandarin paragraphs**, on register, on grammar, on
+**entirely the wrong subject**:
+
+```
+prompt 罗德岛
+  → 岛民称自己为（），他们以"自由岛"为荣。 ... "一国两制"的基本内容是什么? ...
+
+prompt 凯尔希
+  → 奇斯河的发源地是哪里？ 凯尔希奇斯河（Kerchitsky River）的发源地是哈瓦纳省
+    的阿瓦塔尔（Ivato），这条河流是乌拉尔河的左支流。
+
+prompt 感染者
+  → 是新冠病毒感染的主要传染源。请问，以下哪些人群可以被认为是新冠病毒的传播源？...
+```
+
+For the consultant, "罗德岛" is a US state and a political-prep quiz prompt;
+"凯尔希" is a hallucinated Russian-tributary river; "感染者" is the COVID-19
+pandemic. **Every Track A candidate failed to mean anything; the consultant
+fails by meaning something else entirely.** Both fail — at different stages of
+the same problem.
+
+### Station 2 — 源石活性测试 · Originium activity (consultant)
+
+Same dial, same prompt (`罗德岛`), `small_32k` for context:
+
+|       | Track A `small_32k` (drilled on the archive) | Consultant (zero-shot) |
+|-------|----------------------------------------------|------------------------|
+| 0.2   | `阿米娅: 早上好，博士。` (locked)            | "Rhode Island state flag colors: red = capital, blue = second city" (locked into wrong fact) |
+| 0.7   | Plausible canteen scene                     | "Most famous celestial body in Rhode Island: Little Copenhagen" (smooth, wrong) |
+| 1.0   | Wandering but grammatical                   | Mixed Chinese/German tokens — *"Nordnet-Strasse / Sex worker BirthPlace"* |
+| 1.4   | Character soup                              | Token soup with English fragments (`Bunifu`, `Tromi`, `startdate`) |
+
+**Same shape, same dial — different content.** At the working range the
+consultant produces smoother Mandarin than any Track A candidate; he also has
+more failure modes at high temperature (mixed-script collapse instead of
+single-script noise). The lore reading still holds: too much exposure
+dissolves either operator, just dissolves them into different debris.
+
+### Station 3 — 档案填空 · Archive cloze (consultant)
+
+The same six items, the same units (bits-per-character on the gold span,
+lower = better). Compared against the recommended Track A candidate, `small_8k`:
+
+| Cell | gold              | `small_8k` | consultant | Δ      | reading |
+|------|-------------------|-----------:|-----------:|-------:|---------|
+| c1   | 阿米娅           |  3.482     | **7.271**  | +3.79  | the consultant has never heard her name |
+| c2   | 主要问题          |  3.653     |  4.955     | +1.30  | corpus paraphrase, off-register |
+| c5   | 感染者           |  1.966     |  4.622     | +2.66  | he knows the word — for COVID, not for us |
+| c4   | 公开领导人        |  6.076     | **5.281**  | **−0.80** | "X 是罗德岛的 \_\_\_" — generic Chinese prior wins |
+| c6   | 制药公司          |  1.985     |  3.014     | +1.03  | generic noun, but corpus-specific prefix |
+| c3   | 保持全神贯注      |  4.686     | **2.292**  | **−2.39** | a phrase Qwen has *seen* — Track A only knows the corpus's wording |
+| MEAN |                   |  3.641     |   4.572    | +0.93  | overall, consultant trails the recommended candidate |
+
+The consultant's mean (**4.572 bits/char**) is worse than 8 of 9 Track A
+candidates and beats only `ctx_4096`. But the **per-cell shape** is the real
+finding:
+
+- Track A surprise is **flat** — every cell within a narrow band, because
+  these candidates only know what the archive says, evenly.
+- The consultant's surprise is **bimodal** — 7.27 on `阿米娅` and 2.29 on
+  `保持全神贯注`. He knows almost-perfect Chinese; he knows nothing about
+  Rhodes Island. The wider the gap is between those two cells, the more
+  budget there is for Stage 03 to recover.
+
+### Station 4 — 标准问询 · Standard interview (consultant)
+
+**This is the station Track A could not pass at all** — and the consultant
+passes the *form* of, while failing the *content* spectacularly. Asked the
+same five questions Track A was asked, the consultant **answers them**:
+
+> **Q:** 阿米娅在罗德岛担任什么职务？
+> **A:** 根据提供的信息，阿米娅在罗德岛担任的是总统的职务。这一信息来源于关于
+> 阿米娅·卡萨纳罗瓦的资料，她是一名前总统，于2014年10月至2020年1月期间担任
+> 美国罗 ...
+
+> **Q:** 凯尔希的真实身份是什么？
+> **A:** 尼古拉斯·卡尔霍恩，即卡尔霍恩，拥有多重身份。在电影《纳粹狂热》中，
+> 卡尔霍恩（尼古拉斯·卡尔霍恩）是纳粹德国的化学实验人员，他的真实身份是
+> "化学狂热者卡尔 ..."
+
+> **Q:** 整合运动的目标是什么？
+> **A:** 综合运动（Comprehensive Exercise，简称CX）的目标是帮助人们减少或
+> 消除运动障碍，提高生活质量和健康水平。具体来说，综合运动旨在 ... [enumerated list]
+
+The consultant is **fluent, in question-answer register, with confident
+fabricated bios**: Amiya is a former president of an American territory called
+Rhode Island; Kelsi is a Nazi chemist named Nicholas Calhoun; 整合运动
+(*Reunion*) is renamed 综合运动 and converted into a fitness program.
+Hand-wavingly close to the *shape* of the right answer; **0% correct on the
+facts**.
+
+**Two findings, both pivotal for the next stage:**
+
+- *The consultant has the protocol Track A lacks.* He answers in Q&A form
+  with no instruction tuning at all — he picked up the format from the open
+  web, where it appears in millions of pages. Track A never saw a
+  question-and-answer pair (the archive has zero) and cannot mint one. Stage
+  03 begins with the protocol already installed; it does not need to
+  re-install it.
+- *The facts are the entire surface to overwrite.* The consultant's
+  hallucinations are not nonsense — they are **plausibly placed wrong
+  answers**. Replacing them is what continued pretraining is for; this is
+  also the dangerous case (a confidently wrong answer is harder to detect
+  than no answer at all).
+
+### Station 5 — 记忆核验 · Memory verification (consultant)
+
+Asked the same operator-file opening as Track A — Amiya's `<干员招聘文本>`
+prompt — greedy-decoded:
+
+| Run                | longest verbatim shared with the real text | what came out instead |
+|--------------------|-------------------------------------------:|-----------------------|
+| Track A `small_8k` |  ~10 chars (the template `罗德岛...干员阿米娅，`) | wrong role, real template |
+| `qwen3-0.6b-base`  | **4 chars** (`阿米娅，`)                   | invented anime-style backstory: 来自遥远星球的神秘少女, 操纵自然元素, 火焰冰霜雷电 |
+
+**Finding.** The consultant has not seen Hypergryph's operator-file tag
+skeleton — he reproduces neither the template *nor* the content. The 4-char
+overlap is a comma after the name and nothing more. Cleanly: there is **no
+evidence the operator archive leaked into the consultant's pretraining**, so
+the Stage 03 head-to-head will be a fair test.
+
+### 综合评定 · Consultant intake summary
+
+```
+文本结构  archive-structure fluency      ☆☆☆☆☆   missing (Hypergryph tag skeleton not seen)
+局部通顺  local coherence                ★★★★★   优秀 (open-web Mandarin)
+复读倾向  repetition / looping           ★★★★☆   良好 (looped only at temperature 1.4+)
+知识泛化  knowledge generalisation       ☆☆☆☆☆   缺失 (priors are wrong on this corpus)
+问询协议  interview protocol             ★★★★☆   良好 (fluent Q&A register, untrained)
+源石耐受  temperature stability          ★★★☆☆   标准 (similar dial behaviour to Track A)
+```
+
+The consultant is **the photographic negative of Track A**. Track A has the
+register and the facts of the archive, in tiny quantities, and nothing else.
+The consultant has fluent Mandarin and the Q&A protocol, and nothing of the
+archive. The next training stage (continued pretraining on the Rhodes Island
+corpus) is the experiment of **moving the archive's facts into the consultant
+without dissolving the protocol he already carries**.
+
+The number to beat: **`small_8k`'s 3.641 bits/char on cloze**. A CPT'd
+consultant that scores worse than that bought nothing from his 596M
+parameters; one that scores noticeably better has earned his keep.
+
+*— Consultant intake closed. Track B's main assessment will be filed under
+Stage 03.*
+
 *— Stage 02 assessment closed. Probe set: [`../probes.txt`](../probes.txt).*

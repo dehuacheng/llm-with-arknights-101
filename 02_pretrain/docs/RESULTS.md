@@ -144,3 +144,70 @@ what changes that.
   step at 2700) at the cost of a small risk of premature halt on a flat
   plateau. The current setting errs toward the safer side, which costs
   compute but not quality.
+
+## Zero-shot Track B baseline — `qwen3-0.6b-base`
+
+Stage 02 also runs the same probe set against the **un-tuned** Qwen3-0.6B-Base
+to fix a reference point before continued pretraining. The cloze BPC is
+directly comparable with the Track A cloze numbers in
+[`FIELD_REPORT.md`](FIELD_REPORT.md) (Station 3). Reproduce with
+
+```bash
+.venv/bin/python 02_pretrain/eval_probes_qwen.py
+```
+
+### Cloze, bits-per-character (6 items, lower = better)
+
+Comparing Qwen against three Track A anchors: the cloze winner (small-N
+artefact, `tiny_32k` — see FIELD_REPORT footnote), the recommended candidate
+(`small_8k`), and the cloze last-place (`ctx_4096`).
+
+| Run                              |  c1<br>阿米娅 | c2<br>主要问题 | c3<br>保持全神贯注 | c4<br>公开领导人 | c5<br>感染者 | c6<br>制药公司 | **MEAN** |
+|----------------------------------|------:|------:|------:|------:|------:|------:|---------:|
+| `tiny_32k`  (Track A cloze #1¹)  | 4.421 | 3.024 | 4.980 | 5.676 | 2.175 | 0.781 | **3.509** |
+| `small_8k`  (Track A recommended)| 3.482 | 3.653 | 4.686 | 6.076 | 1.966 | 1.985 | **3.641** |
+| `ctx_4096`  (Track A cloze last) | 5.732 | 3.886 | 6.609 | 6.835 | 2.887 | 1.625 | **4.596** |
+| `qwen3-0.6b-base` (zero-shot)    | **7.271** | 4.955 | **2.292** | 5.281 | 4.622 | 3.014 | **4.572** |
+
+¹ `tiny_32k` won the 6-item cloze on a small-N artefact (over-trained on
+exactly the high-frequency tokens these prompts target); on held-out val it
+is *last*. The FIELD_REPORT Station 3 footnote has the full explanation.
+
+**Read this row-by-row, not just on the mean.** Qwen's mean (4.572) lands
+between `ctx_2048` and `ctx_4096` — worse than 8 of 9 Track A runs. But the
+per-cell shape tells a different story: Qwen's surprise is **bimodal**, not
+flat. Compare to `small_8k`:
+
+| Cell | gold      | small_8k | Qwen  | Δ (Qwen − A) | what the cell tests |
+|------|-----------|---------:|------:|-------------:|---------------------|
+| c1   | 阿米娅       | 3.482 | **7.271** | **+3.79** | a corpus-specific name after a corpus-specific title |
+| c2   | 主要问题      | 3.653 | 4.955 | +1.30 | corpus-specific paraphrase |
+| c5   | 感染者       | 1.966 | 4.622 | +2.66 | corpus-specific term Qwen knows in COVID sense |
+| c4   | 公开领导人 | 6.076 | **5.281** | −0.80 | generic Chinese noun — Qwen's prior wins |
+| c6   | 制药公司      | 1.985 | 3.014 | +1.03 | generic noun after corpus-specific prefix |
+| c3   | 保持全神贯注  | 4.686 | **2.292** | **−2.39** | high-frequency Chinese phrase — Qwen's prior wins big |
+
+The Track A runs have **flat** per-cell surprise (every cell within ±2.5 of the
+row mean, all in the same regime). Qwen has **spiky** per-cell surprise — c1
+to c3 spans 5 bits/char. Same mean BPC, different shape, and the shape is
+exactly "strong priors that happen to be wrong on this corpus".
+
+### Why this is the right reference point for Stage 03
+
+The Track A runs are 11.7M – 42.3M params trained for 22 – 204 minutes on 6M
+tokens. Qwen3-0.6B-Base is 596M params trained by Alibaba on trillions of
+tokens of the open web. On Arknights-specific cloze cells, the latter is
+**worse**. Stage 03 (continued pretraining) is the experiment of converting
+some of Qwen's 596M-param world prior into Arknights-specific knowledge while
+preserving the Q&A register Qwen has and Track A lacks (see
+`FIELD_REPORT.md` *Visiting consultant* appendix).
+
+The expected Stage 03 trajectory, against this baseline:
+
+- `c1`, `c4`: should fall by 2–4 bits as Qwen learns Amiya's title.
+- `c3`, `c6`: should stay near zero-shot levels — already-known Chinese phrases.
+- Q&A: the **register** stays, the **facts** rewrite.
+
+The number to beat on cloze mean is `small_8k`'s **3.879 val bits/char** /
+**3.641 cloze mean**. If a CPT'd Qwen lands above that on cloze, the 596M
+params bought nothing and the experiment is a no.
