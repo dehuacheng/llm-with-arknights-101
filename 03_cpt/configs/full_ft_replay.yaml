@@ -1,0 +1,39 @@
+# Stage 03 — CPT ablation. Clone for a new run; never edit in place.
+#
+# 2×2 design corner: full fine-tune × replay mix. Every parameter updates, but
+# each batch is 75% Arknights / 25% general Chinese — the standard defence
+# against catastrophic forgetting. Compare against full_ft_no_replay to read
+# how much the mix actually preserved. See 03_cpt/README.md.
+name: full_ft_replay
+
+base_model: data/models/qwen3-0.6b-base
+
+train_stream: arknights/train
+val_stream: arknights/val
+general_val_stream: replay/val
+block_size: 2048
+
+lora:
+  enabled: false
+
+# Replay mix — interleave Arknights and a general-Chinese stream.
+replay:
+  enabled: true
+  stream: replay/train
+  mix_ratio: 0.25        # P(sample drawn from replay) per micro-batch
+
+# Same optimiser settings as full_ft_no_replay — the only intended difference
+# between these two runs is the replay mix. Diff them on read.
+batch_size: 4
+grad_accum: 8
+learning_rate: 5.0e-5
+weight_decay: 0.1
+warmup_steps: 100
+max_steps: 3000
+patience: 5
+grad_clip: 1.0
+dtype: bfloat16
+
+eval_interval: 200
+eval_steps: 64
+seed: 1337

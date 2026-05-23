@@ -1,0 +1,42 @@
+# Stage 03 — CPT ablation. Clone for a new run; never edit in place.
+#
+# 2×2 design corner: LoRA × replay mix. The expected-best corner — LoRA's
+# constrained update plus replay's distribution-preservation. If even *this*
+# run shows measurable forgetting on the general-Chinese check, the conclusion
+# is that 0.6B is too small to keep both. See 03_cpt/README.md.
+name: lora_replay
+
+base_model: data/models/qwen3-0.6b-base
+
+train_stream: arknights/train
+val_stream: arknights/val
+general_val_stream: replay/val
+block_size: 2048
+
+lora:
+  enabled: true
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+
+replay:
+  enabled: true
+  stream: replay/train
+  mix_ratio: 0.25
+
+# Same optimiser settings as lora_no_replay — the only intended difference
+# between these two runs is the replay mix.
+batch_size: 8
+grad_accum: 4
+learning_rate: 2.0e-4
+weight_decay: 0.0
+warmup_steps: 200
+max_steps: 8000
+patience: 8
+grad_clip: 1.0
+dtype: bfloat16
+
+eval_interval: 250
+eval_steps: 64
+seed: 1337

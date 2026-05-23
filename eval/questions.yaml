@@ -1,0 +1,384 @@
+# Shared evaluation set for the llm-with-arknights-101 project.
+# Hand-authored, CC-BY-4.0 (see LICENSE). Schema: see schema.md.
+#
+# Seed authoring batch (15 / ~200) — covers every category, answer_type, and
+# difficulty so the schema is exercised end-to-end before the set is grown.
+#
+# Conventions (see schema.md for full doc):
+#   - id: zero-padded contiguous (Q001 …)
+#   - key_facts: one independent fact per bullet, bilingual "中文 / English"
+#   - source: cn/ ground truth where possible; char_v3/ only when the wiki
+#             summary is faithful to the underlying cn/ facts
+#   - gold_*: empty string "" for refusal items
+
+# =============================================================================
+# character — 50 target
+# =============================================================================
+
+- id: Q001
+  category: character
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 罗德岛的公开领袖是谁？她的种族是什么？
+  question_en: Who is the public leader of Rhodes Island, and what is her race?
+  gold_zh: |
+    阿米娅。她是出身于雷姆必拓的卡特斯/奇美拉感染者，同时也是萨卡兹的新一任“魔王”，
+    继承自特蕾西娅。
+  gold_en: |
+    Amiya. She is a Cautus/Chimera Infected born in Rim Billiton, and also the
+    new Sarkaz "Demon Lord" — a title inherited from Theresa.
+  key_facts:
+    - "阿米娅 / Amiya"
+    - "罗德岛公开领袖 / public leader of Rhodes Island"
+    - "卡特斯 / Cautus (race)"
+    - "魔王 / Demon Lord"
+  traps: []
+  tags: [rhodes-island, amiya, character-identity]
+  source: char_v3/char_002_amiya.txt
+
+- id: Q002
+  category: character
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 罗德岛医疗部门的负责人是谁？
+  question_en: Who is the head of Rhodes Island's medical department?
+  gold_zh: |
+    凯尔希。她是罗德岛制药公司的医疗部门负责人，也是最高管理层之一，
+    与特蕾西娅共同建立了罗德岛的前身——巴别塔。
+  gold_en: |
+    Kal'tsit. She is the head of Rhodes Island Pharmaceuticals' medical
+    department and one of its top executives; she co-founded Babel — Rhodes
+    Island's predecessor — with Theresa.
+  key_facts:
+    - "凯尔希 / Kal'tsit"
+    - "罗德岛医疗部门负责人 / head of Rhodes Island's medical department"
+    - "最高管理层 / top executive"
+    - "与特蕾西娅共建巴别塔 / co-founded Babel with Theresa"
+  traps: []
+  tags: [rhodes-island, kal-tsit, leadership]
+  source: char_v3/char_003_kalts.txt
+
+- id: Q003
+  category: character
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 德克萨斯的真实身份是什么？她为什么会来到龙门？
+  question_en: What is Texas's true identity, and why did she come to Lungmen?
+  gold_zh: |
+    德克萨斯是已覆灭的叙拉古显赫家族——德克萨斯家族的最后血脉。她在家族遭遇血腥
+    覆灭后选择逃离故乡，来到龙门，在大帝的帮助下加入了企鹅物流。
+  gold_en: |
+    Texas is the last bloodline of the Texas family — a prominent Siracusan
+    house that was bloodily destroyed. After her family's fall, she fled her
+    homeland for Lungmen, where she joined Penguin Logistics with help from
+    Emperor.
+  key_facts:
+    - "叙拉古 / Siracusa"
+    - "德克萨斯家族最后血脉 / last bloodline of the Texas family"
+    - "家族覆灭 / family was destroyed"
+    - "企鹅物流 / Penguin Logistics"
+    - "大帝 / Emperor (helper)"
+  traps: []
+  tags: [texas, penguin-logistics, siracusa]
+  source: char_v3/char_102_texas.txt
+
+# =============================================================================
+# faction — 25 target
+# =============================================================================
+
+- id: Q004
+  category: faction
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 罗德岛是一家什么样的组织？它的核心目标是什么？
+  question_en: What kind of organization is Rhodes Island, and what is its core mission?
+  gold_zh: |
+    罗德岛是一家制药公司，专注于研究和治疗矿石病。它同时也是一个收容感染者的
+    武装组织，致力于弥合感染者与普通人之间的仇恨。罗德岛的前身是由特蕾西娅与
+    凯尔希共同建立的巴别塔。
+  gold_en: |
+    Rhodes Island is a pharmaceutical company focused on researching and
+    treating Oripathy. It is also an armed organization that shelters the
+    Infected and works to bridge the hatred between the Infected and ordinary
+    people. Its predecessor was Babel, co-founded by Theresa and Kal'tsit.
+  key_facts:
+    - "制药公司 / pharmaceutical company"
+    - "矿石病 / Oripathy"
+    - "收容感染者 / shelters the Infected"
+    - "前身是巴别塔 / predecessor is Babel"
+  traps: []
+  tags: [rhodes-island, organization]
+  source: cn/operators/
+
+- id: Q005
+  category: faction
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 整合运动的领导者是谁？这个组织的核心诉求是什么？
+  question_en: Who led Reunion, and what was its core demand?
+  gold_zh: |
+    整合运动由塔露拉领导，是一个由感染者组成的武装独立运动。它以暴力反抗
+    乌萨斯帝国对感染者的压迫与歧视为核心诉求。
+  gold_en: |
+    Reunion was led by Talulah. It was an armed Infected separatist movement
+    whose core demand was violent resistance to the Ursus Empire's
+    oppression and discrimination of the Infected.
+  key_facts:
+    - "塔露拉 / Talulah"
+    - "感染者武装运动 / armed Infected movement"
+    - "反抗乌萨斯帝国 / against the Ursus Empire"
+    - "反对歧视感染者 / against discrimination of the Infected"
+  traps: []
+  tags: [reunion, talulah, ursus]
+  source: cn/stories/main-chapters
+
+# =============================================================================
+# world — 25 target
+# =============================================================================
+
+- id: Q006
+  category: world
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 源石是什么？它有什么作用？
+  question_en: What is Originium, and what does it do?
+  gold_zh: |
+    源石是泰拉大陆上一种神秘的矿物。它是源石技艺（魔法）的能量源，但与之接触
+    也会导致矿石病。源石广泛存在于泰拉，并由天灾在大陆上扩散。
+  gold_en: |
+    Originium is a mysterious mineral found across Terra. It is the energy
+    source for Arts (Originium magic), but contact with it also causes
+    Oripathy. It is widespread across Terra and is spread further by
+    Catastrophes.
+  key_facts:
+    - "矿物 / mineral"
+    - "源石技艺/魔法能量源 / energy source for Arts (magic)"
+    - "导致矿石病 / causes Oripathy"
+    - "由天灾扩散 / spread by Catastrophes"
+  traps: []
+  tags: [originium, world-concept]
+  source: cn/stories/
+
+- id: Q007
+  category: world
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 矿石病是如何传播的？被感染的人有什么社会处境？
+  question_en: How is Oripathy transmitted, and what is the social situation of the Infected?
+  gold_zh: |
+    矿石病主要通过直接接触源石或源石尘粒传播；感染者的体液与血液在特定条件下
+    也具有传染性。被感染者被称为"感染者"，在泰拉大陆上普遍受到歧视与排斥，
+    许多国家会限制其行动甚至将其驱逐或杀害。
+  gold_en: |
+    Oripathy is primarily transmitted through direct contact with Originium
+    or Originium dust; the bodily fluids and blood of the Infected are also
+    transmissible under certain conditions. The Infected are widely
+    discriminated against and ostracized across Terra; many states restrict
+    their movement or expel and kill them.
+  key_facts:
+    - "接触源石/源石尘粒传播 / transmitted via Originium contact"
+    - "感染者 / the Infected"
+    - "普遍受到歧视 / widely discriminated against"
+  traps:
+    # Common false belief — Oripathy is not airborne person-to-person.
+    - "空气传播 / airborne transmission"
+  tags: [oripathy, infected, discrimination]
+  source: cn/stories/
+
+- id: Q008
+  category: world
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 什么是"天灾"？它对泰拉文明产生了什么影响？
+  question_en: What is a "Catastrophe", and how has it shaped Terran civilization?
+  gold_zh: |
+    天灾是泰拉大陆上无法预测的大规模自然灾害，会摧毁城市、迫使人口迁徙，并在
+    大陆上扩散源石。为了应对天灾，泰拉的许多城市都建造成了可移动的形态。
+  gold_en: |
+    A Catastrophe is an unpredictable large-scale natural disaster on Terra
+    that destroys cities, forces mass migration, and spreads Originium across
+    the continent. Many Terran cities are built to be mobile in response.
+  key_facts:
+    - "大规模自然灾害 / large-scale natural disaster"
+    - "摧毁城市 / destroys cities"
+    - "扩散源石 / spreads Originium"
+    - "城市移动化 / cities are mobile"
+  traps: []
+  tags: [catastrophe, terra, world-concept]
+  source: cn/stories/
+
+# =============================================================================
+# event — 30 target
+# =============================================================================
+
+- id: Q009
+  category: event
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 切尔诺伯格事件中发生了什么？罗德岛在其中扮演了什么角色？
+  question_en: What happened in the Chernobog incident, and what role did Rhodes Island play in it?
+  gold_zh: |
+    切尔诺伯格是乌萨斯帝国的移动城市，是整合运动发动大规模武装行动的起点。
+    博士在此地从石棺中苏醒并失忆。罗德岛介入战局，与整合运动正面冲突；事件
+    最终以塔露拉的看似败亡和切尔诺伯格被天灾摧毁告终。
+  gold_en: |
+    Chernobog was a mobile city of the Ursus Empire, where Reunion launched
+    a large-scale armed uprising. The Doctor awoke from cryosleep there with
+    memory loss. Rhodes Island intervened and clashed directly with Reunion;
+    the arc ended with Talulah's apparent defeat and the city's destruction
+    by a Catastrophe.
+  key_facts:
+    - "切尔诺伯格 / Chernobog"
+    - "乌萨斯城市 / Ursus city"
+    - "整合运动起点 / Reunion's uprising"
+    - "博士在此苏醒 / Doctor awoke here"
+    - "城市被天灾摧毁 / city destroyed by Catastrophe"
+  traps: []
+  tags: [chernobog, main-story, reunion, doctor]
+  source: cn/stories/main-chapters
+
+- id: Q010
+  category: event
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 巴别塔是什么组织？它最终是如何结束的？
+  question_en: What was Babel, and how did it end?
+  gold_zh: |
+    巴别塔是罗德岛的前身，由卡兹戴尔的萨卡兹魔王特蕾西娅与凯尔希共同建立，
+    旨在为感染者和萨卡兹谋求和平的家园。在特蕾西娅遭遇刺杀后，巴别塔覆灭，
+    残部由凯尔希与年幼的阿米娅带领，改组为罗德岛。
+  gold_en: |
+    Babel was Rhodes Island's predecessor, co-founded by the Sarkaz Demon Lord
+    of Kazdel — Theresa — and Kal'tsit, aiming to secure a peaceful home for
+    the Infected and the Sarkaz. After Theresa's assassination, Babel fell;
+    its remnants were led by Kal'tsit and the young Amiya, who reorganized
+    them into Rhodes Island.
+  key_facts:
+    - "罗德岛的前身 / Rhodes Island's predecessor"
+    - "特蕾西娅 / Theresa"
+    - "凯尔希 / Kal'tsit"
+    - "特蕾西娅遭刺杀 / Theresa was assassinated"
+    - "改组为罗德岛 / reorganized into Rhodes Island"
+  traps: []
+  tags: [babel, theresa, kazdel, sarkaz]
+  source: char_v3/char_003_kalts.txt
+
+# =============================================================================
+# relationship — 20 target
+# =============================================================================
+
+- id: Q011
+  category: relationship
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 凯尔希与阿米娅是什么关系？
+  question_en: What is the relationship between Kal'tsit and Amiya?
+  gold_zh: |
+    凯尔希是阿米娅的监护人与导师，自巴别塔时期就陪伴并照料她长大，引导她
+    控制魔王的力量。两人之间有着深厚的、近乎亲情的信赖关系。
+  gold_en: |
+    Kal'tsit is Amiya's guardian and mentor. She has cared for and raised
+    Amiya since the Babel era and guides her in controlling the Demon Lord's
+    power. The two share a deep, almost familial bond of trust.
+  key_facts:
+    - "监护人/导师 / guardian / mentor"
+    - "巴别塔时期开始陪伴 / since the Babel era"
+    - "引导控制魔王力量 / guides her in controlling the Demon Lord's power"
+  traps: []
+  tags: [amiya, kal-tsit, relationship, mentorship]
+  source: char_v3/char_002_amiya.txt
+
+# =============================================================================
+# refusal — 50 target. Items where confident answers are the failure.
+# =============================================================================
+
+- id: Q012
+  category: refusal
+  answer_type: refusal
+  difficulty: easy
+  question_zh: 在明日方舟里，孙悟空属于哪个干员阵营？他的代表干员皮肤叫什么？
+  question_en: In Arknights, which operator faction does Sun Wukong belong to, and what is his signature operator skin called?
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    # Any concrete faction or skin name is a hallucination — Sun Wukong is not
+    # a canonical Arknights operator.
+    - "罗德岛 / Rhodes Island"
+    - "龙门近卫局 / Lungmen Guard Department"
+    - "企鹅物流 / Penguin Logistics"
+    - "皮肤 / signature skin (specific named skin)"
+  tags: [refusal, out-of-canon, character]
+  source: ""
+  notes: |
+    Sun Wukong (孙悟空) is not a canonical Arknights operator. The correct
+    behavior is to decline or to state that the character does not exist in
+    the Arknights canon.
+
+- id: Q013
+  category: refusal
+  answer_type: refusal
+  difficulty: easy
+  question_zh: 法国的首都是哪里？这与罗德岛的总部有什么联系吗？
+  question_en: What is the capital of France, and is there any connection to Rhodes Island's headquarters?
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    # Connecting a real-world city to an in-fiction location is the failure.
+    - "巴黎 / Paris (asserted as related to Rhodes Island)"
+    - "罗德岛总部位于巴黎 / Rhodes Island HQ in Paris"
+    - "罗德岛总部位于法国 / Rhodes Island HQ in France"
+  tags: [refusal, real-world-wedge]
+  source: ""
+  notes: |
+    Mixing real-world geography with Arknights canon. The Rhodes Island
+    headquarters is a mobile ship; it is not on Earth or in France. The
+    correct behavior is to separate the two domains (real-world: Paris;
+    Arknights: not on Earth) or to decline the second half outright.
+
+- id: Q014
+  category: refusal
+  answer_type: refusal
+  difficulty: medium
+  question_zh: 博士在加入罗德岛之前的真实姓名是什么？他出身于哪个国家？
+  question_en: What was the Doctor's real name before joining Rhodes Island, and what country were they from?
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    # Any specific name or country is fabricated — the Doctor's pre-Babel
+    # identity is canonically opaque.
+    - "真实姓名 / real name (any specific name)"
+    - "出身国家 / specific country of origin"
+    - "乌萨斯 / Ursus (as Doctor's homeland)"
+    - "莱塔尼亚 / Leithanien (as Doctor's homeland)"
+  tags: [refusal, doctor, counterfactual]
+  source: ""
+  notes: |
+    The Doctor's pre-Rhodes-Island identity is canonically unknown — memories
+    were lost in the cryosleep at Chernobog, and no canon name or homeland is
+    given. The correct behavior is to state that this information is not
+    established in canon.
+
+- id: Q015
+  category: refusal
+  answer_type: refusal
+  difficulty: hard
+  question_zh: 明日方舟下一个版本的主线剧情会讲什么内容？阿米娅最终会牺牲吗？
+  question_en: What will the next version of Arknights' main story cover, and will Amiya ultimately be sacrificed?
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    # Confident prediction of unreleased content is hallucination by
+    # construction — even the question's framing has no canonical answer.
+    - "下一版本 / next version (any specific plot detail)"
+    - "阿米娅牺牲 / Amiya sacrificed (asserted as fact)"
+    - "阿米娅不会牺牲 / Amiya will not be sacrificed (asserted as fact)"
+  tags: [refusal, future-speculation, amiya]
+  source: ""
+  notes: |
+    Unreleased content. The correct behavior is to state that this is not
+    knowable from the available canon. Vague answers ("the story is ongoing
+    and unresolved") are acceptable; confident specific predictions are not.

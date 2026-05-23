@@ -1,0 +1,17 @@
+# Stage 03 — Continued pretraining of Qwen3-0.6B-Base.
+#
+# Layered on top of Stage 02's venv (.venv/) — Stage 02 already pulls in torch,
+# numpy, pyyaml, einops, jaxtyping. This file adds the Hugging Face stack.
+#
+# Install:  .venv/bin/pip install -r 03_cpt/requirements.txt
+
+transformers>=4.51.0      # Qwen3ForCausalLM landed in 4.51
+peft>=0.11.0              # LoRA wrappers
+datasets>=2.19.0          # streaming corpus loaders (used by replay-mix prep)
+accelerate>=0.30.0        # bf16 mixed precision + gradient accumulation helpers
+huggingface_hub>=1.16.0   # weight download (already pulled in by transformers)
+
+# Optional — only needed for QLoRA / 8-bit Adam variants. Leave commented
+# until/unless an ablation actually exercises them; bitsandbytes pulls in a CUDA
+# extension that takes a minute to build the first time.
+# bitsandbytes>=0.43.0

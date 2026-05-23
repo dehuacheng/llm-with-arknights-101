@@ -1,0 +1,45 @@
+# Stage 03 — CPT ablation. Clone for a new run; never edit in place.
+#
+# 2×2 design corner: LoRA × no replay. The base is frozen; a low-rank delta
+# is learned over the projection matrices. LoRA constrains the update, which
+# often preserves base capability better than full-FT — but also has less
+# capacity to encode a new domain. Compare against full_ft_no_replay to read
+# the capacity-vs-preservation trade. See 03_cpt/README.md.
+name: lora_no_replay
+
+base_model: data/models/qwen3-0.6b-base
+
+train_stream: arknights/train
+val_stream: arknights/val
+general_val_stream: replay/val
+block_size: 2048
+
+# LoRA — adapters on every attention + MLP projection. Rank 16 is the
+# common starting point for sub-1B CPT; alpha = 2r is the PEFT default.
+lora:
+  enabled: true
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+
+replay:
+  enabled: false
+
+# LoRA frees up VRAM (the base is frozen, gradients only flow through
+# adapters), so the micro-batch doubles. Adapter weights are randomly
+# initialised, so the LR is larger than the full-FT case. More steps too —
+# LoRA is more resistant to overfitting on this corpus.
+batch_size: 8
+grad_accum: 4
+learning_rate: 2.0e-4
+weight_decay: 0.0        # weight decay does little for low-rank adapters
+warmup_steps: 200
+max_steps: 8000
+patience: 8
+grad_clip: 1.0
+dtype: bfloat16
+
+eval_interval: 250
+eval_steps: 64
+seed: 1337

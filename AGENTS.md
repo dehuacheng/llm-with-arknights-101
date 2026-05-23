@@ -111,3 +111,21 @@ source of truth for **why**.
   (EN + 中文). `lib/model.py`, `train.py`, `sample.py`,
   `eval_probes.py` carry `EXERCISE` markers. Repo venv at `.venv/`
   (git-ignored); `data/tokenized/` + `data/checkpoints/` git-ignored.
+- `eval/` **scaffolded** — the shared, hand-graded ~200-question evaluation
+  set every later stage is scored against; **CC-BY-4.0** (rest of the repo is
+  Apache-2.0). Design + schema + a 15-item seed authored before Stage 03
+  training; full set grows in dedicated authoring sessions. `validate.py`
+  guards the schema. cn/-traceable sources only; `wiki/` allowed only when the
+  underlying `cn/` fact has been verified.
+- `03_cpt/` **scaffolded (Track B begins)** — Stage 03 continued pretraining
+  of Qwen3-0.6B-Base. `README.md` (2×2 ablation design: full-FT vs LoRA × no-
+  replay vs replay), `requirements.txt`, four configs, `prepare_data.py`
+  (re-tokenize Stage-00 splits with Qwen's tokenizer to
+  `data/tokenized/qwen3-0.6b-base/`), `prepare_replay.py` (fetch + tokenize
+  the zh-wiki replay slice, fixed-seed shuffle for cross-run comparability),
+  `train_cpt.py` skeleton with `EXERCISE` markers (`lora-injection`,
+  `replay-mix`, `pack-sequences`, `eval-loss`, `train-loop`). Base weights
+  pre-fetched to `data/models/qwen3-0.6b-base/` (git-ignored, 1.2 GB).
+  Replay corpus pinned: **Chinese Wikipedia**
+  (`wikimedia/wikipedia:20231101.zh`), 10k train + 500 val articles at
+  seed 1337.

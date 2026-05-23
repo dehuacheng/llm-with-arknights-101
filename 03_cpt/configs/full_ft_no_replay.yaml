@@ -1,0 +1,42 @@
+# Stage 03 — CPT ablation. Clone for a new run; never edit in place.
+#
+# 2×2 design corner: full fine-tune × no replay. Every parameter of the base
+# model updates, and the data is Arknights cn/ only. This is the corner most
+# at risk of catastrophic forgetting — that's the point. See 03_cpt/README.md.
+name: full_ft_no_replay
+
+# Where to continue from.
+base_model: data/models/qwen3-0.6b-base
+
+# Data — Qwen-tokenized streams produced by 03_cpt/prepare_data.py.
+# Paths are relative to data/tokenized/qwen3-0.6b-base/.
+train_stream: arknights/train
+val_stream: arknights/val
+general_val_stream: replay/val   # held-out general Chinese — forgetting check
+block_size: 2048
+
+# LoRA — disabled in this corner.
+lora:
+  enabled: false
+
+# Replay mix — disabled in this corner.
+replay:
+  enabled: false
+
+# Optimisation. Effective batch = batch_size × grad_accum.
+# Block 2048 + 600M params + bf16 fits ~4 micro-batch on a 24GB 4090.
+# LR is small because the base is already well-trained; constant after warmup
+# with early stopping (mirrors Stage 02's regime — see 02_pretrain/README.md §1).
+batch_size: 4
+grad_accum: 8
+learning_rate: 5.0e-5
+weight_decay: 0.1
+warmup_steps: 100
+max_steps: 3000          # safety cap; early stopping is the real stop
+patience: 5              # evals without val improvement before stopping
+grad_clip: 1.0
+dtype: bfloat16
+
+eval_interval: 200
+eval_steps: 64           # micro-batches per eval pass
+seed: 1337
