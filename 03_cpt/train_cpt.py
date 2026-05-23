@@ -20,6 +20,8 @@ from __future__ import annotations
 
 import argparse
 import math
+import os
+import shutil
 import sys
 import time
 from pathlib import Path
@@ -139,7 +141,7 @@ def load_base_model(base_model_path: Path, dtype_str: str, device: torch.device)
              "float32": torch.float32}[dtype_str]
     print(f"loading base model: {base_model_path} (dtype={dtype_str})")
     model = AutoModelForCausalLM.from_pretrained(
-        str(base_model_path), torch_dtype=dtype, attn_implementation="sdpa",
+        str(base_model_path), dtype=dtype, attn_implementation="sdpa",
     )
     model.to(device)
     return model
@@ -294,15 +296,78 @@ def main():
     # Learning mode: rewrite from the spec. The Stage-02 train.py main loop is
     # a very close template (modulo the labels contract) — diff against it.
     # --------------------------------------------------------------------
-    raise NotImplementedError(
-        "EXERCISE: implement the training loop. See spec above; the "
-        "Stage 02 train.py main loop is the reference."
-    )
+    # ckpt_dir.mkdir() above only creates the parent path; the atomic-swap
+    # below needs ckpt_dir to *not* exist when we rename .tmp into it. Remove
+    # any pre-existing stale ckpt from a prior run so the first save is clean.
+    if any(ckpt_dir.iterdir()):
+        shutil.rmtree(ckpt_dir)
+        ckpt_dir.mkdir(parents=True, exist_ok=True)
+    src_counts = {"arknights": 0, "replay": 0}  # for periodic logging
+
+    for step in range(1, max_steps + 1):
+        for g in optim.param_groups:
+            g["lr"] = lr_at(step, cfg["learning_rate"], warmup)
+
+        optim.zero_grad(set_to_none=True)
+        for _ in range(accum):
+            x, source = get_mixed_batch(train, replay, replay_p,
+                                        block, bs, device, rng)
+            src_counts[source] += 1
+            out = model(input_ids=x, labels=x)
+            (out.loss / accum).backward()
+        torch.nn.utils.clip_grad_norm_(trainable, grad_clip)
+        optim.step()
+
+        if step % eval_interval == 0 or step == max_steps:
+            val_loss, val_ppl = evaluate(model, val, block, bs, eval_steps,
+                                         device, eval_seed)
+            if general_val is not None:
+                gen_loss, gen_ppl = evaluate(model, general_val, block, bs,
+                                             eval_steps, device, eval_seed)
+                gen_tag = f"  gen ppl {gen_ppl:8.2f}"
+            else:
+                gen_tag = ""
+            if val_loss < best_val:
+                best_val, best_step = val_loss, step
+                evals_no_improve = 0
+                # Atomic save: write the new ckpt into ckpt_dir.with_suffix(".tmp")
+                # then swap in. save_pretrained writes only the adapter for a
+                # PeftModel (~5–20 MB) and the full base for a full-FT run
+                # (~1.2 GB). The window of "no checkpoint on disk" between
+                # rmtree(ckpt_dir) and os.rename is small but real; the new
+                # save is fully durable before we touch the old one.
+                tmp_dir = ckpt_dir.with_suffix(".tmp")
+                if tmp_dir.exists():
+                    shutil.rmtree(tmp_dir)
+                model.save_pretrained(str(tmp_dir))
+                if ckpt_dir.exists():
+                    shutil.rmtree(ckpt_dir)
+                os.rename(tmp_dir, ckpt_dir)
+                tag = "  <- saved (best val)"
+            else:
+                evals_no_improve += 1
+                tag = f"  (no improvement {evals_no_improve}/{patience})"
+            # Periodic source-mix dump — shows that the replay fraction is
+            # tracking `mix_ratio` (it's the cheapest catastrophic-forgetting
+            # sanity check we have, since drift only shows up on eval).
+            mix_seen = (src_counts["replay"]
+                        / max(1, sum(src_counts.values())))
+            print(f"  step {step:>6}/{max_steps}  val ppl {val_ppl:8.2f}"
+                  f"{gen_tag}  replay {mix_seen:.0%}{tag}")
+            if evals_no_improve >= patience:
+                stop_reason = (f"early-stopped — val loss did not improve for "
+                               f"{patience} evals")
+                break
     # === EXERCISE END: train-loop ======================================
 
     dt = (time.time() - t0) / 60
     print(f"\n  done in {dt:.1f} min  ({stop_reason})")
-    print(f"  best val   : ppl {math.exp(best_val):.2f}  at step {best_step}")
+    print(f"  best val   : ppl {math.exp(min(20.0, best_val)):.2f}  "
+          f"at step {best_step}")
+    print(f"  checkpoint : {ckpt_dir}")
+    mix_seen = src_counts["replay"] / max(1, sum(src_counts.values()))
+    print(f"  replay mix : {mix_seen:.1%} of micro-batches"
+          + (f"  (target {replay_p:.0%})" if replay is not None else ""))
 
 
 if __name__ == "__main__":
