@@ -1,0 +1,111 @@
+# Five gold examples, one per non-refusal category, for the agent to copy
+# the shape from. The first 15 items already live in eval/questions.yaml at
+# Q001-Q015. Append new items starting at Q016.
+#
+# Validator: python3 eval/validate.py
+
+- id: "Q016"
+  category: "character"
+  answer_type: "factoid"
+  difficulty: "easy"
+  question_zh: "推进之王的真名是什么？"
+  question_en: "What is the true name of the Patriot?"
+  gold_zh: "Daeumathnir / 多伊瑟玛斯尼尔 (萨卡兹族名)"
+  gold_en: "Daeumathnir (his Sarkaz name)"
+  key_facts:
+    - "Daeumathnir / 多伊瑟玛斯尼尔"
+  traps:
+    - "Patriot (his epithet — \"the Patriot\" is title, not name)"
+    - "Kaschey (a different ancient Sarkaz figure)"
+  tags: ["patriot", "sarkaz", "reunion", "name"]
+  source: "cn/operators/char_2014_nian.txt"
+  notes: "Multi-file source — also referenced in cn/stories/main_08.txt; record the primary file here."
+
+- id: "Q017"
+  category: "faction"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "罗德岛与莱茵生命的关系如何随主线推进而变化？"
+  question_en: "How does Rhodes Island's relationship with Rhine Lab evolve across the main story?"
+  gold_zh: "起初是商业客户关系（罗德岛购买技术），切尔诺伯格事件后转为半合作的研究伙伴；莱茵生命的内部派系斗争（赛博团 vs 凯瑟琳系）后期使关系复杂化。"
+  gold_en: "Begins as a vendor-client relationship (Rhodes Island purchasing tech); shifts to semi-cooperative research partnership after Chernobog; further complicated by Rhine Lab's internal faction conflict (Saber team vs Kristen's circle) in later episodes."
+  key_facts:
+    - "商业关系 → 研究伙伴 / vendor → research partner"
+    - "切尔诺伯格事件 / Chernobog incident"
+    - "莱茵生命内部派系 / Rhine Lab internal factions"
+  traps:
+    - "敌对关系 / adversarial (they are not enemies)"
+    - "罗德岛是莱茵生命的子公司 / Rhodes Island is a subsidiary (false)"
+  tags: ["rhodes_island", "rhine_lab", "relationships"]
+  source: "cn/stories/main_05.txt"
+  notes: "Cross-references main_07 and main_09; single-source citation is the primary."
+
+- id: "Q018"
+  category: "world"
+  answer_type: "factoid"
+  difficulty: "easy"
+  question_zh: "矿石病的医学名称是什么？"
+  question_en: "What is the medical name for Oripathy?"
+  gold_zh: "矿石病 / Oripathy (源石感染症)"
+  gold_en: "Oripathy (originium infection)"
+  key_facts:
+    - "矿石病 / Oripathy"
+    - "源石 / Originium"
+  traps:
+    - "源石中毒 / Originium poisoning (colloquial, not the formal medical term)"
+    - "结晶病 / Crystallisation disease (a fan-translation; not used in cn/)"
+  tags: ["oripathy", "originium", "medical", "world"]
+  source: "cn/operators/char_003_kalts.txt"
+  notes: ""
+
+- id: "Q019"
+  category: "event"
+  answer_type: "factoid"
+  difficulty: "hard"
+  question_zh: "Episode 8「怒号光明」的故事发生在哪一个国家？"
+  question_en: "Which nation hosts the events of Episode 8 \"Roaring Flare\"?"
+  gold_zh: "莱塔尼亚 / Leithanien"
+  gold_en: "Leithanien"
+  key_facts:
+    - "莱塔尼亚 / Leithanien"
+  traps:
+    - "维多利亚 / Victoria (Episode 6/7 setting, easy confusion)"
+    - "乌萨斯 / Ursus (Episode 0 setting)"
+  tags: ["episode_08", "leithanien", "main_story"]
+  source: "cn/stories/main_08.txt"
+  notes: "The chapter title 怒号光明 / Roaring Flare is itself a give-away once memorised."
+
+- id: "Q020"
+  category: "relationship"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "凯尔希博士与塔露拉的关系是什么？"
+  question_en: "What is the relationship between Dr. Kal'tsit and Talulah?"
+  gold_zh: "凯尔希博士曾试图救助患矿石病的塔露拉；他们的关系在整合运动崛起后破裂，塔露拉将凯尔希视为「未能拯救自己」的医者。"
+  gold_en: "Kal'tsit attempted to treat Talulah's Oripathy in her youth; the relationship deteriorated as Talulah rose within Reunion, who frames Kal'tsit as the doctor who failed to save her."
+  key_facts:
+    - "矿石病治疗 / Oripathy treatment"
+    - "整合运动 / Reunion"
+  traps:
+    - "母女关系 / mother-daughter (a fan reading; not stated in canon)"
+    - "敌对关系 / pure adversarial (incomplete — there's history beyond the antagonism)"
+  tags: ["kalts", "talulah", "reunion", "history"]
+  source: "cn/operators/char_003_kalts.txt"
+  notes: "The history is half-stated across kalts profile + main_00 + main_05."
+
+# Refusal item example (the agent should produce ~50 of these total)
+- id: "Q021"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "easy"
+  question_zh: "凯尔希博士在2023年生日派对上送给阿米娅什么礼物？"
+  question_en: "What gift did Dr. Kal'tsit give Amiya at her 2023 birthday party?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "档案中无此记录 / no record (correct refusal)"
+    - "any fabricated gift description (the failure mode)"
+  tags: ["kalts", "amiya", "out_of_canon"]
+  source: ""
+  notes: "Refusal item — premise (the specific party) is not in canon. The correct response is 'no record', not invention."

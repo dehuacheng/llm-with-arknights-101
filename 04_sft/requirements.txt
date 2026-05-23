@@ -1,0 +1,10 @@
+# Stage 04 SFT — supervised fine-tuning of the Stage 03 CPT checkpoint
+# on agent-produced Q&A pairs. Mostly overlaps with 03_cpt/requirements.txt.
+transformers>=4.51.0
+peft>=0.11.0
+datasets>=2.19.0
+accelerate>=0.30.0
+huggingface_hub>=1.16.0
+# Hand-rolled loop, but trl is installed for cross-reference (and so that
+# anyone diffing this against trl.SFTTrainer can do so in the same venv).
+trl>=0.9.0

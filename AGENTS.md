@@ -129,3 +129,27 @@ source of truth for **why**.
   Replay corpus pinned: **Chinese Wikipedia**
   (`wikimedia/wikipedia:20231101.zh`), 10k train + 500 val articles at
   seed 1337.
+- `data_gen/` **brief authored** — spec for an external Arknights-knowledge
+  agent that produces the project's training/eval/preference data.
+  `AGENT_BRIEF.md` is the full schema reference (eval items, SFT pairs,
+  DPO bulk + curated pairs, RL prompts; bilingual `中文 / English` fact
+  convention; cn/-only sourcing rule; ~200 / 5000 / 5000+500 / 2000 volume
+  targets; judge-mode invocation spec). `examples/` holds gold-standard
+  rows in each format. Output paths under `data/sft/`, `data/dpo/`,
+  `data/rl/` (all git-ignored).
+- `04_sft/` **scaffolded** — Stage 04 SFT distillation: teach the Stage-03
+  CPT checkpoint to answer questions in Qwen3 chat format. `README.md`
+  (design + ablation: `sft_lora` vs `sft_full`), `requirements.txt`,
+  two configs, `train_sft.py` with `EXERCISE` markers (`sft-format`,
+  `sft-loss`, `train-loop`). Consumes agent-produced JSONL from
+  `data/sft/qa_{train,val}.jsonl` (no `prepare_*` step — JSONL is small
+  enough to tokenize on the fly each epoch). Hand-rolled loop, not
+  `trl.SFTTrainer` — same visibility principle as Stage 02 / 03.
+- `05_dpo/` **scaffolded** — Stage 05 DPO against plausible hallucinations.
+  `README.md` (2×2 ablation: DPO vs IPO × bulk vs curated; the project's
+  named failure mode finally addressed), `requirements.txt`, four configs,
+  `train_dpo.py` with `EXERCISE` markers (`dpo-format`, `dpo-logprobs`,
+  `dpo-loss`, `ipo-loss`, `train-loop`). Holds policy + frozen reference
+  (both starting from the Stage 04 SFT winner). Consumes agent-produced
+  JSONL from `data/dpo/{bulk,curated}_{train,val}.jsonl`. Hand-rolled
+  DPO/IPO losses; `trl.DPOTrainer` not used.

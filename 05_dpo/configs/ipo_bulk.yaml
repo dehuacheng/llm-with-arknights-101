@@ -1,0 +1,41 @@
+# Stage 05 — IPO (Azar 2023) on the bulk preference pairs.
+# Same data as dpo_bulk; identity-link loss instead of log-sigmoid. More
+# robust to label noise — the IPO target is to push the log-ratio diff
+# toward 1/(2β) rather than infinity, avoiding overconfidence collapse.
+name: ipo_bulk
+
+base_model: data/checkpoints/sft_lora   # placeholder — Stage 04 winner
+
+train_file: bulk_train.jsonl
+val_file: bulk_val.jsonl
+
+objective: ipo
+beta: 0.1                  # at β=0.1, target log-ratio diff is 5.0
+
+dtype: bfloat16
+seed: 1337
+
+learning_rate: 5.0e-6
+weight_decay: 0.0
+warmup_steps: 50
+grad_clip: 1.0
+
+max_length: 1024
+batch_size: 4
+grad_accum: 4
+
+max_steps: 2000
+eval_interval: 100
+eval_steps: 16
+patience: 5
+
+lora:
+  enabled: true
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj

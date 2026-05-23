@@ -1,0 +1,40 @@
+# Stage 05 — DPO on the curated (~500) preference pairs.
+# Less data, higher quality. Expected to converge faster and possibly
+# generalise better than the bulk run (the Lambert 2024 finding).
+name: dpo_curated
+
+base_model: data/checkpoints/sft_lora   # placeholder — Stage 04 winner
+
+train_file: curated_train.jsonl
+val_file: curated_val.jsonl
+
+objective: dpo
+beta: 0.1
+
+dtype: bfloat16
+seed: 1337
+
+learning_rate: 5.0e-6
+weight_decay: 0.0
+warmup_steps: 25           # fewer steps total → shorter warmup
+grad_clip: 1.0
+
+max_length: 1024
+batch_size: 4
+grad_accum: 4              # effective batch 16
+
+max_steps: 800             # 500 train pairs × ~3 epochs → ~600 steps
+eval_interval: 25          # smaller dataset → more frequent eval
+eval_steps: 16
+patience: 5
+
+lora:
+  enabled: true
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj

@@ -1,0 +1,26 @@
+# Stage 04 SFT — full fine-tuning on the Stage-03 CPT winner.
+# More capacity, slower, higher VRAM, expected to fit SFT best but risk
+# drifting further from the CPT distribution.
+name: sft_full
+
+base_model: data/checkpoints/full_ft_replay   # placeholder — point at the Stage 03 winner
+
+train_file: qa_train.jsonl
+val_file: qa_val.jsonl
+
+dtype: bfloat16
+seed: 1337
+
+learning_rate: 5.0e-6      # 4x smaller than LoRA — full-FT is more fragile
+weight_decay: 0.1
+warmup_steps: 100
+grad_clip: 1.0
+
+max_length: 1024
+batch_size: 4              # full-FT eats more VRAM; smaller batch
+grad_accum: 8              # effective batch 32
+
+max_steps: 2000
+eval_interval: 50
+eval_steps: 16
+patience: 5                # full-FT overfits faster — tighter patience

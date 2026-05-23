@@ -1,0 +1,45 @@
+# Stage 05 — DPO on the bulk (~5000) preference pairs.
+name: dpo_bulk
+
+# Stage 04 SFT winner — adjust path after Stage 04 lands. Same checkpoint
+# serves as both the policy starting point and the frozen DPO reference.
+base_model: data/checkpoints/sft_lora   # placeholder
+
+train_file: bulk_train.jsonl
+val_file: bulk_val.jsonl
+
+objective: dpo
+beta: 0.1                  # DPO temperature; 0.1 is the original-paper default
+
+dtype: bfloat16
+seed: 1337
+
+# DPO learning rates are 10-100× smaller than SFT — the gradient signal is
+# a difference of log-ratios, much sharper than direct CE.
+learning_rate: 5.0e-6
+weight_decay: 0.0
+warmup_steps: 50
+grad_clip: 1.0
+
+max_length: 1024           # shorter than SFT — pairs are usually concise Q&A
+batch_size: 4              # 4 pairs = 8 sequences per micro-batch
+                           # (each pair forwards both chosen and rejected)
+grad_accum: 4              # effective batch 16
+
+max_steps: 2000
+eval_interval: 100
+eval_steps: 16
+patience: 5
+
+# LoRA on top of (presumably) the Stage 04 LoRA SFT — a LoRA-of-LoRA stack.
+# Keeps adapter checkpoints ~5-20 MB.
+lora:
+  enabled: true
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj

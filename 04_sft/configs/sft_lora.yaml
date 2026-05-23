@@ -1,0 +1,43 @@
+# Stage 04 SFT — LoRA on the Stage-03 CPT winner.
+# Cheap, fast, expected to fit the SFT distribution without trashing CPT.
+name: sft_lora
+
+# Stage 03's best ablation cell — pick the one with best Arknights eval
+# and least general-Chinese ppl regression. Adjust path after Stage 03 lands.
+base_model: data/checkpoints/lora_replay   # placeholder — point at the Stage 03 winner
+
+train_file: qa_train.jsonl
+val_file: qa_val.jsonl
+
+dtype: bfloat16
+seed: 1337
+
+# SFT runs at 5-10x smaller LR than CPT — common practice for adapter
+# tuning on top of a pretrained base.
+learning_rate: 2.0e-5
+weight_decay: 0.0          # LoRA's A/B matrices don't benefit from WD
+warmup_steps: 50
+grad_clip: 1.0
+
+max_length: 1024
+batch_size: 8
+grad_accum: 4              # effective batch 32
+
+max_steps: 3000
+eval_interval: 100
+eval_steps: 16
+patience: 8
+
+lora:
+  enabled: true
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
+    - gate_proj
+    - up_proj
+    - down_proj

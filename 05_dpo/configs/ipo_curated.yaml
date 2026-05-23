@@ -1,0 +1,41 @@
+# Stage 05 — IPO on the curated preference pairs.
+# The fourth cell. Worth running because IPO's noise robustness might
+# matter most on the small curated set, where any single mislabelled
+# pair has more leverage on the gradient.
+name: ipo_curated
+
+base_model: data/checkpoints/sft_lora   # placeholder — Stage 04 winner
+
+train_file: curated_train.jsonl
+val_file: curated_val.jsonl
+
+objective: ipo
+beta: 0.1
+
+dtype: bfloat16
+seed: 1337
+
+learning_rate: 5.0e-6
+weight_decay: 0.0
+warmup_steps: 25
+grad_clip: 1.0
+
+max_length: 1024
+batch_size: 4
+grad_accum: 4
+
+max_steps: 800
+eval_interval: 25
+eval_steps: 16
+patience: 5
+
+lora:
+  enabled: true
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
