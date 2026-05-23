@@ -59,7 +59,8 @@ def load_qwen(model_path, device, dtype):
     """Load the Qwen3 base model + tokenizer from a local checkpoint dir."""
     if not Path(model_path).exists():
         sys.exit(f"model path not found: {model_path}\n"
-                 "Pre-fetch weights into data/models/qwen3-0.6b-base/ first.")
+                 f"Pre-fetch the weights to that path (the default is "
+                 f"data/models/qwen3-0.6b-base).")
     tok = AutoTokenizer.from_pretrained(model_path)
     model = AutoModelForCausalLM.from_pretrained(model_path, dtype=dtype)
     model.to(device)
@@ -75,9 +76,21 @@ def cloze_bits_per_char(model, tok, prefix, gold):
     tokenizer + forward. Scores only the gold positions; the prefix is just
     the context that conditions them. Dividing by characters (not tokens)
     keeps the score comparable with the Track A column in RESULTS.md.
+
+    The prefix is encoded with ``add_special_tokens=False`` because Qwen3
+    has no BOS in its current tokenizer config (``bos_token: null``); Track A
+    explicitly prepends its own BOS via ``add_bos=True``, so the cross-track
+    BPC has a one-token conditioning asymmetry today. If a future Qwen3
+    release introduces a BOS token, drop ``add_special_tokens=False`` to
+    keep parity.
     """
     device = next(model.parameters()).device
-    block_size = model.config.max_position_embeddings
+    # Cap context at 2048 even though Qwen3 supports 32K — a long-prefix
+    # probe at the full max_position_embeddings would force a 32K bf16
+    # forward, spiking VRAM on the 4090 for no scoring benefit (the gold
+    # span is short; only the immediate context conditions it). Current
+    # probes are <100 tokens; 2048 leaves comfortable headroom.
+    block_size = min(2048, model.config.max_position_embeddings)
     gold_ids = tok.encode(gold, add_special_tokens=False)
     prefix_ids = tok.encode(prefix, add_special_tokens=False)
     ids = (prefix_ids + gold_ids)[-block_size:]
@@ -98,21 +111,37 @@ def sample_text(model, tok, prompt, max_new_tokens, temperature, top_k, seed):
 
     Mirrors the Track A sampler: top-k truncation, multinomial sampling, or
     greedy (top_k=1 + temperature ignored). Seeded for reproducibility.
+
+    Two cross-track alignment knobs:
+      - ``eos_token_id=None`` disables HF's EOS-stop so generation runs to
+        ``max_new_tokens`` regardless, matching Track A's manual loop which
+        has no EOS handling. Without this, Qwen could halt early and skew
+        the memorize probe's longest-shared-substring count.
+      - ``skip_special_tokens=False`` on decode keeps Qwen's specials
+        (``<|im_end|>`` etc.) visible to the LCS comparison, matching
+        Track A's decode contract.
     """
     set_seed(seed)
     device = next(model.parameters()).device
     ids = tok.encode(prompt, add_special_tokens=False)
     input_ids = torch.tensor([ids], dtype=torch.long, device=device)
+    # Pass an explicit attention_mask so HF doesn't infer one from
+    # pad_token_id — if a probe prompt ever contains the EOS token id,
+    # the inferred mask would treat that position as padding and skew
+    # generation. The mask is all-ones (no padding in single-sample input).
+    attention_mask = torch.ones_like(input_ids)
     do_sample = top_k != 1
     out = model.generate(
         input_ids,
+        attention_mask=attention_mask,
         max_new_tokens=max_new_tokens,
         do_sample=do_sample,
         temperature=temperature if do_sample else 1.0,
         top_k=top_k if top_k > 0 else 0,
         pad_token_id=tok.eos_token_id,
+        eos_token_id=None,  # disable EOS-stop; match Track A's no-EOS loop
     )
-    return tok.decode(out[0, input_ids.shape[1]:], skip_special_tokens=True)
+    return tok.decode(out[0, input_ids.shape[1]:], skip_special_tokens=False)
 
 
 def _banner(title):
@@ -184,11 +213,17 @@ def main():
                     choices=["continuation", "cloze", "qa", "memorize"],
                     help="run only one probe section (default: all)")
     ap.add_argument("--gallery-temp", type=float, default=0.8,
-                    help="temperature for the cross-run continuation gallery")
+                    help="temperature for the cross-run continuation gallery "
+                         "(must be > 0; for greedy, run probe_memorize)")
     ap.add_argument("--max-new-tokens", type=int, default=80)
     ap.add_argument("--seed", type=int, default=1337)
     ap.add_argument("--dtype", default="bf16", choices=["bf16", "fp16", "fp32"])
     args = ap.parse_args()
+
+    if args.gallery_temp <= 0:
+        sys.exit("--gallery-temp must be > 0 (multinomial sampling with "
+                 "temperature 0 divides logits by zero -> NaN); the memorize "
+                 "probe is the canonical greedy path.")
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
     dtype = {"bf16": torch.bfloat16,

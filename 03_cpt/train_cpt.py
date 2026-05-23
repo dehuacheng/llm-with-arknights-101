@@ -35,9 +35,12 @@ sys.path.insert(0, str(ROOT))
 
 # --smoke-test overrides: tiny model is not available, so we keep the base but
 # clamp steps/eval to a <5-minute run. LoRA + small block keeps it cheap.
+# `patience=2` is deliberately tight so smoke runs traverse the early-stop
+# branch — pick anything larger than max_steps/eval_interval and the branch
+# is unreachable, hiding bookkeeping bugs from pre-merge checks.
 SMOKE = dict(block_size=256, batch_size=2, grad_accum=2,
              max_steps=20, warmup_steps=5, eval_interval=10, eval_steps=4,
-             patience=5)
+             patience=2)
 
 
 # ---------------------------------------------------------------------------
@@ -180,16 +183,31 @@ def lr_at(step: int, base_lr: float, warmup: int) -> float:
 def evaluate(model, data: np.memmap, block_size: int, batch_size: int,
              n_batches: int, device: torch.device, seed: int):
     eval_rng = np.random.default_rng(seed)
+    was_training = model.training
     model.eval()
     losses = torch.zeros(n_batches, device=device)
     for i in range(n_batches):
         x = get_batch(data, block_size, batch_size, device, eval_rng)
         out = model(input_ids=x, labels=x)
         losses[i] = out.loss
-    model.train()
+    if was_training:
+        model.train()
     mean = losses.mean().item()
-    return mean, math.exp(min(20.0, mean))
+    return mean, _safe_ppl(mean)
 # === EXERCISE END: eval-loss =========================================
+
+
+def _safe_ppl(loss: float) -> float:
+    """exp(loss) clamped for printing, NaN/inf-aware.
+
+    `math.exp(min(20.0, mean))` silently maps NaN to exp(20)≈4.85e8 because
+    `min(20.0, nan) == 20.0` in CPython — a divergence then looks like 'bad
+    but finite' ppl. Return float('nan')/float('inf') verbatim so callers
+    can format them as 'nan'/'inf' instead of a misleading number.
+    """
+    if not math.isfinite(loss):
+        return loss
+    return math.exp(min(20.0, loss))
 
 
 # ---------------------------------------------------------------------------
@@ -211,6 +229,16 @@ def main():
     rng = np.random.default_rng(cfg["seed"])
     torch.manual_seed(cfg["seed"])
 
+    # --- config validation. cfg.get(key, {}) returns {} only when key is
+    # *absent*; a YAML `replay:` with no value parses to None, so the chained
+    # `.get(...)` would raise AttributeError. `cfg.get(key) or {}` handles both.
+    replay_cfg = cfg.get("replay") or {}
+    lora_cfg = cfg.get("lora") or {}
+    if replay_cfg.get("enabled") and "mix_ratio" not in replay_cfg:
+        sys.exit("replay.enabled is true but replay.mix_ratio is missing — "
+                 "set it explicitly, even to 0.0, so a typo can't silently "
+                 "disable replay mid-experiment.")
+
     # --- data
     tok_root = ROOT / "data/tokenized/qwen3-0.6b-base"
     train = open_stream(tok_root / f"{cfg['train_stream']}.bin")
@@ -220,16 +248,20 @@ def main():
     if gv_path.exists():
         general_val = open_stream(gv_path)
     replay = None
-    if cfg.get("replay", {}).get("enabled"):
-        replay = open_stream(tok_root / f"{cfg['replay']['stream']}.bin")
+    if replay_cfg.get("enabled"):
+        replay = open_stream(tok_root / f"{replay_cfg['stream']}.bin")
     print(f"streams: train={len(train):,} val={len(val):,}"
           + (f" replay={len(replay):,}" if replay is not None else "")
           + (f" general_val={len(general_val):,}" if general_val is not None else ""))
 
-    # --- model
-    model = load_base_model(ROOT / cfg["base_model"], cfg["dtype"], device)
-    if cfg.get("lora", {}).get("enabled"):
-        model = inject_lora(model, cfg["lora"])
+    # --- model + tokenizer (tokenizer travels with the checkpoint so a
+    # downstream loader pointing `base_model:` at the CPT'd dir gets both)
+    from transformers import AutoTokenizer
+    base_path = ROOT / cfg["base_model"]
+    model = load_base_model(base_path, cfg["dtype"], device)
+    tokenizer = AutoTokenizer.from_pretrained(str(base_path))
+    if lora_cfg.get("enabled"):
+        model = inject_lora(model, lora_cfg)
     model.train()
 
     # --- optimiser
@@ -258,12 +290,16 @@ def main():
     eval_steps = cfg["eval_steps"]
     patience = cfg.get("patience", 8)
     grad_clip = cfg["grad_clip"]
-    replay_p = cfg.get("replay", {}).get("mix_ratio", 0.0)
+    replay_p = replay_cfg.get("mix_ratio", 0.0)  # validated above
     eval_seed = cfg["seed"]  # used by evaluate() — fresh RNG each call
 
     best_val, best_step, evals_no_improve, stop_reason = float("inf"), -1, 0, "max_steps"
+    best_gen = float("nan")  # tracks general-Chinese loss at best-val step
     ckpt_dir = ROOT / "data/checkpoints" / cfg["name"]
     ckpt_dir.mkdir(parents=True, exist_ok=True)
+    # Tmp dir for atomic save. Use string concat — `with_suffix('.tmp')` would
+    # *replace* a dot-suffix on dotted names (`v1.0` → `v1.tmp`, not `v1.0.tmp`).
+    tmp_dir = Path(str(ckpt_dir) + ".tmp")
 
     print(f"\ntrain run '{cfg['name']}'  (device: {device})")
     print(f"  base       : {cfg['base_model']}")
@@ -288,20 +324,27 @@ def main():
     #               else: evals_no_improve += 1
     #               if evals_no_improve >= patience: break (stop_reason = "early_stop")
     # Saving: use model.save_pretrained(ckpt_dir) — for a PeftModel this writes
-    #         only the adapter (~5–20 MB); for a full-FT model it writes the
-    #         full base (~1.2 GB). Avoid torch.save(state_dict()) here — that
-    #         path saves the full model even for LoRA, defeating the size win.
-    #         Write atomically: save to ckpt_dir.with_suffix(".tmp") then
-    #         os.replace, so a Ctrl-C mid-save cannot corrupt the best ckpt.
+    #         only the adapter (~40 MB at r=16, 7 target modules); for a
+    #         full-FT model it writes the full base (~1.2 GB). Avoid
+    #         torch.save(state_dict()) here — that would save the full model
+    #         even for LoRA, defeating the size win. The tokenizer is saved
+    #         alongside so the ckpt dir is self-contained for downstream loaders.
+    #
+    #         Atomic-swap: save into tmp_dir, then rmtree(ckpt_dir) + rename.
+    #         This is NOT fully atomic — between the rmtree and the rename
+    #         there is a small window where neither dir is at the canonical
+    #         path. Truly-atomic directory replacement on Linux requires
+    #         renameat2(RENAME_EXCHANGE), which the stdlib doesn't expose.
+    #         The window is short and the new save is durable on disk before
+    #         the rmtree, so a crash in the gap leaves a `<name>.tmp` dir
+    #         that a human (or restart logic) can recover with `mv`.
     # Learning mode: rewrite from the spec. The Stage-02 train.py main loop is
     # a very close template (modulo the labels contract) — diff against it.
     # --------------------------------------------------------------------
-    # ckpt_dir.mkdir() above only creates the parent path; the atomic-swap
-    # below needs ckpt_dir to *not* exist when we rename .tmp into it. Remove
-    # any pre-existing stale ckpt from a prior run so the first save is clean.
-    if any(ckpt_dir.iterdir()):
-        shutil.rmtree(ckpt_dir)
-        ckpt_dir.mkdir(parents=True, exist_ok=True)
+    # Do NOT pre-emptively wipe ckpt_dir here. A previous successful run's
+    # ckpt should survive until the first improving eval of *this* run
+    # writes a replacement. The save block below already does its own
+    # rmtree before the rename when an improvement fires.
     src_counts = {"arknights": 0, "replay": 0}  # for periodic logging
 
     for step in range(1, max_steps + 1):
@@ -321,25 +364,33 @@ def main():
         if step % eval_interval == 0 or step == max_steps:
             val_loss, val_ppl = evaluate(model, val, block, bs, eval_steps,
                                          device, eval_seed)
+            gen_loss = float("nan")
             if general_val is not None:
                 gen_loss, gen_ppl = evaluate(model, general_val, block, bs,
                                              eval_steps, device, eval_seed)
                 gen_tag = f"  gen ppl {gen_ppl:8.2f}"
             else:
                 gen_tag = ""
+            # NaN check first: `nan < best_val` is False, so without an
+            # explicit branch a divergence silently lands in the no-improve
+            # path and the final summary prints exp(20)≈4.85e8 as if it were
+            # a real ppl. Surface the divergence loudly instead.
+            if not math.isfinite(val_loss):
+                stop_reason = f"non-finite val loss ({val_loss}) at step {step}"
+                print(f"  step {step:>6}/{max_steps}  val ppl {val_loss}"
+                      f"{gen_tag}  <- ABORTING, see stop_reason")
+                break
             if val_loss < best_val:
-                best_val, best_step = val_loss, step
+                best_val, best_step, best_gen = val_loss, step, gen_loss
                 evals_no_improve = 0
-                # Atomic save: write the new ckpt into ckpt_dir.with_suffix(".tmp")
-                # then swap in. save_pretrained writes only the adapter for a
-                # PeftModel (~5–20 MB) and the full base for a full-FT run
-                # (~1.2 GB). The window of "no checkpoint on disk" between
-                # rmtree(ckpt_dir) and os.rename is small but real; the new
-                # save is fully durable before we touch the old one.
-                tmp_dir = ckpt_dir.with_suffix(".tmp")
+                # Atomic-ish save (see the contract above). Tokenizer is
+                # saved alongside so a downstream config can point base_model
+                # at the ckpt dir directly without falling back to the
+                # original base.
                 if tmp_dir.exists():
                     shutil.rmtree(tmp_dir)
                 model.save_pretrained(str(tmp_dir))
+                tokenizer.save_pretrained(str(tmp_dir))
                 if ckpt_dir.exists():
                     shutil.rmtree(ckpt_dir)
                 os.rename(tmp_dir, ckpt_dir)
@@ -348,8 +399,8 @@ def main():
                 evals_no_improve += 1
                 tag = f"  (no improvement {evals_no_improve}/{patience})"
             # Periodic source-mix dump — shows that the replay fraction is
-            # tracking `mix_ratio` (it's the cheapest catastrophic-forgetting
-            # sanity check we have, since drift only shows up on eval).
+            # tracking `mix_ratio` (a cheap sanity check; the actual
+            # catastrophic-forgetting signal is the `gen ppl` column).
             mix_seen = (src_counts["replay"]
                         / max(1, sum(src_counts.values())))
             print(f"  step {step:>6}/{max_steps}  val ppl {val_ppl:8.2f}"
@@ -362,9 +413,14 @@ def main():
 
     dt = (time.time() - t0) / 60
     print(f"\n  done in {dt:.1f} min  ({stop_reason})")
-    print(f"  best val   : ppl {math.exp(min(20.0, best_val)):.2f}  "
-          f"at step {best_step}")
-    print(f"  checkpoint : {ckpt_dir}")
+    if math.isfinite(best_val):
+        print(f"  best val   : ppl {_safe_ppl(best_val):.2f}"
+              + (f"  gen ppl {_safe_ppl(best_gen):.2f}"
+                 if math.isfinite(best_gen) else "")
+              + f"  at step {best_step}")
+        print(f"  checkpoint : {ckpt_dir}")
+    else:
+        print(f"  best val   : (no improving eval — no checkpoint saved)")
     mix_seen = src_counts["replay"] / max(1, sum(src_counts.values()))
     print(f"  replay mix : {mix_seen:.1%} of micro-batches"
           + (f"  (target {replay_p:.0%})" if replay is not None else ""))
