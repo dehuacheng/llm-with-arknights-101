@@ -14,11 +14,13 @@ distilled Q&A pairs**:
 3. The result is a model that answers Arknights questions in Qwen's chat
    format, drawing on what CPT taught it.
 
-> Status: **planned / scaffolded.** Code, configs, and the training loop
-> EXERCISE land here as the stage is implemented; this README is the
-> design doc. **The data generation itself is done by an
-> Arknights-knowledge agent** — see `data_gen/AGENT_BRIEF.md` for the
-> full spec.
+> Status: **`sft_full` implemented and run** (1.2 GB ckpt at
+> `data/checkpoints/sft_full/`, best val ppl 19.29). `sft_lora` skipped —
+> the Stage-03 conclusion (full-FT + replay strictly dominates) extended
+> here. See [`docs/RESULTS.md`](docs/RESULTS.md) for the training run, the
+> probe battery, and the failure-mode analysis that motivates Stage 05.
+> **The data generation itself is done by an Arknights-knowledge agent**
+> — see `data_gen/AGENT_BRIEF.md` for the full spec.
 
 ## 1. The data — produced by the agent, not this stage's code
 
@@ -142,11 +144,15 @@ full-FT writes the full ~1.2 GB. Best-val only, atomic via `.tmp` rename.
 ```
 04_sft/
   README.md            this design doc
-  train_sft.py         SFT training loop  (EXERCISE: sft-format, sft-loss, train-loop)
+  train_sft.py         SFT training loop  (EXERCISE: sft-format, train-loop — both implemented)
+  chat.py              inference smoke-tester (--probes / --repl)
+  derive_val_split.py  one-time category-stratified val split from agent JSONL
   requirements.txt     transformers + peft + accelerate + datasets
   configs/             one YAML per ablation cell — clone, never edit in place
-    sft_lora.yaml
-    sft_full.yaml
+    sft_lora.yaml      scaffolded; not run (Stage-03 lesson extended)
+    sft_full.yaml      the run reported in docs/RESULTS.md
+  docs/
+    RESULTS.md         training-run numbers, probe battery, failure-mode reading
 ```
 
 The agent-brief link: **data generation lives at `data_gen/AGENT_BRIEF.md`**.

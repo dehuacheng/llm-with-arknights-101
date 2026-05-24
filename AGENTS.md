@@ -137,14 +137,16 @@ source of truth for **why**.
   targets; judge-mode invocation spec). `examples/` holds gold-standard
   rows in each format. Output paths under `data/sft/`, `data/dpo/`,
   `data/rl/` (all git-ignored).
-- `04_sft/` **scaffolded** — Stage 04 SFT distillation: teach the Stage-03
-  CPT checkpoint to answer questions in Qwen3 chat format. `README.md`
-  (design + ablation: `sft_lora` vs `sft_full`), `requirements.txt`,
-  two configs, `train_sft.py` with `EXERCISE` markers (`sft-format`,
-  `sft-loss`, `train-loop`). Consumes agent-produced JSONL from
-  `data/sft/qa_{train,val}.jsonl` (no `prepare_*` step — JSONL is small
-  enough to tokenize on the fly each epoch). Hand-rolled loop, not
-  `trl.SFTTrainer` — same visibility principle as Stage 02 / 03.
+- `04_sft/` **implemented (sft_full only; sft_lora skipped)** — Stage 04 SFT
+  distillation: teach the Stage-03 CPT checkpoint to answer questions in
+  Qwen3 chat format. `train_sft.py` (`sft-format` + `train-loop` EXERCISE
+  filled in; gradient checkpointing on by default — same Qwen3 151K-vocab
+  fp32-logits-cast constraint as Stage 03), `chat.py` (probe battery + REPL),
+  `derive_val_split.py` (stratified-by-category one-time val split from the
+  agent-shipped JSONL; seed 1337). One real run: `sft_full` from the Stage-03
+  `full_ft_replay` winner, 21 min wall, best val ppl 19.29. Smoke-test
+  probes recorded in `04_sft/docs/RESULTS.md` — mechanics work but content
+  surfaces all four named hallucination modes, motivating Stage 05.
 - `05_dpo/` **scaffolded** — Stage 05 DPO against plausible hallucinations.
   `README.md` (2×2 ablation: DPO vs IPO × bulk vs curated; the project's
   named failure mode finally addressed), `requirements.txt`, four configs,

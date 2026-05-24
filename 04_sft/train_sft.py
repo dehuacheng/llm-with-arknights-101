@@ -26,6 +26,7 @@ import argparse
 import json
 import math
 import os
+import shutil
 import sys
 import time
 from pathlib import Path
@@ -250,6 +251,17 @@ def main():
     model = load_model(base_path, cfg["dtype"], device)
     if cfg.get("lora", {}).get("enabled"):
         model = inject_lora(model, cfg["lora"])
+
+    # Gradient checkpointing — same Qwen3 151K-vocab logits gotcha as Stage 03.
+    # SFT at max_length=1024, batch=4 has identical tokens/micro-batch (4096)
+    # as Stage 03's 2×2048, so the same fp32-logits transient (~2.4 GB) bites.
+    # Default on; configs can set gradient_checkpointing: false if VRAM allows.
+    if cfg.get("gradient_checkpointing", True):
+        model.config.use_cache = False
+        model.gradient_checkpointing_enable(
+            gradient_checkpointing_kwargs={"use_reentrant": False})
+        if hasattr(model, "enable_input_require_grads"):
+            model.enable_input_require_grads()
     model.train()
 
     # --- optimiser (decay vs no-decay split — GPT-2 recipe, same as 03_cpt)
@@ -278,6 +290,9 @@ def main():
     best_val, best_step, evals_no_improve, stop_reason = float("inf"), -1, 0, "max_steps"
     ckpt_dir = ROOT / "data/checkpoints" / cfg["name"]
     ckpt_dir.mkdir(parents=True, exist_ok=True)
+    # Tmp dir for atomic save — string concat (not with_suffix) so dotted names
+    # like 'sft_full_v1.0' don't lose their trailing version when we add .tmp.
+    tmp_dir = Path(str(ckpt_dir) + ".tmp")
 
     print(f"\ntrain run '{cfg['name']}'  (device: {device})")
     print(f"  base       : {cfg['base_model']}")
@@ -316,16 +331,68 @@ def main():
     # Learning mode: rewrite from the spec. The 02_pretrain/train.py and
     # 03_cpt/train_cpt.py loops are close templates — diff against them.
     # --------------------------------------------------------------------
-    raise NotImplementedError(
-        "EXERCISE: implement the SFT training loop. See spec above; the "
-        "Stage 02 and Stage 03 train loops are the references."
-    )
+    for step in range(1, max_steps + 1):
+        for g in optim.param_groups:
+            g["lr"] = lr_at(step, cfg["learning_rate"], warmup)
+
+        optim.zero_grad(set_to_none=True)
+        for _ in range(accum):
+            input_ids, labels, attn = next(train_iter)
+            input_ids = input_ids.to(device, non_blocking=True)
+            labels = labels.to(device, non_blocking=True)
+            attn = attn.to(device, non_blocking=True)
+            out = model(input_ids=input_ids, labels=labels, attention_mask=attn)
+            (out.loss / accum).backward()
+        torch.nn.utils.clip_grad_norm_(trainable, grad_clip)
+        optim.step()
+
+        if step % eval_interval == 0 or step == max_steps:
+            val_loss, val_ppl = evaluate(model, val_rows, tok, bs, max_length,
+                                         eval_steps, device, eval_seed)
+            # NaN guard — `nan < best_val` is False, so without an explicit
+            # branch a divergence silently lands in the no-improve path and
+            # the final summary prints exp(20)≈4.85e8 as if it were real ppl.
+            if not math.isfinite(val_loss):
+                stop_reason = f"non-finite val loss ({val_loss}) at step {step}"
+                print(f"  step {step:>6}/{max_steps}  val loss {val_loss}"
+                      f"  <- ABORTING")
+                break
+            if val_loss < best_val:
+                best_val, best_step = val_loss, step
+                evals_no_improve = 0
+                # Atomic-ish save: write to tmp_dir, then rmtree(ckpt_dir) +
+                # rename. Same caveat as Stage 03 — small non-atomic gap, but
+                # the new save is durable on disk before the rmtree, so a
+                # crash in the gap leaves a recoverable `<name>.tmp` dir.
+                # For PeftModel save_pretrained writes the adapter only
+                # (~20-40 MB); full-FT writes the full ~1.2 GB.
+                if tmp_dir.exists():
+                    shutil.rmtree(tmp_dir)
+                model.save_pretrained(str(tmp_dir))
+                tok.save_pretrained(str(tmp_dir))
+                if ckpt_dir.exists():
+                    shutil.rmtree(ckpt_dir)
+                os.rename(tmp_dir, ckpt_dir)
+                tag = "  <- saved (best val)"
+            else:
+                evals_no_improve += 1
+                tag = f"  (no improvement {evals_no_improve}/{patience})"
+            print(f"  step {step:>6}/{max_steps}  val loss {val_loss:6.4f}"
+                  f"  ppl {val_ppl:7.2f}{tag}")
+            if evals_no_improve >= patience:
+                stop_reason = (f"early-stopped — val loss did not improve for "
+                               f"{patience} evals")
+                break
     # === EXERCISE END: train-loop ======================================
 
     dt = (time.time() - t0) / 60
     print(f"\n  done in {dt:.1f} min  ({stop_reason})")
-    print(f"  best val   : ppl {math.exp(min(20.0, best_val)):.2f}  at step {best_step}")
-    print(f"  checkpoint : {ckpt_dir}")
+    if math.isfinite(best_val):
+        print(f"  best val   : ppl {math.exp(min(20.0, best_val)):.2f}"
+              f"  at step {best_step}")
+        print(f"  checkpoint : {ckpt_dir}")
+    else:
+        print(f"  best val   : (no improving eval — no checkpoint saved)")
 
 
 if __name__ == "__main__":
