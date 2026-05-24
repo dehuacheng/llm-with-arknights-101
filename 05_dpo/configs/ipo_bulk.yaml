@@ -4,7 +4,7 @@
 # toward 1/(2β) rather than infinity, avoiding overconfidence collapse.
 name: ipo_bulk
 
-base_model: data/checkpoints/sft_lora   # placeholder — Stage 04 winner
+base_model: data/checkpoints/sft_full   # Stage 04 winner (sft_lora skipped)
 
 train_file: bulk_train.jsonl
 val_file: bulk_val.jsonl

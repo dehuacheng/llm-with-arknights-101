@@ -12,6 +12,8 @@ training prompt byte-for-byte.
     .venv/bin/python 04_sft/chat.py --probes
     .venv/bin/python 04_sft/chat.py --repl
     .venv/bin/python 04_sft/chat.py --ckpt data/checkpoints/full_ft_replay --probes  # CPT baseline
+    # Stage 05: layer a DPO LoRA adapter on top of the SFT base
+    .venv/bin/python 04_sft/chat.py --adapter data/checkpoints/dpo_curated --probes
 """
 from __future__ import annotations
 
@@ -40,17 +42,25 @@ PROBES = [
 ]
 
 
-def load(ckpt_path: Path, dtype_str: str, device: torch.device):
+def load(ckpt_path: Path, dtype_str: str, device: torch.device,
+         adapter_path: Path | None = None):
     from transformers import AutoModelForCausalLM, AutoTokenizer
     dtype = {"bfloat16": torch.bfloat16, "float16": torch.float16,
              "float32": torch.float32}[dtype_str]
-    print(f"loading {ckpt_path} (dtype={dtype_str}) ...", file=sys.stderr)
+    print(f"loading base {ckpt_path} (dtype={dtype_str}) ...", file=sys.stderr)
     tok = AutoTokenizer.from_pretrained(str(ckpt_path))
     if tok.pad_token_id is None:
         tok.pad_token_id = tok.eos_token_id
     model = AutoModelForCausalLM.from_pretrained(
         str(ckpt_path), dtype=dtype, attn_implementation="sdpa",
     )
+    if adapter_path is not None:
+        # Stage 05 DPO LoRA adapter sits on top of the Stage 04 SFT base.
+        # The adapter dir holds adapter_config.json + adapter_model.safetensors;
+        # PeftModel.from_pretrained merges them onto the live base.
+        from peft import PeftModel
+        print(f"loading adapter {adapter_path} ...", file=sys.stderr)
+        model = PeftModel.from_pretrained(model, str(adapter_path))
     model.to(device).eval()
     return tok, model
 
@@ -134,7 +144,11 @@ def cmd_repl(tok, model, device, temperature: float):
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--ckpt", type=Path,
-                    default=ROOT / "data/checkpoints/sft_full")
+                    default=ROOT / "data/checkpoints/sft_full",
+                    help="Base model dir (default sft_full).")
+    ap.add_argument("--adapter", type=Path, default=None,
+                    help="Optional PEFT adapter dir to layer on the base "
+                         "(e.g. data/checkpoints/dpo_curated for Stage 05).")
     ap.add_argument("--dtype", default="bfloat16",
                     choices=["bfloat16", "float16", "float32"])
     ap.add_argument("--temperature", type=float, default=0.0)
@@ -144,7 +158,7 @@ def main():
     args = ap.parse_args()
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    tok, model = load(args.ckpt, args.dtype, device)
+    tok, model = load(args.ckpt, args.dtype, device, args.adapter)
 
     if args.probes:
         cmd_probes(tok, model, device, args.temperature)

@@ -24,6 +24,7 @@ import argparse
 import json
 import math
 import os
+import shutil
 import sys
 import time
 from pathlib import Path
@@ -307,6 +308,86 @@ def evaluate(policy, ref, val_rows, tok, batch_size, max_length,
             sum(accs) / max(1, len(accs)))
 
 
+# --- SFT-preservation tripwire (README §5 third eval signal) -----------------
+# DPO's named failure mode #1: the policy cheaply pushes chosen > rejected by
+# making both unlikely. We catch that by re-scoring `data/sft/qa_val.jsonl`
+# under the policy and watching for the assistant-token CE drifting upward
+# from the Stage-04 baseline.
+
+def _format_sft_row(tok, row: dict, max_length: int):
+    """Same shape as 04_sft/train_sft.py format_row, inlined to avoid a
+    cross-stage import. Returns (input_ids, labels) with -100 on prompt,
+    or None if right-truncation leaves no response tokens (skip silently)."""
+    msgs = row["messages"]
+    prompt_text = tok.apply_chat_template(msgs[:-1], tokenize=False,
+                                          add_generation_prompt=True)
+    full_text = tok.apply_chat_template(msgs, tokenize=False)
+    prompt_ids = tok(prompt_text, add_special_tokens=False).input_ids
+    full_ids = tok(full_text, add_special_tokens=False).input_ids
+    # Mirror the Stage 04 invariant: prompt-only render must be a prefix of
+    # the full render. A tokenizer/template upgrade that breaks this would
+    # silently shift the label mask and the SFT-preservation CE would
+    # become meaningless — exactly the tripwire we're trying to make
+    # trustworthy. Raise loud instead of masking the wrong tokens.
+    if full_ids[:len(prompt_ids)] != prompt_ids:
+        raise RuntimeError(
+            "SFT-preservation eval: chat-template prompt-only render is not "
+            "a prefix of the full render — label mask would shift; check "
+            "tokenizer / template version")
+    labels = list(full_ids)
+    for i in range(len(prompt_ids)):
+        labels[i] = -100
+    if len(full_ids) > max_length:
+        full_ids = full_ids[:max_length]
+        labels = labels[:max_length]
+    # Defensive: if right-truncation wiped every response token, HF returns
+    # NaN loss (no unignored labels) and poisons the mean. Skip the row.
+    if all(l == -100 for l in labels):
+        return None
+    return (torch.tensor(full_ids, dtype=torch.long),
+            torch.tensor(labels, dtype=torch.long))
+
+
+@torch.no_grad()
+def evaluate_sft_preservation(policy, sft_val_rows, tok, batch_size,
+                              max_length, n_batches, device, seed):
+    """Mean assistant-token CE on the SFT val set, under the *policy*. The
+    Stage-04 baseline is 2.96; significant rise → DPO is eroding the
+    instruction-following capability the SFT step installed."""
+    if not sft_val_rows:
+        return float("nan")
+    eval_rng = np.random.default_rng(seed)
+    pad_id = tok.pad_token_id if tok.pad_token_id is not None else tok.eos_token_id
+    policy.eval()
+    losses = []
+    order = eval_rng.permutation(len(sft_val_rows))
+    n = min(n_batches, len(order) // batch_size)
+    for i in range(n):
+        rows = [sft_val_rows[j] for j in order[i * batch_size:(i + 1) * batch_size]]
+        formatted = [_format_sft_row(tok, r, max_length) for r in rows]
+        batch = [b for b in formatted if b is not None]   # skip all-mask rows
+        if not batch:
+            continue
+        max_len = max(len(x) for x, _ in batch)
+        ids = torch.full((len(batch), max_len), pad_id, dtype=torch.long)
+        lbl = torch.full((len(batch), max_len), -100, dtype=torch.long)
+        attn = torch.zeros((len(batch), max_len), dtype=torch.long)
+        for k, (x, y) in enumerate(batch):
+            ids[k, :len(x)] = x
+            lbl[k, :len(y)] = y
+            attn[k, :len(x)] = 1
+        ids, lbl, attn = (t.to(device) for t in (ids, lbl, attn))
+        out = policy(input_ids=ids, labels=lbl, attention_mask=attn)
+        losses.append(out.loss.item())
+    policy.train()
+    # Return NaN when zero batches actually ran (e.g., batch_size > rows)
+    # so the caller's math.isnan check fires — 0.0 would masquerade as a
+    # perfect preservation score.
+    if not losses:
+        return float("nan")
+    return sum(losses) / len(losses)
+
+
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
@@ -343,6 +424,18 @@ def main():
     print(f"data: {len(train_rows):,} train pairs, {len(val_rows):,} val pairs")
     print(f"objective: {objective}  β={beta}")
 
+    # --- SFT-preservation eval set (README §5 tripwire). Hard path; warn
+    # rather than crash if absent, so the loop still works against a base
+    # that lacks Stage-04 artefacts (unlikely, but explicit).
+    sft_val_path = ROOT / "data/sft/qa_val.jsonl"
+    sft_val_rows = (load_jsonl(sft_val_path,
+                               limit=SMOKE_VAL_ROWS if args.smoke_test else None)
+                    if sft_val_path.exists() else [])
+    if sft_val_rows:
+        print(f"sft-preservation: {len(sft_val_rows):,} rows from {sft_val_path.relative_to(ROOT)}")
+    else:
+        print(f"sft-preservation: skipped ({sft_val_path} not found)")
+
     # --- tokenizer + models (policy + frozen reference)
     from transformers import AutoTokenizer
     base_path = ROOT / cfg["base_model"]
@@ -353,6 +446,18 @@ def main():
     policy = load_model(base_path, cfg["dtype"], device)
     if cfg.get("lora", {}).get("enabled"):
         policy = inject_lora(policy, cfg["lora"])
+
+    # Gradient checkpointing on the policy — same Qwen3 151K-vocab fp32-
+    # logits-cast pressure as Stage 03/04, hit FOUR times per DPO step
+    # (chosen/rejected × policy/ref). Ref doesn't need it (no_grad). LoRA
+    # also requires enable_input_require_grads so the activation graph
+    # reaches the trainable adapters under checkpointing.
+    if cfg.get("gradient_checkpointing", True):
+        policy.config.use_cache = False
+        policy.gradient_checkpointing_enable(
+            gradient_checkpointing_kwargs={"use_reentrant": False})
+        if hasattr(policy, "enable_input_require_grads"):
+            policy.enable_input_require_grads()
     policy.train()
 
     # Reference is a frozen second copy of the SAME base — never updated.
@@ -360,6 +465,7 @@ def main():
     # from it. Loading twice trades VRAM for memory-shared correctness.
     print("loading frozen reference (second copy of base):")
     ref_model = load_model(base_path, cfg["dtype"], device)
+    ref_model.config.use_cache = False  # no KV-cache allocs on ref forward
     ref_model.eval()
     for p in ref_model.parameters():
         p.requires_grad = False
@@ -434,10 +540,94 @@ def main():
     # the closest template; the DPO loop differs only in carrying the
     # two-side batch and the two-model forward.
     # --------------------------------------------------------------------
-    raise NotImplementedError(
-        "EXERCISE: implement the DPO training loop. See spec above; "
-        "03_cpt/train_cpt.py is the closest template."
-    )
+    # NB: Path.with_suffix(".tmp") strips dotted segments (a name like
+    # "dpo_v1.0" → "dpo_v1.tmp" silently). Use string concat — same fix as
+    # Stage 03/04.
+    tmp_dir = Path(str(ckpt_dir) + ".tmp")
+    for step in range(1, max_steps + 1):
+        for g in optim.param_groups:
+            g["lr"] = lr_at(step, cfg["learning_rate"], warmup)
+        optim.zero_grad(set_to_none=True)
+
+        running = {"loss": 0.0, "acc": 0.0}
+        aborted = False
+        for _ in range(accum):
+            (ids_c, lbl_c, attn_c), (ids_r, lbl_r, attn_r) = next(train_iter)
+            ids_c, lbl_c, attn_c = (t.to(device, non_blocking=True) for t in (ids_c, lbl_c, attn_c))
+            ids_r, lbl_r, attn_r = (t.to(device, non_blocking=True) for t in (ids_r, lbl_r, attn_r))
+
+            # Reference forward — no grad, no graph, kept in fp32 logits via
+            # sequence_logprobs' internal cast. Done first so the ref tensors
+            # live without depending on the policy graph.
+            with torch.no_grad():
+                logp_ref_c = sequence_logprobs(ref_model, ids_c, lbl_c, attn_c)
+                logp_ref_r = sequence_logprobs(ref_model, ids_r, lbl_r, attn_r)
+
+            logp_pol_c = sequence_logprobs(policy, ids_c, lbl_c, attn_c)
+            logp_pol_r = sequence_logprobs(policy, ids_r, lbl_r, attn_r)
+            loss, info = loss_fn(logp_pol_c, logp_pol_r,
+                                 logp_ref_c, logp_ref_r, beta)
+
+            # Catch a non-finite micro-batch loss *before* it pollutes the
+            # weights. Otherwise NaN/Inf rides through backward + step() and
+            # corrupts the policy for up to eval_interval-1 steps before
+            # the val-loss isfinite check finally trips.
+            loss_val = loss.item()
+            if not math.isfinite(loss_val):
+                aborted = True
+                stop_reason = (f"non-finite train loss ({loss_val}) at "
+                               f"step {step} (accum micro-batch)")
+                print(f"  step {step:5d}/{max_steps}  ABORT — {stop_reason}")
+                break
+
+            (loss / accum).backward()
+
+            running["loss"] += loss_val / accum
+            running["acc"] += info["pair_acc"] / accum
+
+        if aborted:
+            break  # outer: skip clip/step/eval and exit train loop
+        torch.nn.utils.clip_grad_norm_(trainable, grad_clip)
+        optim.step()
+
+        if step % eval_interval == 0 or step == max_steps:
+            val_loss, val_acc = evaluate(policy, ref_model, val_rows, tok,
+                                         bs, max_length, eval_steps, device,
+                                         eval_seed, objective, beta)
+            sft_ce = evaluate_sft_preservation(policy, sft_val_rows, tok,
+                                               bs, max_length, eval_steps,
+                                               device, eval_seed)
+            wall = (time.time() - t0) / 60
+            sft_str = f"sft_val_ce {sft_ce:.3f}" if not math.isnan(sft_ce) else "sft_val_ce —"
+            print(f"  step {step:5d}/{max_steps}  "
+                  f"train_loss {running['loss']:.4f}  "
+                  f"train_acc {running['acc']:.2f}  "
+                  f"val_loss {val_loss:.4f}  val_acc {val_acc:.2f}  "
+                  f"{sft_str}  "
+                  f"({wall:.1f} min)")
+
+            if not math.isfinite(val_loss):
+                stop_reason = f"non-finite val loss ({val_loss}) at step {step}"
+                break
+
+            if val_loss < best_val:
+                best_val, best_step = val_loss, step
+                evals_no_improve = 0
+                # Atomic save: write to .tmp, swap. Same pattern as Stage 04.
+                if tmp_dir.exists():
+                    shutil.rmtree(tmp_dir)
+                policy.save_pretrained(str(tmp_dir))
+                tok.save_pretrained(str(tmp_dir))
+                if ckpt_dir.exists():
+                    shutil.rmtree(ckpt_dir)
+                os.rename(tmp_dir, ckpt_dir)
+            else:
+                evals_no_improve += 1
+
+            if evals_no_improve >= patience:
+                stop_reason = (f"early-stopped — val loss did not improve "
+                               f"for {patience} evals")
+                break
     # === EXERCISE END: train-loop ======================================
 
     dt = (time.time() - t0) / 60

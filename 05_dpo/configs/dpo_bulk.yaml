@@ -1,9 +1,10 @@
 # Stage 05 — DPO on the bulk (~5000) preference pairs.
 name: dpo_bulk
 
-# Stage 04 SFT winner — adjust path after Stage 04 lands. Same checkpoint
-# serves as both the policy starting point and the frozen DPO reference.
-base_model: data/checkpoints/sft_lora   # placeholder
+# Stage 04 SFT winner — same checkpoint serves as both the policy starting
+# point and the frozen DPO reference. (Stage 04 ran sft_full only; sft_lora
+# was skipped per the Stage-03 lesson.)
+base_model: data/checkpoints/sft_full
 
 train_file: bulk_train.jsonl
 val_file: bulk_val.jsonl
@@ -31,8 +32,9 @@ eval_interval: 100
 eval_steps: 16
 patience: 5
 
-# LoRA on top of (presumably) the Stage 04 LoRA SFT — a LoRA-of-LoRA stack.
-# Keeps adapter checkpoints ~5-20 MB.
+# LoRA adapter on top of the Stage-04 sft_full (full-FT) base. Keeps
+# adapter checkpoints ~5-20 MB; the base is *not* re-saved per DPO run —
+# downstream loaders reattach via PeftModel.from_pretrained(base, adapter).
 lora:
   enabled: true
   r: 16

@@ -4,7 +4,7 @@
 # pair has more leverage on the gradient.
 name: ipo_curated
 
-base_model: data/checkpoints/sft_lora   # placeholder — Stage 04 winner
+base_model: data/checkpoints/sft_full   # Stage 04 winner (sft_lora skipped)
 
 train_file: curated_train.jsonl
 val_file: curated_val.jsonl

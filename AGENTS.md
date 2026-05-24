@@ -147,11 +147,17 @@ source of truth for **why**.
   `full_ft_replay` winner, 21 min wall, best val ppl 19.29. Smoke-test
   probes recorded in `04_sft/docs/RESULTS.md` — mechanics work but content
   surfaces all four named hallucination modes, motivating Stage 05.
-- `05_dpo/` **scaffolded** — Stage 05 DPO against plausible hallucinations.
-  `README.md` (2×2 ablation: DPO vs IPO × bulk vs curated; the project's
-  named failure mode finally addressed), `requirements.txt`, four configs,
-  `train_dpo.py` with `EXERCISE` markers (`dpo-format`, `dpo-logprobs`,
-  `dpo-loss`, `ipo-loss`, `train-loop`). Holds policy + frozen reference
-  (both starting from the Stage 04 SFT winner). Consumes agent-produced
-  JSONL from `data/dpo/{bulk,curated}_{train,val}.jsonl`. Hand-rolled
-  DPO/IPO losses; `trl.DPOTrainer` not used.
+- `05_dpo/` **partially implemented (curated cells run; bulk cells
+  pending)** — Stage 05 preference optimisation on top of `sft_full`.
+  All five `train_dpo.py` EXERCISE blocks (`dpo-format`, `dpo-logprobs`,
+  `dpo-loss`, `ipo-loss`, `train-loop`) implemented. `derive_val_split.py`
+  produced stratified-by-`fault_type` val splits (seed 1337);
+  `04_sft/chat.py` extended with `--adapter` to layer Stage-05 LoRA on the
+  Stage-04 base. Two runs done: `dpo_curated` (val pair_acc 1.00, SFT
+  drift +0.31), `ipo_curated` (val pair_acc ≈1.00, SFT drift +0.013).
+  **Headline finding:** both cells fully satisfy the preference objective
+  but T=0 argmax probes are largely unchanged from the SFT baseline — the
+  gap between "prefer chosen over rejected" and "emit chosen at argmax"
+  is the central result. Details in `05_dpo/docs/RESULTS.md`. Bulk cells
+  (`dpo_bulk`, `ipo_bulk`) scaffolded, not yet run. Hand-rolled DPO/IPO
+  losses; `trl.DPOTrainer` not used.

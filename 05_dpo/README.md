@@ -14,10 +14,14 @@ policy's likelihood of `chosen` above `rejected` relative to a frozen
 reference (the SFT checkpoint). No reward model, no rollouts — just
 log-likelihood arithmetic.
 
-> Status: **planned / scaffolded.** Code, configs, and the training loop
-> EXERCISE land here as the stage is implemented; this README is the
-> design doc. **Data generation is done by an Arknights-knowledge agent**
-> — see `data_gen/AGENT_BRIEF.md` §5 for the full pair spec.
+> Status: **`dpo_curated` and `ipo_curated` complete.** Bulk cells
+> (`dpo_bulk`, `ipo_bulk`) scaffolded, not yet run. The headline result
+> from the curated cells: both achieved val pair_acc ≈ 1.0, but argmax-
+> decoded probes are largely unchanged from the Stage-04 SFT baseline —
+> see [`docs/RESULTS.md`](docs/RESULTS.md) for the trajectory tables,
+> the three-way probe comparison, and the interpretation. **Data
+> generation is done by an Arknights-knowledge agent** — see
+> `data_gen/AGENT_BRIEF.md` §5 for the full pair spec.
 
 ## 1. The data — produced by the agent
 
