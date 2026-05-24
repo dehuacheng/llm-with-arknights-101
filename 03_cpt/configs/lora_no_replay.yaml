@@ -30,8 +30,8 @@ replay:
 # adapters), so the micro-batch doubles. Adapter weights are randomly
 # initialised, so the LR is larger than the full-FT case. More steps too —
 # LoRA is more resistant to overfitting on this corpus.
-batch_size: 8
-grad_accum: 4
+batch_size: 4
+grad_accum: 8
 learning_rate: 2.0e-4
 weight_decay: 0.0        # weight decay does little for low-rank adapters
 warmup_steps: 200

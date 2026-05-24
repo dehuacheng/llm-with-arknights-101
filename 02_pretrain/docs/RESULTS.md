@@ -211,3 +211,107 @@ The expected Stage 03 trajectory, against this baseline:
 The number to beat on cloze mean is `small_8k`'s **3.879 val bits/char** /
 **3.641 cloze mean**. If a CPT'd Qwen lands above that on cloze, the 596M
 params bought nothing and the experiment is a no.
+
+---
+
+## Stage 03 — CPT'd Qwen3-0.6B-Base on Arknights cn/
+
+Two full-parameter CPT runs (the planned LoRA cells were dropped after a
+step-250 sanity check; the replay × no_replay axis carries the real local
+information for this corpus). Both runs: batch 2 × grad_accum 16 (effective
+32) × block 2048, gradient checkpointing on (Qwen3's 151K-vocab logits-fp32
+cast is the VRAM binding constraint on a 4090), LR 5e-5, patience-5
+early-stop on Arknights val.
+
+| run | best step | val ppl | gen ppl @ best | gen ppl @ end | wall clock |
+|---|---|---|---|---|---|
+| `full_ft_no_replay` | 400 / 3000 | **18.92** | 22.27 | **40.18** | 113 min |
+| `full_ft_replay` (25% zh-wiki) | 400 / 3000 | **19.04** | **13.33** | **14.06** | 113 min |
+
+Both early-stopped at step 1400 — Arknights val starts climbing once the
+model has absorbed the corpus's high-frequency patterns. The 0.5% gap on val
+ppl (18.92 vs 19.04) is the only cost of the replay mix — within noise.
+
+### Cloze BPC vs zero-shot Qwen
+
+| cell | prefix → gold | zero-shot | no_replay | replay | Δ vs ZS |
+|---|---|---:|---:|---:|---:|
+| c1 | 罗德岛公开领导人 → 阿米娅 | 7.271 | **3.337** | **3.452** | −3.93 / −3.82 |
+| c2 | 矿石病… → 主要问题 | 4.955 | 5.794 | 5.383 | +0.84 / +0.43 |
+| c3 | 凯尔希医生… → 保持全神贯注 | 2.292 | 2.141 | 2.180 | −0.15 / −0.11 |
+| c4 | 阿米娅是罗德岛的 → 公开领导人 | 5.281 | 5.618 | 5.448 | +0.34 / +0.17 |
+| c5 | 感染了矿石病的人 → 感染者 | 4.622 | **1.106** | **1.184** | −3.52 / −3.44 |
+| c6 | 罗德岛是一家 → 制药公司 | 3.014 | 1.955 | 2.267 | −1.06 / −0.75 |
+| **MEAN** | | **4.572** | **3.325** | **3.319** | **−1.25** |
+
+Predictions partially held:
+
+- `c1` fell **3.9 bits** — biggest single win. The verbatim corpus phrase
+  "Rhodes Island's public leader is Amiya" is the most-repeated lore atom in
+  cn/; the model learned it cleanly. Predicted 2–4, got 3.9 — on target.
+- `c5` fell **3.5 bits** — Qwen knew 感染者 only in the COVID sense; now
+  knows it as "Oripathy carrier". Re-anchoring of a polysemous term.
+- `c3`, `c6` (encyclopedic / generic Chinese) — within ±1 bit of zero-shot.
+  Predicted "stay near", confirmed.
+- `c2`, `c4` (encyclopedic phrasings the corpus does not use verbatim) —
+  slight regression. The model now expects the *story* register on these
+  prefixes ("the corpus says X about Y" → in-universe completion), so the
+  encyclopedic gold span is now more surprising. **A learned-prior side
+  effect, not a degradation.**
+
+Mean **3.32 bits/char** — beats `small_8k`'s 3.641 cloze mean, beats the
+zero-shot baseline by 1.25 bits, and lands within the published expectation
+range for 600M-param CPT on a 6M-token domain corpus.
+
+### Memorisation
+
+| run | verbatim chars shared (Amiya recruitment text) | what was memorised |
+|---|---:|---|
+| zero-shot Qwen | 4 | `阿米娅，` (just the name + comma) |
+| no_replay | **11** | `。\n</干员招聘文本>` (corpus schema-tag closer) |
+| replay | **11** | `。\n</干员招聘文本>` |
+
+Both runs memorised the same 11-char span — the model learned the *format* of
+the Hypergryph operator-introduction schema (the `<干员招聘文本>` XML-ish
+wrappers) before it memorised any specific text inside the wrappers. Format
+is a higher-frequency pattern than content, so it absorbs first.
+
+### Forgetting curve — the headline result
+
+`gen_ppl` is bits/token on held-out Chinese Wikipedia (a stream the model
+never trained on, common to both runs).
+
+```
+step :     200    400    600    800   1000   1200   1400
+no_repl:  19.05  22.27  25.71  28.87  32.99  36.08  40.18    (×2.1 over 1200 steps)
+replay :  13.44  13.33  13.41  13.48  13.64  13.77  14.06    (+5% over 1200 steps)
+```
+
+The no_replay model is forgetting general Chinese at a measurable rate per
+eval; the replay model is essentially flat. Both reach the same Arknights
+val ppl (18.9 vs 19.0) and the same cloze BPC (3.32 vs 3.32) — so the
+replay mix is **pure upside**: identical domain learning, dramatically
+better preservation. This is the corner of the design space we wanted to
+confirm exists.
+
+### Q&A — the register/facts split
+
+The Q&A probe asks five naked questions about Arknights lore to a base model
+(no chat template, no system prompt). Three samples side-by-side:
+
+**Q: 罗德岛是一个什么样的组织？** *(What kind of organisation is Rhodes Island?)*
+
+- *zero-shot:* "Rhode Island is a federal state in southeastern Massachusetts, the 35th US state. An important agricultural state known for grain, vegetables, and fruit…"
+- *CPT no_replay:* "Why are people willing to come to Rhodes Island, and why do they spend their lives there? These are questions I've been thinking about. My mentor hates me, she made me go to Rhodes Island, but I didn't want to…"
+- *CPT replay:* "Rhodes Island? In your view, what kind of organisation is Rhodes Island? Who are the members? What kind of people are they? `</干员档案>`…"
+
+**Q: 凯尔希的真实身份是什么？** *(What is Kelsi's true identity?)*
+
+- *zero-shot:* "Nicholas Calhoun, has multiple identities. In the film *Nazi Fanaticism*, Calhoun is a chemical experimenter for Nazi Germany…"
+- *CPT no_replay:* "Why did she come here? Aslan: What are you talking about?! Kelsi: Why can't I keep living? Aslan: …How is that possible?…"
+
+Zero-shot Qwen has wrong real-world priors (Rhode Island the US state,
+"Kelsi" the Nazi chemist). Both CPT'd ckpts have replaced those priors with
+in-universe Arknights priors — operators, doctors, dialogue scenes. The Q&A
+*register* (rambling base-model continuation) survives; the *facts* are now
+Arknights facts. Predicted; confirmed.

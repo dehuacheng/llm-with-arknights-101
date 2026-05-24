@@ -262,6 +262,27 @@ def main():
     tokenizer = AutoTokenizer.from_pretrained(str(base_path))
     if lora_cfg.get("enabled"):
         model = inject_lora(model, lora_cfg)
+
+    # Gradient checkpointing — Qwen3's 151K vocab makes the loss-fp32-cast
+    # the binding constraint on a 24 GB 4090 (logits B*T*V*2B in bf16, doubled
+    # transiently to fp32 inside ForCausalLMLoss). Checkpointing recomputes
+    # activations during backward so per-layer activation memory drops ~3×;
+    # combined with halved micro-batches this brings peak VRAM under 24 GB
+    # for both LoRA and full-FT. ~30% slower per step. use_cache is mutually
+    # exclusive with checkpointing — HF would warn and silently turn caching
+    # off anyway, so we do it explicitly.
+    if cfg.get("gradient_checkpointing", True):
+        model.config.use_cache = False
+        model.gradient_checkpointing_enable(
+            gradient_checkpointing_kwargs={"use_reentrant": False})
+        # PEFT-specific: when the base is frozen, the inputs to the first
+        # checkpointed block have no .grad_fn, so the recomputed forward in
+        # backward() can't propagate gradients back to the LoRA adapters.
+        # enable_input_require_grads() makes the embedding outputs require
+        # grad even though the embeddings themselves are frozen — fixing the
+        # gradient graph for the LoRA case. Cheap no-op for full-FT.
+        if hasattr(model, "enable_input_require_grads"):
+            model.enable_input_require_grads()
     model.train()
 
     # --- optimiser

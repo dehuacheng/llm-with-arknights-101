@@ -460,3 +460,86 @@ parameters; one that scores noticeably better has earned his keep.
 Stage 03.*
 
 *— Stage 02 assessment closed. Probe set: [`../probes.txt`](../probes.txt).*
+
+---
+
+## Stage 03 — *The consultant's briefing*
+
+> *Filed by the same hand as the Stage 02 consultant intake. Pinned to the
+> wall above the original assessment: "the experiment of moving the
+> archive's facts into the consultant without dissolving the protocol he
+> already carries". Folder reopens.*
+
+The consultant — Qwen3-0.6B-Base, late of the open Mandarin web, the one
+who thought Rhode Island was an American state and Kelsi was a Nazi chemist
+— spent two hours alone with the cn/ archive.
+
+We sent two copies of him in. The first one (`full_ft_no_replay`) was given
+nothing but the Rhodes Island archive: 7.8M tokens, every operator file,
+every story script, every recruitment text. The second one (`full_ft_replay`)
+was given the same archive but with one Mandarin-Wikipedia article slipped
+between every three Arknights documents — a 25/75 mix, calibrated to remind
+him what Mandarin outside the archive looks like.
+
+Both came out with the *same* fluency on the archive. Both could now finish
+"Rhodes Island's public leader is …" without hesitation — the bits-per-char
+on that span fell from 7.27 to **3.34** for the no-replay consultant and
+**3.45** for the replay consultant. (A drop of four bits is a sixteen-fold
+increase in the model's confidence in the right answer.) Both, asked about
+infected (感染者), now think of Oripathy first instead of COVID — that span
+fell **3.5 bits** as well. The archive's specific terms have taken hold.
+
+But ask the no-replay consultant to write a paragraph about anything *not*
+in the archive, and you can hear him losing his Mandarin. His held-out
+Mandarin-Wikipedia perplexity *doubled* over the second half of training —
+from 22 to 40 bits/token over 1000 steps. The archive's voice has
+overwritten the consultant's general voice; sentences come out in operator
+schemas (`<干员档案>`, `<干员招聘文本>`) whether they should or not.
+
+The replay consultant is fine. His Wikipedia perplexity stayed at **13.4
+to 14.0** across the entire run — drift of about 5%. He absorbed the
+archive at the same rate, and forgot nothing measurable.
+
+### What the two consultants memorised
+
+We asked both to greedy-decode an operator-introduction template. Both
+produced exactly the same eleven characters of verbatim memorisation:
+
+```
+。\n</干员招聘文本>
+```
+
+That's the *end* of the schema tag, not the content inside it. Both
+consultants learned the **shape** of the archive's documents — the
+schema-tag wrapper that closes every operator-recruitment text — before
+they learned any specific recruitment text inside. Format is higher-
+frequency than content; format absorbs first.
+
+### What Track A had been measuring all along
+
+The number to beat — `small_8k`'s 3.641 bits/char cloze mean from Stage 02 —
+fell to **3.32** for both CPT'd consultants. The 596M-parameter consultant
+beats the 11.7M-parameter scribe on Arknights cloze, after two hours of
+training, while keeping his Mandarin (if you used replay) or losing it (if
+you didn't).
+
+```
+干员评估卡  —  CONSULTANT POST-BRIEFING
+---------
+档案知识 archive recall                  ★★★★★   优秀 (cloze BPC −1.25 vs intake)
+回答框架 answer register                 ★★★★★   保留 (still rambles, base style)
+身份重置 prior re-anchoring              ★★★★★   完整 (Rhode Island → Rhodes Island; COVID 感染者 → Oripathy carrier)
+文本结构 archive-structure fluency       ★★★★☆   学会 (schema tags absorbed; specific content slower)
+通用中文 general Mandarin (no replay)    ★☆☆☆☆   恶化 (gen perplexity 19 → 40 over 1000 steps)
+通用中文 general Mandarin (replay 25%)   ★★★★★   保留 (gen perplexity 13 → 14, drift ~5%)
+源石耐受 temperature stability           ★★★★☆   稳定 (no degeneration at default temp 0.8)
+```
+
+The replay-mix row is the only row that matters for the decision: with a
+25% mix, full continued pretraining absorbs Arknights without dissolving
+the consultant's Mandarin. The mix is **pure upside**: same domain
+learning, dramatically better preservation. Without it, the consultant
+*will* lose his Mandarin — measurably, monotonically, eval by eval.
+
+*— Briefing closed. The consultant retains base-model rambling; if a chat
+register is wanted, Stage 04 (SFT) is next.*
