@@ -1,6 +1,9 @@
-# Generated lore corpus — never committed (Hypergryph game IP + large).
-# Rebuild deterministically: python3 tools/build_raw_data.py
-/data/
+# Hypergryph game-derived raw corpus — never committed (game IP).
+# Materialized by the data-prep step from upstream ArknightsGameData/KB.
+/data/cn/
+
+# LLM-generated training artifacts (SFT/DPO/RL chunks + merged files) are
+# derived works and ARE committed — see data/sft/, data/dpo/, data/rl/.
 
 # Python
 __pycache__/
