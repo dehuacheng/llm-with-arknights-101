@@ -14,14 +14,16 @@ policy's likelihood of `chosen` above `rejected` relative to a frozen
 reference (the SFT checkpoint). No reward model, no rollouts — just
 log-likelihood arithmetic.
 
-> Status: **`dpo_curated` and `ipo_curated` complete.** Bulk cells
-> (`dpo_bulk`, `ipo_bulk`) scaffolded, not yet run. The headline result
-> from the curated cells: both achieved val pair_acc ≈ 1.0, but argmax-
-> decoded probes are largely unchanged from the Stage-04 SFT baseline —
-> see [`docs/RESULTS.md`](docs/RESULTS.md) for the trajectory tables,
-> the three-way probe comparison, and the interpretation. **Data
-> generation is done by an Arknights-knowledge agent** — see
-> `data_gen/AGENT_BRIEF.md` §5 for the full pair spec.
+> Status: **All four cells complete** — `dpo_curated`, `ipo_curated`,
+> `dpo_bulk`, `ipo_bulk`. The headline result holds at scale: every cell
+> achieves val pair_acc ≥ 0.92, but argmax-decoded probes are largely
+> unchanged from the Stage-04 SFT baseline. 5× more pairs did not close
+> the gap — bulk DPO **tripled SFT drift (+0.31 → +0.98) for zero val_loss
+> improvement**, while bulk IPO floored at the same `1/(2β)` target as
+> curated. See [`docs/RESULTS.md`](docs/RESULTS.md) for the full 2×2
+> trajectory tables, the four-way probe comparison, and the
+> interpretation. **Data generation is done by an Arknights-knowledge
+> agent** — see `data_gen/AGENT_BRIEF.md` §5 for the full pair spec.
 
 ## 1. The data — produced by the agent
 

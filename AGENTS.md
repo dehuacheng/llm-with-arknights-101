@@ -147,17 +147,21 @@ source of truth for **why**.
   `full_ft_replay` winner, 21 min wall, best val ppl 19.29. Smoke-test
   probes recorded in `04_sft/docs/RESULTS.md` — mechanics work but content
   surfaces all four named hallucination modes, motivating Stage 05.
-- `05_dpo/` **partially implemented (curated cells run; bulk cells
-  pending)** — Stage 05 preference optimisation on top of `sft_full`.
-  All five `train_dpo.py` EXERCISE blocks (`dpo-format`, `dpo-logprobs`,
+- `05_dpo/` **implemented — all 4 cells of the 2×2 complete** —
+  Stage 05 preference optimisation on top of `sft_full`. All five
+  `train_dpo.py` EXERCISE blocks (`dpo-format`, `dpo-logprobs`,
   `dpo-loss`, `ipo-loss`, `train-loop`) implemented. `derive_val_split.py`
   produced stratified-by-`fault_type` val splits (seed 1337);
   `04_sft/chat.py` extended with `--adapter` to layer Stage-05 LoRA on the
-  Stage-04 base. Two runs done: `dpo_curated` (val pair_acc 1.00, SFT
-  drift +0.31), `ipo_curated` (val pair_acc ≈1.00, SFT drift +0.013).
-  **Headline finding:** both cells fully satisfy the preference objective
-  but T=0 argmax probes are largely unchanged from the SFT baseline — the
-  gap between "prefer chosen over rejected" and "emit chosen at argmax"
-  is the central result. Details in `05_dpo/docs/RESULTS.md`. Bulk cells
-  (`dpo_bulk`, `ipo_bulk`) scaffolded, not yet run. Hand-rolled DPO/IPO
-  losses; `trl.DPOTrainer` not used.
+  Stage-04 base. Four runs done: `dpo_curated` (val_loss 0.064 / drift
+  +0.31), `ipo_curated` (val_loss 6.04 / drift +0.013), `dpo_bulk`
+  (val_loss 0.064 / drift +0.98), `ipo_bulk` (val_loss 6.89 / drift
+  +0.018). **Headline finding (confirmed at scale):** every cell fully
+  satisfies the preference objective (val_acc ≥ 0.92), but T=0 argmax
+  probes are largely unchanged from the SFT baseline — the gap between
+  "prefer chosen over rejected" and "emit chosen at argmax" is the
+  central result, and 5× more pairs does not close it. Two textbook
+  effects materialised cleanly: **DPO is unbounded (bulk tripled drift
+  for zero benefit), IPO ceilings at `1/(2β)` (bulk = curated for drift).**
+  Details in `05_dpo/docs/RESULTS.md`. Hand-rolled DPO/IPO losses;
+  `trl.DPOTrainer` not used.

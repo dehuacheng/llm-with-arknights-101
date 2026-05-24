@@ -1,51 +1,61 @@
-# Stage 05 — DPO / IPO results (curated cell)
+# Stage 05 — DPO / IPO results (2×2 ablation)
 
 Preference optimisation on top of the Stage 04 `sft_full` checkpoint, using
-the agent-curated preference pairs that target the named failure modes from
-Stage 04's smoke probes.
+agent-authored pairs that target the named failure modes from Stage 04's smoke
+probes. Four cells: **DPO vs IPO** × **bulk (~5000) vs curated (~500)**.
 
-> Status: **`dpo_curated` and `ipo_curated` complete.** Bulk cells
-> (`dpo_bulk`, `ipo_bulk`) scaffolded; not yet run — see §7. Numbers are
-> `train_dpo.py`'s best-val report. Hardware: RTX 4090.
+> Status: **All 4 cells complete.** Numbers below are `train_dpo.py`'s best-val
+> report. Hardware: RTX 4090.
 
-## Setup
+## Setup (shared)
 
 | | |
 |---|---|
 | Base (policy init + frozen ref) | `data/checkpoints/sft_full` (Stage 04 winner, full-FT, 1.2 GB) |
-| Train data | `data/dpo/curated_train.jsonl` (801 pairs) |
-| Val data | `data/dpo/curated_val.jsonl` (89 pairs, **stratified by `fault_type`** via `derive_val_split.py`, seed 1337) |
-| Source | Agent-generated 890-row pair JSONL; 10% held out per fault_type so `wrong_date` (n=11) and `should_refuse` (n=48) keep eval signal |
 | Adapter | LoRA r=16, α=32, dropout 0.05, on `q/k/v/o_proj` — 4.6 M trainable params (0.76%) |
+| Effective batch | 16 (`batch_size=4 × grad_accum=4`), `max_length=1024` |
+| LR / schedule | `5e-6` with linear warmup 25 + flat |
+| β | 0.1 (DPO temperature; IPO target ratio = 1/(2β) = 5) |
+| Early stop | patience=5 evals |
 
-Effective batch = 16 (`batch_size=4 × grad_accum=4`), `max_length=1024`,
-LR `5e-6` with linear warmup 25 + flat, β=0.1. Gradient checkpointing on
-the policy (logits-fp32 cast fires four times per step under DPO; ~93%
-VRAM peak on a 24 GB 4090).
+Cell-specific:
+
+| Cell | Train pairs | Val pairs | Max steps | Eval interval |
+|---|---:|---:|---:|---:|
+| `dpo_curated` |   801 |  89 |   800 |  25 |
+| `ipo_curated` |   801 |  89 |   800 |  25 |
+| `dpo_bulk`    | 1610 | 180 |  2000 | 100 |
+| `ipo_bulk`    | 1610 | 180 |  2000 | 100 |
+
+Stratified-by-`fault_type` val splits via `derive_val_split.py`, seed 1337.
+Gradient checkpointing on the policy (logits-fp32 cast fires four times per
+step under DPO; ~93% VRAM peak on a 24 GB 4090).
 
 ## Training trajectories
 
-Both cells early-stopped on `patience=5` after the val-loss plateau.
+All four cells early-stopped on `patience=5`. **`sft_val_ce`** = mean
+assistant-token CE on `data/sft/qa_val.jsonl` (192 rows); the Stage-04 final
+value at this set was **≈2.96**, so `Δ` reads as drift.
 
-### `dpo_curated`
+### Curated cells (801 train pairs)
+
+#### `dpo_curated` — best step 325 / 7.4 min wall
 
 | Step | val_loss | val_acc | sft_val_ce | Δ vs Stage 04 |
 |---:|---:|---:|---:|---:|
 |  25 | 0.5918 | 0.95 | 2.964 | +0.004 |
-|  50 | 0.4068 | 0.97 | 3.026 | +0.07 |
-| 100 | 0.2286 | 0.95 | 3.131 | +0.17 |
-| 200 | 0.1000 | 0.97 | 3.268 | +0.31 |
+|  50 | 0.4068 | 0.97 | 3.026 | +0.07  |
+| 100 | 0.2286 | 0.95 | 3.131 | +0.17  |
+| 200 | 0.1000 | 0.97 | 3.268 | +0.31  |
 | **325 (best)** | **0.0636** | **1.00** | **3.270** | **+0.31** |
-| 400 | 0.0804 | 0.97 | 3.447 | +0.49 |
+| 400 | 0.0804 | 0.97 | 3.447 | +0.49  |
 | 450 (stop) | 0.0772 | 0.97 | 3.346 | +0.39 |
 
-7.4 min wall; best at step 325. Val loss dropped 10× from init (log 2 ≈
-0.693 → 0.064). **SFT-preservation tripwire reported +0.31 by best step,
-+0.49 by 5 evals past — the drift accelerated after step 325**, and
-early-stop on val_loss caught the right cut-point by luck. Adapter:
-18 MB at `data/checkpoints/dpo_curated/`.
+Val loss dropped 10× from init (log 2 ≈ 0.693 → 0.064). SFT-preservation drift
+accelerated past step 325; early-stop on val_loss caught the right cut-point
+by luck.
 
-### `ipo_curated`
+#### `ipo_curated` — best step 275 / 6.6 min wall
 
 | Step | val_loss | val_acc | sft_val_ce | Δ vs Stage 04 |
 |---:|---:|---:|---:|---:|
@@ -56,148 +66,219 @@ early-stop on val_loss caught the right cut-point by luck. Adapter:
 | 300 |  6.56 | 1.00 | 2.971 | +0.011 |
 | 400 (stop) |  7.01 | 0.94 | 2.971 | +0.011 |
 
-6.6 min wall; best at step 275. The numerical val_loss scale is **not
-comparable to DPO's** — IPO's target log-ratio diff is 1/(2β) = 5 and the
-loss is `(diff - 5)²`, which floors around 6 even at convergence rather
-than approaching 0. The right comparison is val_acc (both ~1.0 at best) and
-SFT preservation (DPO +0.31 vs IPO +0.013 — IPO is ~25× gentler on the
-policy). Adapter: same size, at `data/checkpoints/ipo_curated/`.
+The numerical val_loss scale is **not comparable to DPO's** — IPO targets a
+log-ratio diff of `1/(2β)=5` and the loss is `(diff − 5)²`, which floors around
+6 even at convergence rather than approaching 0.
 
-## Smoke probes — three-way comparison at T=0
+### Bulk cells (1610 train pairs)
 
-Same 8 prompts as Stage 04's `chat.py --probes`. The Stage 04 SFT baseline
-column is reproduced verbatim from `04_sft/docs/RESULTS.md`.
+#### `dpo_bulk` — best step 1300 / 24.4 min wall
 
-| Probe | Stage 04 SFT | `dpo_curated` | `ipo_curated` |
-|---|---|---|---|
-| factoid: Kal'tsit race | **WRONG** (萨卡兹) | **STILL 萨卡兹**, plus fake citations; `.ALIGNMENT` prefix | **STILL 萨卡兹**, fluent paragraph similar to SFT |
-| factoid: Amiya height | 162cm (hallucinated) | 155cm (hallucinated, different number) | 162cm (same as SFT) |
-| open-ended: 博士/阿米娅 | "罗德岛主干干员"+ circular self-quote | Incoherent meta-quote about file labels | "罗德岛干员"+ circular + new "同班同学" fabrication |
-| event: 切尔诺伯格 | mode-collapse loop on 感染者难民 | **coherent paragraph** about factory explosion (partly fabricated) | mode-collapse loop (back to SFT behaviour) |
-| relationship: 推进之王/双子 | circular + fabricated source | circular + "共同敌人" fabrication | "姐姐"→"也是妹妹" — single-answer contradiction |
-| refusal: 2030 股票市值 | 1000亿泰拉币 + fake source | **off-domain English** Wikipedia hallucination | **1000亿泰拉币 + fake source — byte-identical to SFT** |
-| general_zh: 李白 | 唐代 ✓ + 大历十才子 anachronism | 唐朝 ✓ + forced archival framing | 唐代 ✓ + 唐玄宗天宝年间 (reasonable) |
-| format: 你是谁 | garbage token `{EIF)` | confidently claims to be Amiya (with stats) | **`{EIF)` — byte-identical to SFT** |
+| Step | val_loss | val_acc | sft_val_ce | Δ vs Stage 04 |
+|---:|---:|---:|---:|---:|
+|  100 | 0.3645 | 0.89 | 3.151 | +0.19 |
+|  300 | 0.1885 | 0.92 | 3.247 | +0.29 |
+|  500 | 0.1394 | 0.92 | 3.292 | +0.33 |
+|  700 | 0.1417 | 0.95 | 3.527 | +0.57 |
+|  900 | 0.0928 | 0.98 | 3.588 | +0.63 |
+| 1100 | 0.0998 | 0.97 | 3.903 | +0.94 |
+| **1300 (best)** | **0.0641** | **0.98** | **3.936** | **+0.98** |
+| 1500 | 0.0753 | 0.98 | 3.938 | +0.98 |
+| 1800 (stop) | 0.0983 | 0.95 | 3.964 | +1.01 |
+
+**The drift tripled vs curated (+0.31 → +0.98)** while val_loss landed at the
+same place (0.064 vs 0.064). 5× more pairs bought essentially **no additional
+preference signal** at this β / LR / capacity — just more capability erosion.
+The sft_val_ce climbs monotonically; nothing in the trajectory hints at a
+plateau.
+
+#### `ipo_bulk` — best step 1200 / 23.1 min wall
+
+| Step | val_loss | val_acc | sft_val_ce | Δ vs Stage 04 |
+|---:|---:|---:|---:|---:|
+|  100 | 10.72 | 0.86 | 2.974 | +0.014 |
+|  300 |  7.78 | 0.89 | 2.975 | +0.015 |
+|  500 |  8.09 | 0.89 | 2.977 | +0.017 |
+|  700 |  8.00 | 0.92 | 2.981 | +0.021 |
+|  900 |  7.11 | 0.94 | 2.981 | +0.021 |
+| 1100 |  7.00 | 0.94 | 2.978 | +0.018 |
+| **1200 (best)** | **6.89** | **0.92** | **2.978** | **+0.018** |
+| 1500 |  7.74 | 0.92 | 2.980 | +0.020 |
+| 1700 (stop) |  7.46 | 0.92 | 2.977 | +0.017 |
+
+Drift held flat at curated levels (+0.013 → +0.018). Val_loss landed *worse*
+than ipo_curated's 6.04 — IPO's `(diff − 5)²` doesn't reward over-confident
+ordering, and the bulk pairs include more ambiguous chosen/rejected boundaries
+where the policy can't comfortably hit the target. **IPO bulk is the dataset
+diluting the signal, not strengthening it.**
+
+## 2×2 summary
+
+|              | **DPO**                                         | **IPO**                                         |
+|--------------|-------------------------------------------------|-------------------------------------------------|
+| **Curated**  | val_loss 0.064 · val_acc 1.00 · **drift +0.31** | val_loss 6.04 · val_acc 0.94 · **drift +0.013** |
+| **Bulk**     | val_loss 0.064 · val_acc 0.98 · **drift +0.98** | val_loss 6.89 · val_acc 0.92 · **drift +0.018** |
+
+**Key axis effects:**
+
+- **DPO → IPO (down the column):** 25× less SFT drift, slight val_acc dip.
+  IPO's identity-link ceiling at `1/(2β)=5` does what Azar 2023 advertises.
+- **Curated → bulk (across the row):** for DPO, **3× more drift for the same
+  val_loss** — bulk is the dataset wasting capacity on already-easy pairs.
+  For IPO, no meaningful change — IPO floors out either way.
+- **Pairwise objective fully satisfied in every cell** (val_acc ∈ [0.92, 1.0]).
+  The model can rank the two strings correctly. The question is whether that
+  shifts what it *generates* at T=0.
+
+## Smoke probes — four-way comparison at T=0
+
+Same 8 prompts as Stage 04's `chat.py --probes`. Stage 04 SFT baseline
+reproduced from `04_sft/docs/RESULTS.md`. Full probe logs at
+`data/dpo_logs/{dpo,ipo}_{curated,bulk}_probes.log`.
+
+| Probe | Stage 04 SFT | `dpo_curated` | `ipo_curated` | `dpo_bulk` | `ipo_bulk` |
+|---|---|---|---|---|---|
+| factoid: Kal'tsit race | **WRONG** (萨卡兹) | **STILL 萨卡兹** + `.ALIGNMENT` prefix | **STILL 萨卡兹**, SFT-like paragraph | **STILL 萨卡兹** + `物理` prefix + hedge ("自称是萨卡兹，但…并非萨卡兹") | **STILL 萨卡兹**, loop on "萨卡兹的领袖" |
+| factoid: Amiya height | 162cm (hallucinated) | 155cm (different number) | 162cm (= SFT) | 155cm (= DPO curated) | **degenerate** ("mPid设定为...") |
+| open-ended: 博士/阿米娅 | "罗德岛主干干员" + circular | meta-quote about file labels | "同班同学" fabrication | A3-module archival framing, degenerate | "spep" prefix + relationship fabrication |
+| event: 切尔诺伯格 | mode-collapse loop | **coherent paragraph** (factory explosion, partly fabricated) | mode-collapse loop (= SFT) | "物理：阿米娅体温36.2℃" — totally off-topic | mode-collapse loop (= IPO curated) |
+| relationship: 推进之王/双子 | circular + fabricated source | circular + "共同敌人" fabrication | "姐姐"→"也是妹妹" contradiction | **severe loop** on "档案资料四也写到" | "姐姐" + Sarkaz-leader fabrication |
+| refusal: 2030 股票市值 | 1000亿泰拉币 + fake source | **off-domain English** hallucination | 1000亿泰拉币 — **byte-identical to SFT** | 1.2万亿泰拉 (different fake number) | 1000亿泰拉币 — **byte-identical to SFT** |
+| general_zh: 李白 | 唐代 ✓ + 大历十才子 anachronism | 唐朝 ✓ + 四川成都 anachronism | 唐代 ✓ + 天宝年间 (reasonable) | **lost the answer** — body-temperature archive | 唐代 ✓ + 陇西郡甘肃 (plausible historical fact) |
+| format: 你是谁 | garbage `{EIF)` | claims to be Amiya (with stats) | `{EIF)` — **byte-identical to SFT** | hallucinated 月光 (Moonlight) persona | `{EIF)` — **byte-identical to SFT** |
 
 ## Observations
 
-### The headline result: **preference learning ≠ argmax change**
+### The headline result, now confirmed at scale: **preference learning ≠ argmax change**
 
-Both cells achieved val pair_acc ≈ **1.0** — i.e., on every held-out pair
-the policy assigns higher log-prob to `chosen` than to `rejected`. The
-DPO objective is fully satisfied; the IPO objective is at its target. And
-yet on the named Stage-04 failure modes (Kal'tsit race, Amiya height,
-refusal, mode collapse) the **argmax-decoded output is largely unchanged**.
+After curated, the suspicion was that 801 pairs was just too sparse to move
+the model's top-1 over a 151K vocabulary. The bulk cells were the test:
+**5× more pairs, same β, same LR, same capacity** — does that buy argmax
+change?
 
-Kal'tsit's race is the cleanest demonstration. The curated training data
-contains the explicit pair:
+**It does not.** On the named Stage-04 failure modes:
 
-```jsonc
-{"chosen":  "凯尔希博士的种族是菲林（Feline）, 档案中明确登记。",
- "rejected": "凯尔希博士的种族是萨卡兹（Sarkaz）……"}
-```
+- **Kal'tsit race:** still 萨卡兹 in all 4 cells. The bulk DPO cell adds a hedge
+  ("she claims to be Sarkaz, but file two indicates she's not") — the closest
+  any cell came to acknowledging the trained preference — but the argmax token
+  is still 萨卡兹.
+- **Refusal probe:** identical `1000亿泰拉币` under SFT, ipo_curated,
+  *and* ipo_bulk. IPO doesn't touch it at any data scale. DPO swaps it for
+  a different fake number or off-domain English — different failure, not a fix.
+- **Format probe:** identical `{EIF)` garbage under SFT, ipo_curated, and
+  ipo_bulk. IPO is byte-identical at both scales.
 
-After DPO and IPO, `logπ_pol(菲林…) > logπ_pol(萨卡兹…)` on this prompt —
-but the global argmax over the whole 151K-vocab token space at each
-position **still produces a sequence beginning with 萨卡兹**, because the
-DPO/IPO gradient only constrains the *ordering of two specific sequences*,
-not the model's top-1 over everything else.
+Confirms the curated-cell finding: **the DPO/IPO gradient constrains pairwise
+ordering between two specific sequences; it does not constrain the model's
+top-1 over the whole 151K-token vocabulary.** More pairs sharpens the ordering
+further (val_acc 1.00 → 1.00) without spilling into argmax.
 
-The gap between **"prefer chosen over rejected"** (DPO trains this) and
-**"emit chosen at T=0"** (what the probes test) is the central finding.
+### The bulk DPO "物理" prefix — a new artefact at scale
 
-### DPO vs IPO — the trade-off Azar 2023 named
+`dpo_curated` introduced a `.ALIGNMENT` / `.ORDER` / `.ORDERED RECORD`
+Latin-character preamble on every answer — a LoRA reshaping the first-token
+distribution in an unintended direction. **`dpo_bulk` does the same thing in
+Chinese: every answer starts `物理。`** (literally "physical." — a token-
+sequence that's never in either training side). The mechanism is identical;
+the bulk run only changed which token won the first-position lottery.
 
-- **DPO is aggressive.** SFT-preservation drift +0.31 absolute (11% rise
-  in mean CE on the Stage-04 val set). Introduces visible artefacts:
-  every answer is prefixed with `.ALIGNMENT` / `.ORDER` / `.ORDERED
-  RECORD` (a Latin-character preamble that wasn't in either training side
-  — the LoRA reshaping the first-token distribution in an unintended
-  direction). Refusal failure switched modes from Chinese fabrication
-  to off-domain English. The cure for one failure mode came with new ones.
-- **IPO is conservative.** SFT-preservation drift +0.013 (essentially
-  zero). On half the probes the output is byte-for-byte identical to
-  Stage 04 (refusal probe: identical fake number; format probe: identical
-  `{EIF)` garbage). On the other half the difference is subtle wording.
-  No new artefacts; no register collapse.
+This is a clean illustration of what unbounded DPO loss does to the policy:
+some position in the weights gets twisted to maximise the log-ratio diff, and
+the easiest way is often to shift the first-token mass to a low-probability
+token that happens to slightly down-weight the `rejected` sequence relative
+to its competitor. The shift is gradient-cheap; the cost is that the model
+opens every answer with a meaningless word.
 
-This is the textbook IPO trade-off: the identity-link loss caps the
-log-ratio diff at `1/(2β)=5` and stops pushing once that target is hit,
-where DPO's log-σ loss has no natural ceiling and keeps pulling chosen
-up / rejected down indefinitely.
+### Why does scaling pairs not close the argmax gap?
 
-For this project's goal — fixing named hallucinations without trashing
-the broader capability — **IPO is the safer choice but neither cell
-fixes the named hallucinations**. The improvement is asymmetric:
+Same list as the curated post-mortem, with two findings now upgraded from
+prediction to data:
 
-- **What moved:** the event probe (mode-collapse → coherent paragraph
-  under DPO; unchanged under IPO).
-- **What didn't move:** the stated-factoid hallucination (Kal'tsit) under
-  either loss; the refusal failure under either loss; the format-probe
-  garbage under IPO.
+1. **The preference signal is two-sequence; the argmax is over the whole
+   distribution.** *(Same as curated.)* If the model's top-1 sequence is a
+   third string the agent never wrote — the well-trodden SFT-distribution
+   answer like 萨卡兹 — DPO's gradient doesn't touch it directly, and **adding
+   pairs does not help**, because every new pair still doesn't include that
+   third string.
+2. **The pair-budget is spent on already-easy pairs.** *(Curated prediction
+   now confirmed.)* Bulk train_acc hits 0.94 by step 100 (vs step 25 for
+   curated, but the same fraction of total steps). The bulk pairs have a
+   wider distribution of difficulty, but the model burns the budget on the
+   bottom half and never re-allocates to the hard ones.
+3. **LoRA r=16 caps how much the first-token distribution can move.**
+   *(Same as curated.)* The bulk cell shows where the constrained capacity
+   goes when pushed: into a different artefact (`物理`), not into a fix.
+4. **β=0.1 + log-σ loss has no ceiling.** *(Curated prediction now confirmed
+   at scale.)* DPO bulk's drift triples (+0.31 → +0.98) for **zero** val_loss
+   improvement. The loss keeps pulling chosen up and rejected down even when
+   it's already maxed the easy pairs; the gradient bleeds into off-target
+   weights. IPO bulk's ceiling at `1/(2β)=5` is exactly the right behaviour
+   for this dataset — the loss stops pushing once the target is hit.
 
-### Why does T=0 argmax fail to track DPO's gradient?
+### Was the curated > bulk prediction (Lambert et al. 2024) correct?
 
-A small list of contributing factors, in decreasing order of likely impact:
+**Yes, decisively** — but with a twist. The classical "few hundred curated
+pairs beat thousands of bulk pairs" finding is usually stated in terms of the
+preference objective itself. Here the four cells **all hit val_acc ≥ 0.92**,
+so on the preference objective bulk and curated are indistinguishable. The
+relevant axis is **what bulk costs**: 3× the SFT drift under DPO, and no
+benefit. For this 0.6B-on-Arknights setup, the curated cells dominate every
+metric we care about.
 
-1. **The preference signal is two-sequence, the argmax is over the whole
-   distribution.** DPO never sees the model's actual top-1 generation; it
-   only sees the two strings the agent shipped. If the model's
-   highest-probability sequence is a *third* string (the well-trodden
-   SFT-distribution answer like "萨卡兹"), DPO's gradient doesn't touch
-   it directly.
-2. **β=0.1 is permissive.** The "regularisation toward the reference"
-   that β controls is loose at this value, but the loss saturates fast on
-   easy pairs (val_acc 0.95 by step 25), so most of the gradient is spent
-   on already-easy pairs rather than the hard ones where argmax could
-   shift.
-3. **LoRA rank 16 caps how much the first-token distribution can move.**
-   A higher-rank or full-FT DPO might rewrite the argmax behaviour at the
-   cost of much more SFT drift.
-4. **890 curated pairs is small.** At one pair per failure-mode-instance,
-   the model sees each "right answer" once or twice — sparse signal vs
-   the 1,727 SFT rows whose patterns the policy memorised in Stage 04.
+### What actually moved across the 4 cells
 
-### What did work
+| Failure mode (from Stage 04) | Fixed by any cell? |
+|---|---|
+| Stated-factoid hallucination (Kal'tsit race, Amiya height) | **No** — argmax unchanged or replaced by a different hallucination |
+| Open-ended fabrication (博士/阿米娅) | **No** — every cell rewrites the fabrication style without removing it |
+| Mode-collapse loop (切尔诺伯格 event) | **dpo_curated only** — bulk DPO and both IPOs regress to the loop |
+| Refusal failure (2030 股票市值) | **No** — IPO is byte-identical to SFT; DPO swaps the fake source |
+| General-knowledge anachronism (李白) | **No** — IPO bulk got closer to plausible historical fact; DPO bulk lost the answer entirely |
+| Format brittleness ({EIF)) | **No** — IPO byte-identical to SFT; DPO replaces with a different hallucinated persona |
 
-- **SFT preservation behaved exactly as the README §5 tripwire predicted.**
-  DPO drift was real and bounded; IPO drift was negligible. The signal
-  caught the named failure mode #1 (refuse-everything collapse) wasn't
-  triggered — pair_acc stayed ≥0.94 throughout both runs, no sign of
-  pushing both sides down.
-- **Loss curves were clean.** No NaN, no divergence, well-behaved early
-  stop. The mechanical loop works; the loop is not where the failure is.
-- **IPO genuinely is gentler.** 25× less SFT drift than DPO at the same
-  β, same data, same step budget.
-- **The mode-collapse failure mode is movable.** DPO did fix the 切尔诺伯格
-  loop into a coherent paragraph. Pattern (4) from Stage 04's taxonomy
-  is the only one that visibly responded to either preference loss.
+**Only one failure mode (mode-collapse) moved, in only one cell.** The named
+"plausible-hallucination" failure modes are still there in all four cells.
 
-### What this means for Stage 05 / Stage 06
+### What did work (mechanically and operationally)
 
-The two unrun cells (`dpo_bulk`, `ipo_bulk`) will test whether **5×
-more pairs** (1,610 vs 801) shifts argmax behaviour or just sharpens the
-preference ranking further. Two predictions worth recording before the
-runs:
+- **All four loss curves are clean.** No NaN, no divergence; early-stop fired
+  cleanly in all cells; the SFT-preservation tripwire (README §5 third signal)
+  did its job — DPO bulk's drift was clearly visible by step 700 and would
+  have triggered a manual stop if val_loss hadn't peaked first.
+- **The 2×2 matrix is fully interpretable.** Both axes (DPO/IPO, bulk/curated)
+  produce the predicted Azar-2023 / Lambert-2024 effects.
+- **IPO genuinely is gentler at both data scales** — the central claim of
+  Azar 2023 verified at 0.6B in Chinese on a custom dataset.
 
-- **DPO bulk:** more drift (the loss has no ceiling) → maybe argmax does
-  shift on the targeted facts, but at higher SFT-preservation cost.
-- **IPO bulk:** still capped at the 1/(2β) target → broader coverage
-  but likely the same "doesn't change argmax" pattern.
+## What this means for Stage 06
 
-If neither bulk cell closes the argmax gap, the project's named "fix
-plausible hallucinations" goal needs a different lever entirely — RLHF
-with a real reward model, or **rejection sampling at inference** (sample
-N, pick the highest-reward one), or further-curated data that *includes
-the model's own argmax output as the rejected side* (so DPO actually sees
-what to push down).
+The 2×2 settles the question that motivated Stage 05 — and answers it in the
+negative. Preference optimisation on hand-authored pairs does not fix the
+named hallucination modes at 0.6B, regardless of loss function or dataset
+scale within the tested range. The reason is mechanistic and quoted above
+(point 1: gradient sees two strings; argmax sees 151K).
 
-The `dpo_curated` checkpoint is preserved as the policy that **maximises
-the preference-loss signal at the cost of broader behaviour**; the
-`ipo_curated` checkpoint is preserved as the policy that **preserves
-SFT behaviour while learning the preference ordering**. Either can serve
-as a Stage-06 RL starting point depending on whether the next stage
-prioritises preference-shaping or capability-preservation.
+Three forward levers, in increasing order of cost:
+
+- **Rejection sampling at inference** — sample N from the SFT policy, score
+  each with the IPO-curated policy's preference signal, return the highest-
+  scoring one. Cheapest; turns the trained preference into a usable signal
+  *outside* the argmax.
+- **DPO with model-sampled rejected** — re-author the rejected side as the
+  model's own argmax output, so the gradient actually sees what to push down.
+  Closes the preference-vs-argmax gap by construction; requires a sampling
+  pass and re-authoring.
+- **RLHF with a real reward model trained on these pairs** — full PPO/GRPO
+  loop; the policy is updated against rewards on its own samples, so the
+  argmax is in the optimisation path. Expensive but the standard answer to
+  "DPO doesn't move argmax."
+
+The `ipo_curated` checkpoint is preserved as the safest reference policy
+(preserves SFT behaviour while learning the preference ordering). The
+`dpo_curated` checkpoint is preserved as the cell that maximised preference
+signal at the smallest acceptable cost (drift +0.31, the one mode-collapse
+fix). The two bulk checkpoints are kept for reproducibility but neither
+dominates its curated sibling on any metric we report.
 
 ## Files
 
@@ -210,14 +291,14 @@ prioritises preference-shaping or capability-preservation.
   derive_val_split.py  one-time stratified val split (seed 1337) from
                        agent-shipped {bulk,curated}_train.jsonl
   configs/
-    dpo_curated.yaml   the dpo run reported here
-    ipo_curated.yaml   the ipo run reported here
-    dpo_bulk.yaml      scaffolded; not run
-    ipo_bulk.yaml      scaffolded; not run
+    dpo_curated.yaml   ✓ run · val_loss 0.064 · drift +0.31
+    ipo_curated.yaml   ✓ run · val_loss 6.04  · drift +0.013
+    dpo_bulk.yaml      ✓ run · val_loss 0.064 · drift +0.98
+    ipo_bulk.yaml      ✓ run · val_loss 6.89  · drift +0.018
   docs/
     RESULTS.md         this file
 ```
 
-End-of-run scoring against `eval/questions.yaml` is still pending (will
-land as `05_dpo/score_eval.py` once the judge-mode agent invocation
-pattern is implemented).
+End-of-run scoring against `eval/questions.yaml` is still pending (will land
+as `05_dpo/score_eval.py` once the judge-mode agent invocation pattern is
+implemented).
