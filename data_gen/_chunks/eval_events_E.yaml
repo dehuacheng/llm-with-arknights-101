@@ -1,0 +1,1105 @@
+- id: Q001
+  category: event
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 在第一章「黑暗时代·下」中，是谁挺身断后阻击塔露拉、为罗德岛突围争取时间？
+  question_en: In Episode 1 "Twilight of Dark Times," who stays behind to hold off Talulah and buy Rhodes Island time to retreat?
+  gold_zh: 罗德岛的精英干员 Ace 带领小队独自断后，阻击「天灾化身」般的塔露拉，掩护博士与阿米娅等人撤出切尔诺伯格。
+  gold_en: Ace, a Rhodes Island elite operator, leads a small team to stay behind and intercept Talulah—described as a catastrophe-vessel—buying
+    time for the Doctor, Amiya, and the others to escape Chernobog.
+  key_facts:
+  - Ace / 阿
+  - 断后 / rearguard
+  - 塔露拉 / Talulah
+  traps:
+  - 杜宾 / Dobermann (covers the Doctor, but does not personally intercept Talulah)
+  - W (ambushes them at the exit, but is not the rearguard against Talulah)
+  tags:
+  - main_01
+  - chernobog
+  - ace
+  - talulah
+  - rearguard
+  source: cn/stories/main_01.txt
+  notes: ''
+- id: Q002
+  category: event
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 请简述第二章「异卵同生」的故事走向。
+  question_en: Summarize the storyline of Episode 2 "Operation Originium / 异卵同生."
+  gold_zh: 切尔诺伯格事变后，罗德岛与龙门统领魏彦吾合作，协助近卫局对抗整合运动渗透。双方目标是寻找掌握关键机密的乌萨斯少女米莎。阿米娅在企鹅物流协助下从龙门贫民窟救出米莎，但在向陈长官移交时遭遇 W 率部伏击，米莎被整合运动头目碎骨强行带走，任务陷入僵局。
+  gold_en: After Chernobog, Rhodes Island enters a cooperation agreement with Lungmen's Wei Yenwu to help the Lungmen Guard
+    Department resist Reunion infiltration. The objective is the Ursus girl Misha, who holds critical intelligence. Amiya,
+    aided by Penguin Logistics, retrieves Misha from the Lungmen slums, but during the handover to Ch'en, an ambush led by
+    W lets the Reunion cadre Crownslayer/Skullshatterer's allies — specifically Skullshatterer — abduct Misha, leaving the
+    mission stalled.
+  key_facts:
+  - 魏彦吾 / Wei Yenwu
+  - 米莎 / Misha
+  - 碎骨 / Skullshatterer
+  - 企鹅物流 / Penguin Logistics
+  traps:
+  - 塔露拉亲自出手抓走米莎 / Talulah personally abducts Misha (false — she is in command but not at the scene)
+  - 弑君者率队伏击 / Crownslayer leads the ambush (W leads it; Crownslayer is mentioned elsewhere)
+  tags:
+  - main_02
+  - lungmen
+  - misha
+  - wei_yenwu
+  - skullshatterer
+  source: cn/stories/main_02.txt
+  notes: ''
+- id: Q003
+  category: event
+  answer_type: factoid
+  difficulty: hard
+  question_zh: 在第三章「二次呼吸」中，米莎为什么会披上「碎骨」的装甲？
+  question_en: In Episode 3 "Second Breath," why does Misha don the Skullshatterer armor?
+  gold_zh: 米莎在整合运动据点与失散多年、已成为整合运动干部「碎骨」的弟弟重逢。弟弟为暗杀博士被阿米娅被迫释放力量击杀。目睹弟弟之死的米莎崩溃，在 W 的引导下决定继承弟弟的遗志，自己披上装甲成为第二任「碎骨」。
+  gold_en: Misha reunites at a Reunion stronghold with her long-lost brother — now the Reunion cadre called Skullshatterer.
+    When he attempts to assassinate the Doctor, Amiya is forced to unleash her power and kill him. Witnessing her brother's
+    death breaks Misha; guided by W, she vows to inherit his will, dons his armor, and becomes the second Skullshatterer.
+  key_facts:
+  - 米莎 / Misha
+  - 碎骨 / Skullshatterer
+  - 弟弟阵亡 / brother killed
+  - W
+  traps:
+  - She is forcibly converted by Mephisto (off-canon — Mephisto is not the catalyst here)
+  - She inherits the armor from Crownslayer (wrong cadre)
+  tags:
+  - main_03
+  - misha
+  - skullshatterer
+  - w
+  - succession
+  source: cn/stories/main_03.txt
+  notes: ''
+- id: Q004
+  category: event
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 第四章「急性衰竭」中，罗德岛先遣小队遭遇的乌萨斯整合运动精锐部队叫什么？
+  question_en: In Episode 4 "Acute Crisis," what is the name of the Ursus Reunion elite squad that Rhodes Island's forward
+    team encounters?
+  gold_zh: 雪怪小队（由霜星率领，成员包括陨星、霜叶、杰西卡先遣分队所遭遇的乌萨斯游击队精锐）。
+  gold_en: The FrostNova Squad / 雪怪小队, led by FrostNova (Patriot's ally), an elite Ursus guerrilla unit that ambushes the
+    Meteorite / Pinecone / Jessica forward team.
+  key_facts:
+  - 雪怪小队 / FrostNova Squad
+  - 霜星 / FrostNova
+  traps:
+  - 整合运动突击队 / generic Reunion strike team (too vague — the name is specific)
+  - 黑钢国际特遣队 / Blacksteel detachment (a different faction entirely)
+  tags:
+  - main_04
+  - frostnova
+  - reunion
+  - ursus
+  - chernobog
+  source: cn/stories/main_04.txt
+  notes: ''
+- id: Q005
+  category: event
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 第六章「局部坏死」中霜星的结局是什么？
+  question_en: What is FrostNova's fate at the end of Episode 6 "Partial Necrosis"?
+  gold_zh: 霜星率雪怪小队与罗德岛在切尔诺伯格废墟遭遇。一次塌陷事故让双方短暂休战合作；之后雪怪小队在阻击战中全军覆没。心如死灰的霜星仍坚持以战士的职责与罗德岛展开决战，最终透支生命力后力竭逝世，临终前将其理想托付给罗德岛，正式表达了加入意愿。
+  gold_en: FrostNova leads the FrostNova Squad against Rhodes Island in the Chernobog ruins. A cave-in forces a brief truce
+    while they cooperate, but the squad is wiped out in the holding action. Numb with grief, FrostNova still insists on a
+    warrior's duty and fights Rhodes Island to the death. She burns through her vitality and dies of exhaustion, but in her
+    last moments entrusts her ideals to Rhodes Island and formally expresses her wish to join.
+  key_facts:
+  - 霜星阵亡 / FrostNova dies
+  - 切尔诺伯格废墟 / Chernobog ruins
+  - 雪怪小队覆灭 / FrostNova Squad annihilated
+  - 托付理想 / entrusts her ideals
+  traps:
+  - She is captured and treated by Rhodes Island (false — she dies)
+  - She defects mid-battle and survives (false — only her ideals survive)
+  tags:
+  - main_06
+  - frostnova
+  - chernobog
+  - death
+  - reunion
+  source: cn/stories/main_06.txt
+  notes: ''
+- id: Q006
+  category: event
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 在第九章「风暴瞭望」中，干员 Outcast 是在什么情境下牺牲的？
+  question_en: Under what circumstances does the operator Outcast sacrifice herself in Episode 9 "Stormwatch"?
+  gold_zh: 维多利亚驻军上校汉密尔顿在小丘郡动用活性源石脏弹炮击城区。Outcast 在救援期间意外救下重伤的深池「领袖」之影拉芙希妮；为掩护风笛护送伤员撤离，她以个人名义独自断后，在释放神圣光芒后与多名深池骨干同归于尽。
+  gold_en: Colonel Hamilton of the Victorian garrison uses live-originium dirty shells on the town of Tara's Hill. During
+    the rescue, Outcast unexpectedly saves the wounded shadow of the Dublinn 'Leader' Lavinia/Lafarsina. To cover Bagpipe's
+    retreat with the wounded, she stays behind alone and, after releasing a holy radiance, dies alongside several Dublinn
+    cadres.
+  key_facts:
+  - Outcast
+  - 小丘郡 / Tara's Hill
+  - 断后 / rearguard
+  - 深池 / Dublinn
+  traps:
+  - She dies fighting Hamilton himself (wrong opponent)
+  - She is killed by Horn (wrong subject; Horn fights to cover Bagpipe but does not kill Outcast)
+  tags:
+  - main_09
+  - outcast
+  - tarashill
+  - dublinn
+  - victoria
+  source: cn/stories/main_09.txt
+  notes: ''
+- id: Q007
+  category: event
+  answer_type: open_ended
+  difficulty: hard
+  question_zh: 请描述第十二章「惊霆无声」中诺伯特区脱离主城的事件。
+  question_en: Describe the secession of Norport from the main city in Episode 12 "惊霆无声."
+  gold_zh: 萨卡兹军事委员会通过飞空艇突袭摧毁了维多利亚海军，并将伦蒂尼姆的诺伯特区强制脱离主城，作为战略支点。脱离后区内秩序崩坏，萨卡兹的高压统治与物资匮乏引发严重内乱；推进之王维娜率格拉斯哥帮重回旧据点试图营救与安置难民，其维多利亚王储身份也在此过程中被公开。
+  gold_en: 'The Sarkaz Military Commission uses airships to wipe out the Victorian navy and forcibly secedes Lundinium''s
+    Norport district from the main city to serve as a strategic foothold. Order collapses inside the secession zone: Sarkaz
+    oppression and supply shortages trigger severe internal unrest. Ascalon/Penance — Penance the Crown Prince — Crown Slayer
+    aka Penance leads the Glasgow Gang back to their old turf to evacuate civilians; in the process her status as Victoria''s
+    crown heir becomes public knowledge.'
+  key_facts:
+  - 诺伯特区 / Norport
+  - 萨卡兹军事委员会 / Sarkaz Military Commission
+  - 推进之王 / Penance / the Crown Prince
+  - 维多利亚王储身份公开 / heir to Victoria revealed
+  traps:
+  - 诺伯特区是被罗德岛主动放弃 / Rhodes Island deliberately abandons Norport (false — Sarkaz force the secession)
+  - 维多利亚海军反攻夺回主城 / the Victorian navy counter-attacks and retakes the city (false — the navy is destroyed)
+  tags:
+  - main_12
+  - lundinium
+  - norport
+  - sarkaz
+  - penance
+  source: cn/stories/main_12.txt
+  notes: 推进之王 here is 维娜 / Penance the heir, NOT Patriot. Easy confusion.
+- id: Q008
+  category: event
+  answer_type: factoid
+  difficulty: hard
+  question_zh: 在第十三章「恶兆湍流」中，血魔大君的「血祭」计划是在哪个镇上发动？
+  question_en: In Episode 13 "Sinking Omen," in which town does the Blood Lord launch his blood-rite ritual?
+  gold_zh: 布伦特伍德镇。血魔大君试图将平民作为仪式「钥匙」，发动血祭以纯化萨卡兹血脉。
+  gold_en: Brentwood / 布伦特伍德镇. The Blood Lord attempts to use civilians as ritual 'keys' to purify the Sarkaz bloodline through
+    the blood-rite.
+  key_facts:
+  - 布伦特伍德 / Brentwood
+  - 血魔大君 / Blood Lord
+  - 血祭 / blood-rite
+  traps:
+  - 伦蒂尼姆 / Lundinium (the main capital — but the rite is in the rural town, not the capital itself)
+  - 诺伯特区 / Norport (wrong arc — that is main_12)
+  tags:
+  - main_13
+  - blood_lord
+  - brentwood
+  - sarkaz
+  - ritual
+  source: cn/stories/main_13.txt
+  notes: ''
+- id: Q009
+  category: event
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 请简述「喧闹法则」（act5d0）一活动的核心剧情。
+  question_en: Summarize the core storyline of the activity "Code of Brawl" (act5d0).
+  gold_zh: 拜松作为临时成员加入企鹅物流，随即遭遇叙拉古黑手党甘比诺与卡彭的袭击。鼠王亲自介入，借龙门安魂夜派对设下覆盖全城的「爆炸危机」考验。最终众人发现致命炸弹其实只是糖果礼盒——整场危机实为拜松之父委托鼠王为磨练拜松、并借机驱逐外来黑帮而设的局。
+  gold_en: Bison joins Penguin Logistics as a temporary member and immediately runs into the Siracusan mafiosi Gambino and
+    Capone. The Rat King personally intervenes, using the Lungmen All-Souls Night party to stage a city-wide 'bomb crisis.'
+    In the end the lethal bombs turn out to be candy boxes — the whole crisis was set up by Bison's father, who commissioned
+    the Rat King to both temper his son and drive out the foreign mafia.
+  key_facts:
+  - 拜松 / Bison
+  - 企鹅物流 / Penguin Logistics
+  - 鼠王 / Rat King
+  - 甘比诺与卡彭 / Gambino and Capone
+  - 考验 / a test
+  traps:
+  - 拜松最终接管了一个黑帮家族 / Bison takes over a mafia family (false — he sets out on a journey)
+  - 鼠王是真心想毁灭龙门 / Rat King genuinely wants to destroy Lungmen (false — the bombs are candy)
+  tags:
+  - act5d0
+  - bison
+  - penguin_logistics
+  - rat_king
+  - siracusa
+  source: cn/stories/act5d0.txt
+  notes: ''
+- id: Q010
+  category: event
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 在「长夜临光」（act13side）中，玛嘉烈夺冠后所对抗的最大势力是哪一方？
+  question_en: In "Near Light" (act13side), which faction does Margaret confront most directly after the tournament?
+  gold_zh: 卡西米尔商业联合会授意的无胄盟。它们清洗感染者并暗中打压玛嘉烈；红松骑士团与临光家族、罗德岛等多方联合，最终挫败了无胄盟在决赛中的暗杀行动。
+  gold_en: The Armorless Union, acting under Kazimierz's Major Commercial Alliance. They clean out infected residents and
+    covertly suppress Margaret; the Pinus Sylvestris knights, the Nearl family, and Rhodes Island ultimately foil their assassination
+    plot at the finals.
+  key_facts:
+  - 商业联合会 / Major Commercial Alliance
+  - 无胄盟 / Armorless Union
+  - 玛嘉烈 / Margaret / Nearl
+  - 红松骑士团 / Pinus Sylvestris
+  traps:
+  - 整合运动 / Reunion (wrong faction; not present in this Kazimierz arc)
+  - 监正会 / Major Inquisition (politically opposed but not the assassins)
+  tags:
+  - act13side
+  - nearl
+  - kazimierz
+  - armorless_union
+  - infected
+  source: cn/stories/act13side.txt
+  notes: ''
+- id: Q011
+  category: faction
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 企鹅物流的老板是谁？
+  question_en: Who is the boss of Penguin Logistics?
+  gold_zh: 大帝。他在哥伦比亚街头偶遇陷入迷惘的德克萨斯，半拖着她一起在龙门成立了这家物流公司。
+  gold_en: Emperor / 大帝. He met a drifting Texas on the streets of Columbia and half-dragged her along to found the logistics
+    company in Lungmen.
+  key_facts:
+  - 大帝 / Emperor
+  - 龙门 / Lungmen
+  - 德克萨斯 / Texas
+  traps:
+  - 德克萨斯 / Texas (she is core staff, not the owner)
+  - 能天使 / Exusiai (a staff member, not the boss)
+  tags:
+  - penguin_logistics
+  - emperor
+  - texas
+  - lungmen
+  source: cn/operators/char_1028_texas2.txt
+  notes: Confirmed in Texas's archive — Emperor recounts founding the company in her promotion record.
+- id: Q012
+  category: faction
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 请简述龙门近卫局在主线第二至六章中扮演的角色。
+  question_en: Summarize the role of the Lungmen Guard Department across main Episodes 2-6.
+  gold_zh: 龙门近卫局是龙门的城市警备力量，由特别督察组组长陈代表罗德岛对外接触。第二至四章中，近卫局与罗德岛合作搜寻和争夺米莎、对抗整合运动渗透；第六章则与罗德岛联手对城内整合运动展开最后围剿，期间龙门执政者魏彦吾秘密动用「黑蓑」清理贫民区，引发陈与罗德岛对龙门手段的质疑。
+  gold_en: The Lungmen Guard Department is the city's police-and-defense arm. Its special-inspection chief Ch'en is the main
+    contact for Rhodes Island. Across Episodes 2-4 the LGD cooperates with Rhodes to find and protect Misha and resist Reunion
+    infiltration. In Episode 6 the LGD and Rhodes jointly mop up Reunion in the city, but Wei Yenwu's secret use of the 'Black
+    Suit' / 黑蓑 enforcers in the slums causes Ch'en and Rhodes to question Lungmen's methods.
+  key_facts:
+  - 陈 / Ch'en
+  - 龙门 / Lungmen
+  - 整合运动 / Reunion
+  - 黑蓑 / Black Suit
+  traps:
+  - 近卫局完全隶属于罗德岛 / the LGD is subordinate to Rhodes Island (false — they are city authorities)
+  - 近卫局与魏彦吾长期对立 / the LGD opposes Wei Yenwu throughout (false — Wei is the executor of Lungmen and the LGD reports through
+    him)
+  tags:
+  - lungmen
+  - lgd
+  - chen
+  - wei_yenwu
+  - main_02
+  source: cn/stories/main_06.txt
+  notes: Cross-references main_02/03/04.
+- id: Q013
+  category: faction
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 拉特兰的核心机构「公证所」的特点是什么？
+  question_en: What is distinctive about Laterano's 'Notarial Hall'?
+  gold_zh: 拉特兰的公证所是其行政与执法机构，拉特兰人作为信使在公证所体系下提供跨国传信与公证服务；拉特兰社会注重秩序与契约，但公证所代表的法度有时也被其它势力借助来规避监管。
+  gold_en: Laterano's Notarial Hall is the country's administrative-and-enforcement body. Laterans, serving as messengers
+    under this system, provide cross-border letter delivery and notarisation; Laterano society prizes order and contract,
+    although other powers sometimes use the Notarial Hall's legal framework to evade scrutiny.
+  key_facts:
+  - 拉特兰 / Laterano
+  - 公证所 / Notarial Hall
+  - 信使 / messenger
+  traps:
+  - 公证所等同于教廷军 / Notarial Hall equals the Papal military (the Papal Army is distinct)
+  - 公证所只在拉特兰境内活动 / Notarial Hall operates only inside Laterano (false — messengers travel across Terra)
+  tags:
+  - laterano
+  - notarial_hall
+  - messenger
+  - exusiai
+  source: cn/operators/char_103_angel.txt
+  notes: Exusiai's archive references Laterano custom of messengers carrying weapons in ceremonial settings.
+- id: Q014
+  category: faction
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 拉普兰德属于哪个国家？
+  question_en: Which country is Lappland from?
+  gold_zh: 叙拉古 / Siracusa。她出身于叙拉古的鲁珀族家族，被认为是「落单的狼」，已失去家族但仍带着叙拉古的鲁珀文化烙印。
+  gold_en: Siracusa. She comes from a Lupo family in Siracusa, considered a 'lone wolf' — she has lost her family but still
+    carries the Lupo cultural mark of Siracusa.
+  key_facts:
+  - 叙拉古 / Siracusa
+  - 鲁珀 / Lupo
+  traps:
+  - 拉特兰 / Laterano (Siracusa's neighbour, but wrong)
+  - 维多利亚 / Victoria (off-canon attribution)
+  tags:
+  - lappland
+  - siracusa
+  - lupo
+  - rupo
+  source: cn/operators/char_140_whitew.txt
+  notes: ''
+- id: Q015
+  category: faction
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 整合运动在主线第六章后的领导结构是怎样的？
+  question_en: What is Reunion's leadership structure as of the end of main Episode 6?
+  gold_zh: 整合运动表面上由塔露拉领导，但实质受到老一辈萨卡兹（如「Patriot」多伊瑟玛斯尼尔，以及一度居幕后的老一辈梅菲斯特、浮士德）的影响。第六章后浮士德战死、霜星阵亡，组织内部因梅菲斯特施展禁术「牧群」而进一步崩溃；塔露拉的权威进一步集中，整合运动从「多元的感染者抗争」逐步退化为更危险的极端力量。
+  gold_en: On the surface Reunion is led by Talulah, but in practice it is shaped by older Sarkaz figures (notably Patriot
+    / Daeumathnir and the earlier Mephisto and Faust). After Episode 6, Faust dies in combat, FrostNova falls, and Mephisto's
+    forbidden 'Herd' transformation collapses the organisation from within. Talulah's authority becomes more concentrated,
+    and Reunion drifts from a pluralistic Infected resistance into a more dangerous extremist force.
+  key_facts:
+  - 塔露拉 / Talulah
+  - Patriot / 多伊瑟玛斯尼尔 / Daeumathnir
+  - 梅菲斯特 / Mephisto
+  - 浮士德 / Faust
+  traps:
+  - 整合运动从一开始就由塔露拉独裁 / Reunion was Talulah's dictatorship from the start (oversimplifies — old Sarkaz steered her)
+  - Patriot公开领导整合运动 / Patriot publicly leads Reunion (he is influential but not the public face)
+  tags:
+  - reunion
+  - talulah
+  - patriot
+  - mephisto
+  - faust
+  source: cn/stories/main_06.txt
+  notes: ''
+- id: Q016
+  category: faction
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 卡西米尔的「商业联合会」与「监正会」是什么关系？
+  question_en: What is the relationship between Kazimierz's Major Commercial Alliance and the Major Inquisition?
+  gold_zh: 二者是卡西米尔大骑士领并立的两大权力机构：商业联合会主导商业与娱乐（包括特锦赛与各骑士团的商业化），监正会则代表传统骑士秩序与法度。两者长期博弈；在「长夜临光」期间，商业联合会暗中支持无胄盟清洗感染者，而监正会一度协同罗德岛和临光家族出手平衡局势。
+  gold_en: They are the twin power centres of the Kazimierz Great Knightly Territories. The Major Commercial Alliance controls
+    commerce and entertainment (including the Major Tournament and the commercialised knightly orders); the Major Inquisition
+    embodies the traditional knightly order and law. The two are in chronic tension. During Near Light, the Commercial Alliance
+    covertly backs the Armorless Union's purges of the Infected, while the Major Inquisition ends up tacitly coordinating
+    with Rhodes Island and the Nearl family to rebalance the situation.
+  key_facts:
+  - 商业联合会 / Major Commercial Alliance
+  - 监正会 / Major Inquisition
+  - 无胄盟 / Armorless Union
+  - 卡西米尔 / Kazimierz
+  traps:
+  - 二者本质是同一机构的两个部门 / they are two departments of the same agency (false — distinct power centres)
+  - 监正会公开支持无胄盟 / the Major Inquisition openly supports the Armorless Union (false — covert support comes from the Alliance)
+  tags:
+  - kazimierz
+  - commercial_alliance
+  - inquisition
+  - armorless_union
+  source: cn/stories/act13side.txt
+  notes: ''
+- id: Q017
+  category: faction
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 请描述维多利亚「自救军」在主线第十二、十三章中的位置。
+  question_en: Describe the role of Victoria's Self-Salvation Army across main Episodes 12-13.
+  gold_zh: 自救军在第十二章作为伦蒂尼姆抵抗萨卡兹军事委员会的核心力量之一，与罗德岛、推进之王(维娜)所率格拉斯哥帮共同行动，在诺伯特区救援平民、调查萨卡兹的新型武器。第十三章中，温德米尔公爵牺牲后，推进之王集结残兵与难民建立「典范军」，自救军与之合并展开反击，参与挫败血魔大君在布伦特伍德的血祭。
+  gold_en: In Episode 12 the Self-Salvation Army is one of the core resistance forces in Lundinium against the Sarkaz Military
+    Commission, operating alongside Rhodes Island and the Crown Prince (Penance / 推进之王)'s Glasgow Gang to evacuate civilians
+    and investigate Sarkaz new weapons in Norport. In Episode 13, after the Duke of Windermere falls, the Crown Prince consolidates
+    the remnants and refugees into the 'Exemplar Army'; the Self-Salvation Army merges with it to fight back and helps thwart
+    the Blood Lord's blood-rite at Brentwood.
+  key_facts:
+  - 自救军 / Self-Salvation Army
+  - 格拉斯哥帮 / Glasgow Gang
+  - 推进之王 / Crown Prince / Penance
+  - 典范军 / Exemplar Army
+  traps:
+  - 自救军直接听命于罗德岛 / the Self-Salvation Army takes orders from Rhodes Island (false — they are local Victorians)
+  - 自救军在第十二章被完全消灭 / the Self-Salvation Army is wiped out in Episode 12 (false — they merge into the Exemplar Army in Episode
+    13)
+  tags:
+  - victoria
+  - self_salvation
+  - glasgow_gang
+  - exemplar_army
+  source: cn/stories/main_12.txt
+  notes: Cross-references main_13.
+- id: Q018
+  category: faction
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 维多利亚伦蒂尼姆事件中，「典范军」是由谁建立的？
+  question_en: Who founds the 'Exemplar Army' during the Lundinium events?
+  gold_zh: 推进之王（即维娜，Penance / 推进之王，后被揭示为维多利亚王储）。在温德米尔公爵牺牲后，她集结残兵与难民建立「典范军」，舍弃王号虚名，以领袖身份率众继续反抗萨卡兹军事委员会。
+  gold_en: The Crown Prince / Penance — Penance, later revealed as Victoria's crown heir / 维多利亚王储. After the Duke of Windermere
+    falls, she gathers the remnants and refugees into the 'Exemplar Army,' setting aside her royal title to lead them as a
+    commander against the Sarkaz Military Commission.
+  key_facts:
+  - 推进之王 / Crown Prince / Penance
+  - 典范军 / Exemplar Army
+  - 温德米尔公爵 / Duke of Windermere
+  traps:
+  - Patriot 创建了典范军 / Patriot founds the Exemplar Army (wrong character — Patriot is Sarkaz Reunion)
+  - 塔露拉创建了典范军 / Talulah founds the Exemplar Army (off-canon)
+  tags:
+  - victoria
+  - penance
+  - exemplar_army
+  - windermere
+  source: cn/stories/main_13.txt
+  notes: 'Easy to confuse two characters both nicknamed 推进之王: here it is Penance / 维娜, NOT Patriot.'
+- id: Q019
+  category: faction
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 拉特兰公证所与教廷军是什么关系？
+  question_en: What is the relationship between Laterano's Notarial Hall and its Papal Army?
+  gold_zh: 两者都是拉特兰的核心机构但分工不同：公证所偏向行政、契约与跨国信使体系；教廷军是教皇直辖的常备武装。两者在重大事务上配合，但属于不同的权力体系。
+  gold_en: 'Both are central Laterano institutions but with different roles: the Notarial Hall covers administration, contracts,
+    and the cross-border messenger network, while the Papal Army is the Pope''s standing military force. They cooperate on
+    major matters but answer to different power structures.'
+  key_facts:
+  - 公证所 / Notarial Hall
+  - 教廷军 / Papal Army
+  - 拉特兰 / Laterano
+  traps:
+  - 教廷军隶属于公证所 / the Papal Army is subordinate to the Notarial Hall (false — distinct structures)
+  - 公证所是民间组织 / the Notarial Hall is a civilian organisation (false — it is a state institution)
+  tags:
+  - laterano
+  - notarial_hall
+  - papal_army
+  source: cn/operators/char_103_angel.txt
+  notes: ''
+- id: Q020
+  category: faction
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 陈在罗德岛与龙门近卫局之间的身份是什么？
+  question_en: What is Ch'en's position between Rhodes Island and the Lungmen Guard Department?
+  gold_zh: 陈是龙门近卫局特别督察组组长；她依合约前来协助罗德岛的任务，但其主体身份仍是龙门官员，并非罗德岛干员的「正式编制」。
+  gold_en: Ch'en is the head of the Lungmen Guard Department's Special Inspection Unit. She comes to assist Rhodes Island
+    under a formal contract, but her primary identity remains a Lungmen officer, not a regular Rhodes Island operator.
+  key_facts:
+  - 陈 / Ch'en
+  - 龙门近卫局 / LGD
+  - 特别督察组组长 / head of Special Inspection Unit
+  - 依合约 / under contract
+  traps:
+  - 陈是罗德岛的正式医疗干员 / Ch'en is a Rhodes Island regular medical operator (false; she is a guest combat operator)
+  - 陈是龙门市长 / Ch'en is the Mayor of Lungmen (false — Wei Yenwu is the executor)
+  tags:
+  - chen
+  - lungmen
+  - lgd
+  - rhodes_island
+  source: cn/operators/char_010_chen.txt
+  notes: ''
+- id: Q021
+  category: faction
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 卡兹戴尔贸易公司（Karlan Trade）的主要业务方向是什么？
+  question_en: What is the main business focus of the Karlan Trade Company / 卡兹戴尔贸易公司?
+  gold_zh: Karlan Trade 是卡兹戴尔背景的跨国商贸公司，业务范围以源石技艺装备、战争物资和中介服务为主，深度卷入萨卡兹雇佣兵贸易；它是连接卡兹戴尔与其他列国（包括罗德岛圈层）的灰色商贸通道。
+  gold_en: Karlan Trade is a multinational trading company tied to Kazdel; its business spans Originium-Arts equipment, war
+    materiel, and brokerage, with deep entanglement in the Sarkaz mercenary trade. It serves as a grey-zone commercial conduit
+    between Kazdel and other major powers (including circles adjacent to Rhodes Island).
+  key_facts:
+  - Karlan Trade / 卡兹戴尔贸易公司
+  - 卡兹戴尔 / Kazdel
+  - 源石技艺装备 / Originium-Arts equipment
+  - 萨卡兹雇佣兵 / Sarkaz mercenaries
+  traps:
+  - Karlan Trade 是纯粹的医疗物资公司 / Karlan Trade is purely a medical-supplies firm (false — focus is war materiel)
+  - Karlan Trade 完全独立于卡兹戴尔 / Karlan Trade is fully independent of Kazdel (false — Kazdel-affiliated)
+  tags:
+  - karlan_trade
+  - kazdel
+  - sarkaz
+  - mercenary
+  source: cn/operators/char_003_kalts.txt
+  notes: Kalts's archive provides background on Kazdel commerce.
+- id: Q022
+  category: faction
+  answer_type: open_ended
+  difficulty: hard
+  question_zh: 请简述「赦罪师」在第十三、十四章中的角色。
+  question_en: Describe the role of the Confessarii / 赦罪师 in Episodes 13-14.
+  gold_zh: 赦罪师是萨卡兹古老的祭司式职阶，在主线第十三章中被特雷西斯利用与王庭权贵合作，推进古老仪式以唤醒萨卡兹战争潜能。十四章里，赦罪师首领被闪灵与玛嘉烈·临光合力重创，W 亦在遗迹中揭开特蕾西娅被赦罪师裁剪灵魂的真相。
+  gold_en: The Confessarii are an ancient priestly office of the Sarkaz. In Episode 13 Theresis uses them, together with court
+    nobles, to advance an ancient ritual aimed at awakening the Sarkaz war-potential. In Episode 14, Specter and Margaret
+    Nearl together cripple the head Confessarius, and W discovers in the ruins that the Confessarii had been carving away
+    pieces of Theresa's soul.
+  key_facts:
+  - 赦罪师 / Confessarii
+  - 特雷西斯 / Theresis
+  - 特蕾西娅 / Theresa
+  - W
+  - 玛嘉烈·临光 / Margaret Nearl
+  traps:
+  - 赦罪师效忠特蕾西娅 / the Confessarii serve Theresa (false — they harm her)
+  - 赦罪师只是民间宗教组织 / the Confessarii are merely a folk religious group (false — they have ancient state-level power)
+  tags:
+  - confessarii
+  - theresis
+  - theresa
+  - main_13
+  - main_14
+  source: cn/stories/main_13.txt
+  notes: Cross-references main_14.
+- id: Q023
+  category: faction
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 格拉斯哥帮在维多利亚剧情线中担任什么角色？
+  question_en: What role does the Glasgow Gang play in the Victorian arc?
+  gold_zh: 格拉斯哥帮是维多利亚伦蒂尼姆出身的街头帮派，主线第十二章中由推进之王（维娜，Penance）率领，重返旧据点营救同伴并安置难民；它同时是格拉斯哥地区抵抗萨卡兹军事委员会的非正规力量之一，与罗德岛、自救军并肩作战。
+  gold_en: The Glasgow Gang is a street gang originating in Victorian Lundinium. In Episode 12 it is led by the Crown Prince
+    / Penance, who returns to her old turf to rescue comrades and shelter civilians. It is one of the irregular Glasgow-based
+    forces resisting the Sarkaz Military Commission, fighting alongside Rhodes Island and the Self-Salvation Army.
+  key_facts:
+  - 格拉斯哥帮 / Glasgow Gang
+  - 推进之王 / Crown Prince / Penance
+  - 伦蒂尼姆 / Lundinium
+  - 自救军 / Self-Salvation Army
+  traps:
+  - 格拉斯哥帮的领袖是 Patriot / Glasgow Gang led by Patriot (wrong; he is Reunion Sarkaz)
+  - 格拉斯哥帮属于萨卡兹军事委员会 / Glasgow Gang aligned with Sarkaz Military Commission (false — they fight against it)
+  tags:
+  - glasgow_gang
+  - victoria
+  - penance
+  - main_12
+  source: cn/stories/main_12.txt
+  notes: ''
+- id: Q024
+  category: faction
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 在「长夜临光」中，红松骑士团（Pinus Sylvestris）的立场是什么？
+  question_en: What is the position of Pinus Sylvestris in "Near Light"?
+  gold_zh: 红松骑士团是为感染者生存而奋起反抗的卡西米尔骑士团；他们联合多方制造全城大停电，对抗商业联合会授意的无胄盟对感染者的清洗，最终与临光家族、罗德岛等共同护送玛嘉烈走向冠军墙。
+  gold_en: Pinus Sylvestris is a Kazimierzian knightly order that rises in defence of the Infected. They orchestrate a city-wide
+    blackout with allies to counter the Armorless Union's Commercial-Alliance-backed purges, and ultimately, together with
+    the Nearl family and Rhodes Island, escort Margaret to the champions' wall.
+  key_facts:
+  - 红松骑士团 / Pinus Sylvestris
+  - 感染者 / the Infected
+  - 全城大停电 / city-wide blackout
+  - 无胄盟 / Armorless Union
+  traps:
+  - 红松骑士团是商业联合会的下属 / Pinus Sylvestris reports to the Commercial Alliance (false — they oppose it)
+  - 红松骑士团是无胄盟的别名 / Pinus Sylvestris is another name for the Armorless Union (false — they are adversaries)
+  tags:
+  - pinus_sylvestris
+  - kazimierz
+  - armorless_union
+  - infected
+  source: cn/stories/act13side.txt
+  notes: ''
+- id: Q026
+  category: world
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 「源石技艺」（Originium Arts）的基本含义是什么？
+  question_en: What does 'Originium Arts' fundamentally refer to?
+  gold_zh: 源石技艺是泰拉世界以源石为媒介引导能量的法术-技术体系，是该世界事实上的「魔法系统」；不同种族对源石技艺的适应性差异巨大，使用者通常要承受不同程度的矿石病感染风险。
+  gold_en: Originium Arts is Terra's spell-tech system in which Originium serves as the medium for channeling energy — the
+    world's de-facto magic system. Different races vary greatly in compatibility with the Arts, and users typically incur
+    some risk of Oripathy infection.
+  key_facts:
+  - 源石技艺 / Originium Arts
+  - 源石 / Originium
+  - 矿石病感染风险 / Oripathy infection risk
+  traps:
+  - 源石技艺是纯机械工程 / Originium Arts is purely mechanical engineering (false — it is energetic / quasi-magical)
+  - 源石技艺无任何健康风险 / Originium Arts carries no health risk (false — Oripathy risk)
+  tags:
+  - originium
+  - arts
+  - magic_system
+  - world
+  source: cn/operators/char_003_kalts.txt
+  notes: ''
+- id: Q027
+  category: world
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 泰拉大陆上的「天灾」（Catastrophe）指什么？
+  question_en: What is a 'Catastrophe' on Terra?
+  gold_zh: 天灾是泰拉世界周期性发生的大规模自然灾害（包括暴风雨、地壳异动、源石尘暴等）。它是泰拉文明把城市设计成可移动结构的根本原因，并在事后散布大量源石尘埃，导致大量矿石病感染。
+  gold_en: A Catastrophe is a recurring large-scale natural disaster on Terra (storms, crustal upheavals, Originium dust storms,
+    etc.). It is the root reason Terran civilisations build their cities as mobile structures, and its aftermath scatters
+    large amounts of Originium dust — a major driver of Oripathy infection.
+  key_facts:
+  - 天灾 / Catastrophe
+  - 移动城市 / mobile city
+  - 源石尘埃 / Originium dust
+  - 矿石病 / Oripathy
+  traps:
+  - 天灾是萨卡兹的战争行为 / Catastrophes are Sarkaz war actions (false — natural phenomenon)
+  - 天灾不影响矿石病 / Catastrophes do not affect Oripathy (false — they spread the dust)
+  tags:
+  - catastrophe
+  - mobile_city
+  - originium
+  - oripathy
+  - world
+  source: cn/stories/main_00.txt
+  notes: ''
+- id: Q028
+  category: world
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 「鲁珀」（Lupo）族在泰拉文化分布上以哪个国家为代表？
+  question_en: Which nation most strongly represents the Lupo / 鲁珀 race on Terra?
+  gold_zh: 叙拉古 / Siracusa。叙拉古的家族文化（黑帮、家族忠诚、白衬衫黑礼服等装束符号）与鲁珀族的群居与「狼群-孤狼」隐喻深度绑定。
+  gold_en: Siracusa. Siracusa's family culture — mafia clans, family loyalty, the black-suit / white-shirt costume codes —
+    is deeply bound up with the Lupo race's pack metaphors (the wolf pack vs the lone wolf).
+  key_facts:
+  - 叙拉古 / Siracusa
+  - 鲁珀 / Lupo
+  traps:
+  - 拉特兰 / Laterano (Sankta race, not Lupo)
+  - 维多利亚 / Victoria (Sarkaz / Feline / Liberi mix; not Lupo-centric)
+  tags:
+  - lupo
+  - siracusa
+  - race
+  - world
+  source: cn/operators/char_1028_texas2.txt
+  notes: ''
+- id: Q029
+  category: world
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 「萨卡兹」（Sarkaz）的传统故土是哪里？
+  question_en: What is the traditional homeland of the Sarkaz?
+  gold_zh: 卡兹戴尔 / Kazdel。卡兹戴尔是萨卡兹族的国家，长期处于战乱与重建之中，是萨卡兹雇佣兵与古老仪式传统的源头。
+  gold_en: Kazdel. Kazdel is the Sarkaz nation, long mired in war and reconstruction; it is the source of Sarkaz mercenary
+    culture and ancient ritual traditions.
+  key_facts:
+  - 卡兹戴尔 / Kazdel
+  - 萨卡兹 / Sarkaz
+  traps:
+  - 维多利亚 / Victoria (a different nation that the Sarkaz fight in main_12+)
+  - 莱塔尼亚 / Leithanien (a Sarkaz-related nation, but not the homeland)
+  tags:
+  - sarkaz
+  - kazdel
+  - race
+  - geography
+  - world
+  source: cn/operators/char_003_kalts.txt
+  notes: ''
+- id: Q030
+  category: world
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 「菲林」（Feline）族最显著的特征是什么？
+  question_en: What is the most distinctive trait of the Feline / 菲林 race?
+  gold_zh: 菲林族最直观的特征是猫科特征——猫耳、长尾、瞳孔，以及与猫科一致的反射神经与平衡感。罗德岛的凯尔希博士即菲林族。
+  gold_en: The most direct hallmarks of the Felines are cat-like features — cat ears, a long tail, slit pupils, and feline-level
+    reflex and balance. Rhodes Island's Dr. Kal'tsit is a Feline.
+  key_facts:
+  - 菲林 / Feline
+  - 猫科特征 / feline features
+  - 凯尔希 / Kal'tsit
+  traps:
+  - 菲林族普遍翅膀飞行 / Felines commonly fly with wings (false — that's Liberi / Sankta)
+  - 菲林族普遍角质装甲 / Felines have horn-armour (false — Sarkaz trait)
+  tags:
+  - feline
+  - race
+  - kalts
+  - world
+  source: cn/operators/char_003_kalts.txt
+  notes: ''
+- id: Q031
+  category: world
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 「矿石病」（Oripathy）感染者主要面临的三种风险是什么？
+  question_en: What are the three main risks faced by people with Oripathy / 矿石病?
+  gold_zh: 1) 身体结晶化与器官功能衰退（最终致死）；2) 严重的社会歧视——许多城市禁止感染者入境或限制其工作；3) 体内活性源石可能在死亡时再次扩散、引发周边二次感染（这也是大量城市拒收感染者的官方理由）。
+  gold_en: 1) Bodily crystallisation and organ failure (eventually lethal); 2) severe social discrimination — many cities
+    bar Infected from entry or restrict their employment; 3) the active Originium in their bodies can spread again upon death,
+    causing secondary infections nearby (this is the official rationale many cities cite for refusing the Infected).
+  key_facts:
+  - 矿石病 / Oripathy
+  - 结晶化 / crystallisation
+  - 歧视 / discrimination
+  - 二次感染 / secondary infection
+  traps:
+  - 感染者只是有皮疹 / the Infected merely have a skin rash (gross underestimate)
+  - 感染者死亡后无传染风险 / no transmission risk after death (false — that is the formal grounds for exclusion)
+  tags:
+  - oripathy
+  - medical
+  - discrimination
+  - world
+  source: cn/operators/char_003_kalts.txt
+  notes: ''
+- id: Q032
+  category: world
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 泰拉世界主要使用的「源石产业」流通货币之一是？
+  question_en: Name one of the main currencies tied to Terra's Originium economy.
+  gold_zh: 龙门币 / Lungmen Dollar (龙门发行的硬通货)；它在多个跨国结算情境（包括罗德岛、企鹅物流等机构的日常账目）中被普遍接受。
+  gold_en: The Lungmen Dollar / 龙门币, hard currency issued by Lungmen. It is widely accepted in many cross-border settlements
+    (including the day-to-day accounts of Rhodes Island, Penguin Logistics, and similar bodies).
+  key_facts:
+  - 龙门币 / Lungmen Dollar
+  - 龙门 / Lungmen
+  traps:
+  - 罗德岛币 / Rhodes Island Dollar (no such canonical sovereign currency)
+  - 拉特兰盾 / Lateran Shield (off-canon)
+  tags:
+  - currency
+  - lungmen
+  - world
+  source: cn/operators/char_102_texas.txt
+  notes: Penguin Logistics accounts in Texas's archive reference Lungmen dollars.
+- id: Q033
+  category: world
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 请说明源石尘埃与天灾、矿石病之间的因果关系。
+  question_en: Explain the causal chain among Originium dust, Catastrophes, and Oripathy.
+  gold_zh: 天灾（特别是源石尘暴类天灾）会将大量带活性的源石尘埃扬入大气与地表；这些尘埃长期吸入或接触会使易感个体罹患矿石病；矿石病感染者死亡后体内的活性源石又会再次扩散，可在密集区域引发二次感染。因此，天灾不仅是物理灾难，也是大规模公共卫生灾难。
+  gold_en: Catastrophes — especially Originium-dust storms — stir vast amounts of active Originium dust into the air and across
+    the ground. Long-term inhalation or contact with this dust gives susceptible individuals Oripathy. When the Infected die,
+    the active Originium in their bodies disperses again, potentially triggering secondary infections in dense areas. Catastrophes
+    are therefore both physical disasters and large-scale public-health disasters.
+  key_facts:
+  - 源石尘埃 / Originium dust
+  - 天灾 / Catastrophe
+  - 矿石病 / Oripathy
+  - 二次感染 / secondary infection
+  traps:
+  - 矿石病只通过血液传播 / Oripathy only transmits via blood (false — dust/contact dominates)
+  - 天灾与矿石病无关 / Catastrophes are unrelated to Oripathy (false — they are a major driver)
+  tags:
+  - originium
+  - catastrophe
+  - oripathy
+  - world
+  source: cn/stories/main_00.txt
+  notes: ''
+- id: Q034
+  category: world
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 「移动城市」的根本原因是什么？
+  question_en: Why does Terra rely on 'mobile cities'?
+  gold_zh: 天灾的高频与高破坏性使得固定城市难以长期存续；建造为可移动结构后，城市可以在天灾前主动迁移、规避大规模毁灭，并在天灾后远离源石尘暴覆盖区。
+  gold_en: Catastrophes are too frequent and destructive for permanent fixed cities to survive long-term. Building cities
+    as mobile structures lets them relocate ahead of incoming Catastrophes, avoid wholesale destruction, and afterwards move
+    away from areas blanketed by Originium-dust storms.
+  key_facts:
+  - 移动城市 / mobile city
+  - 天灾 / Catastrophe
+  - 源石尘暴 / Originium-dust storm
+  traps:
+  - 移动城市是为了战争机动 / mobile cities exist for war mobility (incomplete — the cause is Catastrophe survival)
+  - 移动城市是萨卡兹专属 / mobile cities are Sarkaz-only (false — many nations use them)
+  tags:
+  - mobile_city
+  - catastrophe
+  - world
+  source: cn/stories/main_00.txt
+  notes: ''
+- id: Q035
+  category: world
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 古巴别塔（Babel）的历史定位是什么？
+  question_en: What is the historical role of Babel?
+  gold_zh: 古巴别塔是萨卡兹历史上由特蕾西娅倡导建立的多种族共同体组织，旨在通过和平与共同治理终结萨卡兹的战争循环；其崩塌也是当代罗德岛部分核心成员（如凯尔希）所背负的历史包袱之一。
+  gold_en: Babel was a multi-racial community organisation in Sarkaz history championed by Theresa, aimed at ending the Sarkaz
+    cycle of war through peace and joint governance. Its collapse is one of the historical burdens carried by certain core
+    Rhodes Island members today (notably Kal'tsit).
+  key_facts:
+  - 古巴别塔 / Babel
+  - 特蕾西娅 / Theresa
+  - 多种族 / multi-racial
+  - 凯尔希 / Kal'tsit
+  traps:
+  - 巴别塔是哥伦比亚的城市 / Babel is a Columbian city (false — Sarkaz historical organisation)
+  - 巴别塔依然在运作 / Babel is still operational (false — it has collapsed)
+  tags:
+  - babel
+  - theresa
+  - kazdel
+  - sarkaz
+  - world
+  source: cn/operators/char_003_kalts.txt
+  notes: ''
+- id: Q036
+  category: world
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 「魔王」（Lord of Fiends）一职在第十四章中由谁继承？
+  question_en: Who inherits the 'Lord of Fiends' / Demon-King role in Episode 14?
+  gold_zh: 阿米娅。她在通天巨塔顶端与特蕾西娅完成最后告别，遵循其意志挥剑终结萨卡兹「众魂」的痛苦循环，正式继承魔王职责。
+  gold_en: Amiya. At the top of the Babel-spire she shares a final farewell with Theresa and, following her will, raises her
+    sword to end the suffering cycle of the Sarkaz 'Many Souls,' formally inheriting the role of the Lord of Fiends.
+  key_facts:
+  - 阿米娅 / Amiya
+  - 特蕾西娅 / Theresa
+  - 魔王 / Lord of Fiends
+  - 通天巨塔 / Babel-spire
+  traps:
+  - 特雷西斯继承了魔王 / Theresis inherits the Lord of Fiends (he seizes Originium 阿喃那 but not the Lord-of-Fiends role itself)
+  - W 继承了魔王 / W inherits the Lord of Fiends (false — she is renamed 维什戴尔 / Vyshedel)
+  tags:
+  - amiya
+  - theresa
+  - lord_of_fiends
+  - main_14
+  source: cn/stories/main_14.txt
+  notes: ''
+- id: Q037
+  category: world
+  answer_type: factoid
+  difficulty: hard
+  question_zh: 第十四章中，「最初的源石」叫什么？由谁夺取？
+  question_en: In Episode 14, what is 'the first Originium' called, and who seizes it?
+  gold_zh: 「最初的源石」名为「阿喃那」（Ananas / 阿喃那），最终由特雷西斯夺得；这件事直接改变了泰拉大地的政治格局。
+  gold_en: The first Originium is called Anana / 阿喃那, and it is ultimately seized by Theresis; this event directly reshapes
+    the political map of Terra.
+  key_facts:
+  - 阿喃那 / Anana
+  - 特雷西斯 / Theresis
+  - 最初的源石 / first Originium
+  traps:
+  - 由阿米娅夺得 / seized by Amiya (false — Theresis takes it)
+  - 「阿喃那」是一种武器 / Anana is a weapon (false — it is the primal Originium)
+  tags:
+  - anana
+  - theresis
+  - originium
+  - main_14
+  source: cn/stories/main_14.txt
+  notes: ''
+- id: Q038
+  category: world
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 在第十四章中，特蕾西娅赋予 W 的新名是什么？
+  question_en: What new name does Theresa give to W in Episode 14?
+  gold_zh: 维什戴尔 / Vyshedel。特蕾西娅赋予 W 新名「维什戴尔」后彻底消散。
+  gold_en: Vyshedel / 维什戴尔. Theresa gives W this new name and then fully dissipates.
+  key_facts:
+  - 维什戴尔 / Vyshedel
+  - W
+  - 特蕾西娅 / Theresa
+  traps:
+  - 新名是阿喃那 / her new name is Anana (false — Anana is the first Originium)
+  - 特蕾西娅在第十二章命名 W / Theresa gives W the name in Episode 12 (false — Episode 14)
+  tags:
+  - w
+  - vyshedel
+  - theresa
+  - main_14
+  source: cn/stories/main_14.txt
+  notes: ''
+- id: Q039
+  category: world
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 在「沃伦姆德的薄暮」中，沃伦姆德是什么类型的城镇？
+  question_en: What type of town is Wolumonde in "Twilight of Wolumonde"?
+  gold_zh: 莱塔尼亚的一座移动城镇。其内部因突发天灾与离奇火灾陷入危机，感染者与普通镇民的矛盾激化，最终演变为感染者暴乱。
+  gold_en: 'A Leithanien mobile town. After a Catastrophe and a strange fire it falls into crisis: tensions between Infected
+    and ordinary residents escalate, finally erupting into an Infected riot.'
+  key_facts:
+  - 莱塔尼亚 / Leithanien
+  - 移动城镇 / mobile town
+  - 感染者暴乱 / Infected riot
+  traps:
+  - 维多利亚的城堡城镇 / a Victorian castle town (wrong nation)
+  - 卡兹戴尔的雇佣兵据点 / a Kazdel mercenary outpost (wrong)
+  tags:
+  - wolumonde
+  - leithanien
+  - mobile_city
+  - act11d0
+  source: cn/stories/act11d0.txt
+  notes: ''
+- id: Q040
+  category: world
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 「诸王之息」在第十四章中扮演什么角色？
+  question_en: What role does the 'Breath of Kings' play in Episode 14?
+  gold_zh: 诸王之息是萨卡兹的关键圣物之一。第十四章中，伦蒂尼姆碎片大厦引发红色源石浪潮席卷战场；推进之王（典范军）挺进银石崖夺回「诸王之息」并以之平息源石风暴，是阻止整场战役升级的关键一环。
+  gold_en: The Breath of Kings is one of the Sarkaz's critical relics. In Episode 14, the Fragment Tower in Lundinium triggers
+    a red Originium surge across the battlefield; the Crown Prince and the Exemplar Army push into the Silverstone Cliffs
+    to retake the Breath of Kings and use it to quell the Originium storm — a pivotal step in stopping the battle from escalating
+    further.
+  key_facts:
+  - 诸王之息 / Breath of Kings
+  - 推进之王 / Crown Prince
+  - 源石浪潮 / Originium surge
+  - 典范军 / Exemplar Army
+  traps:
+  - 诸王之息是一种武器 / Breath of Kings is a weapon (incomplete — relic, used to quell the surge)
+  - 诸王之息由特雷西斯夺回 / Breath of Kings is retrieved by Theresis (false — by the Crown Prince and the Exemplar Army)
+  tags:
+  - breath_of_kings
+  - crown_prince
+  - main_14
+  - exemplar_army
+  source: cn/stories/main_14.txt
+  notes: ''
+- id: Q041
+  category: relationship
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 罗德岛与企鹅物流的合作关系是怎样的？
+  question_en: What is the cooperation relationship between Rhodes Island and Penguin Logistics?
+  gold_zh: 罗德岛与企鹅物流是长期合作伙伴：企鹅物流以物流与外勤业务为主营，对罗德岛长期外派人手（特别是德克萨斯、能天使、可颂等核心员工），双方在多场龙门危机与跨国行动中并肩作战；这是「商业关系 + 半固定外派」混合的关系，双方仍各自独立。
+  gold_en: Rhodes Island and Penguin Logistics are long-running partners. Penguin Logistics' main business is logistics and
+    field work, and it routinely seconds personnel (especially Texas, Exusiai, Croissant) to Rhodes Island. The two sides
+    have fought together through several Lungmen crises and cross-border operations. The relationship is a hybrid of 'commercial
+    contract + semi-permanent secondment' — they remain independent organisations.
+  key_facts:
+  - 企鹅物流 / Penguin Logistics
+  - 外派 / secondment
+  - 德克萨斯 / Texas
+  - 能天使 / Exusiai
+  - 可颂 / Croissant
+  traps:
+  - 企鹅物流是罗德岛的子公司 / Penguin Logistics is a Rhodes Island subsidiary (false — independent)
+  - 二者从未合作过任务 / the two have never worked operations together (false — recurrent cooperation)
+  tags:
+  - rhodes_island
+  - penguin_logistics
+  - texas
+  - exusiai
+  - relationship
+  source: cn/operators/char_103_angel.txt
+  notes: ''
+- id: Q042
+  category: relationship
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 拉普兰德与德克萨斯之间有什么过去？
+  question_en: What is the shared history between Lappland and Texas?
+  gold_zh: 拉普兰德与德克萨斯出身叙拉古的同一鲁珀文化圈，是德克萨斯七年前事件中失去家族前的旧识。如今拉普兰德对德克萨斯怀有近乎执念的关注，而德克萨斯则有意回避与她正面碰撞——双方在罗德岛行动中即便合作，也维持着「若即若离」的微妙关系，这种关系部分源于德克萨斯对自身、对家族、对乔万娜与拉普兰德三种命运的复杂情感。
+  gold_en: Lappland and Texas come from the same Lupo-Siracusan cultural circle and were acquaintances before the seven-years-ago
+    incident in which Texas lost her family. Today Lappland fixates on Texas with near-obsessive attention, while Texas deliberately
+    avoids direct confrontation. Even when they cooperate on Rhodes Island operations, they hold an ambiguous 'near-but-distant'
+    relationship, partly rooted in Texas's complicated feelings about herself, her family, and the three possible fates she
+    sees in Texas, Giovanna, and Lappland.
+  key_facts:
+  - 叙拉古 / Siracusa
+  - 鲁珀 / Lupo
+  - 七年前 / seven years ago
+  - 德克萨斯家族 / Texas family
+  traps:
+  - 二人是亲姐妹 / they are biological sisters (false — same culture, different families)
+  - 二人毫无交集，仅在罗德岛同事 / they never knew each other before Rhodes Island (false — they share a Siracusan past)
+  tags:
+  - lappland
+  - texas
+  - siracusa
+  - lupo
+  - relationship
+  source: cn/operators/char_1028_texas2.txt
+  notes: Confirmed in 缄默德克萨斯's archive file 资料二.
+- id: Q043
+  category: relationship
+  answer_type: open_ended
+  difficulty: hard
+  question_zh: 陈与罗德岛之间为何始终保持「合作而非加入」？
+  question_en: Why does Ch'en maintain a 'cooperation, not enrollment' stance toward Rhodes Island?
+  gold_zh: 陈的主体身份是龙门近卫局特别督察组组长，她以契约方式协助罗德岛任务。一方面她忠于龙门的执法体系；另一方面她在主线第六章对龙门「黑蓑」清理贫民区的手段产生了强烈质疑，但仍选择留在体制内承担责任，而非放弃龙门加入罗德岛。
+  gold_en: Ch'en's primary identity is Special Inspection Chief of the Lungmen Guard Department. She assists Rhodes Island
+    under contract. On one hand she is loyal to Lungmen's law-enforcement system; on the other, in Episode 6 she strongly
+    questions Lungmen's use of 'Black Suit' enforcers to clear the slums — yet she chooses to remain inside the system to
+    bear that responsibility, rather than abandon Lungmen for Rhodes Island.
+  key_facts:
+  - 陈 / Ch'en
+  - 龙门近卫局 / LGD
+  - 依合约 / by contract
+  - 黑蓑 / Black Suit
+  - main_06
+  traps:
+  - 陈早已加入罗德岛 / Ch'en has long since joined Rhodes Island (false — guest combat operator)
+  - 陈与龙门已彻底决裂 / Ch'en has cut all ties with Lungmen (false — she stays inside)
+  tags:
+  - chen
+  - rhodes_island
+  - lungmen
+  - lgd
+  - main_06
+  source: cn/operators/char_010_chen.txt
+  notes: ''
+- id: Q044
+  category: event
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 主线第六章中浮士德是如何死亡的？
+  question_en: How does Faust die in Episode 6?
+  gold_zh: 浮士德为掩护整合运动残部撤离，在重围中超负荷使用源石技艺，最终战死。
+  gold_en: To cover the retreat of Reunion's remnants, Faust overloads his Originium Arts in a tight encirclement and dies
+    in combat.
+  key_facts:
+  - 浮士德 / Faust
+  - 超负荷 / overload
+  - 源石技艺 / Originium Arts
+  - 战死 / killed in action
+  traps:
+  - 浮士德死于罗德岛医疗事故 / Faust dies in a Rhodes Island medical accident (false)
+  - 浮士德死于霜星之手 / Faust dies at FrostNova's hand (false — same faction)
+  tags:
+  - main_06
+  - faust
+  - reunion
+  source: cn/stories/main_06.txt
+  notes: ''
+- id: Q045
+  category: world
+  answer_type: factoid
+  difficulty: hard
+  question_zh: 「内化宇宙」在第十四章中指的是什么？
+  question_en: What does the 'Internalised Cosmos' refer to in Episode 14?
+  gold_zh: 在第十四章中，源石仪式启动后，阿米娅一行坠入「源石的内化宇宙」——一个由九千年来萨卡兹「众魂」的记忆与遗憾构筑的幻景空间；众人在其中寻找出路，并最终在通天巨塔顶端面对特蕾西娅。
+  gold_en: In Episode 14, once the Originium ritual is triggered, Amiya's group falls into the 'Internalised Cosmos' of Originium
+    — a vision-space built from nine millennia of Sarkaz 'Many Souls' memories and regrets. They have to find a way through
+    it, and ultimately face Theresa at the top of the Babel-spire.
+  key_facts:
+  - 内化宇宙 / Internalised Cosmos
+  - 众魂 / Many Souls
+  - 九千年 / nine millennia
+  - 通天巨塔 / Babel-spire
+  traps:
+  - 内化宇宙是萨卡兹真实的地下世界 / the Internalised Cosmos is a real Sarkaz underworld (false — it is a vision-space)
+  - 内化宇宙仅持续了一瞬间 / it lasts only a moment (false — extended traversal)
+  tags:
+  - internalised_cosmos
+  - main_14
+  - originium
+  - sarkaz
+  - amiya
+  source: cn/stories/main_14.txt
+  notes: ''

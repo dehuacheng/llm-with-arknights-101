@@ -1,0 +1,710 @@
+# Eval chunk B — main-line events main_0 / main_5 / main_7 / main_8 / main_10 /
+# main_11, plus world + faction concepts grounded in those summaries and
+# operator archives. Authored against the baked KB summaries under
+# arknights_lore_wiki_lib/kb/summaries/events/main_*.md.
+#
+# ID range: Q051..Q085 (35 items, contiguous).
+# Validator: python3 eval/validate.py
+#
+# Note on titles: this chunk treats main_10 as "破碎日冕" / Shatterpoint (Victoria/
+# Londinium) and main_11 as "淬火尘霾" (Londinium siege), per the canonical
+# summaries — these chapters are part of the Victoria arc, not Sami or
+# Rhine Lab. See "skipped / downgraded" in the final report.
+
+- id: "Q051"
+  category: "event"
+  answer_type: "factoid"
+  difficulty: "easy"
+  question_zh: "切尔诺伯格事件中，是谁带领罗德岛干员潜入核心区并唤醒了博士？"
+  question_en: "Who leads the Rhodes Island squad that infiltrates Chernobog's core district and wakes the Doctor?"
+  gold_zh: "阿米娅带领罗德岛的小队潜入切尔诺伯格的核心区，成功唤醒了沉睡且失忆的博士。"
+  gold_en: "Amiya leads the Rhodes Island squad into Chernobog's core district and wakes the sleeping, amnesiac Doctor."
+  key_facts:
+    - "阿米娅 / Amiya"
+    - "博士 / Doctor"
+    - "失忆 / amnesiac"
+  traps:
+    - "凯尔希 / Kal'tsit (she is on Rhodes Island but does not lead the infiltration in main_00)"
+    - "耀骑士临光 / Nearl the Radiant Knight (intervenes later, in the breakout — not the infiltration)"
+  tags: ["main_00", "chernobog", "rhodes_island", "amiya"]
+  source: "cn/stories/main_00.txt"
+  notes: ""
+
+- id: "Q052"
+  category: "event"
+  answer_type: "factoid"
+  difficulty: "medium"
+  question_zh: "在主线第零章的突围战里，是谁突入战场撕开了整合运动的包围圈？"
+  question_en: "Who breaks into the battlefield to tear open Reunion's encirclement during the Episode 0 breakout?"
+  gold_zh: "耀骑士临光在危急时刻突入战场，撕开了整合运动的防线，让众人得以压制狙击手浮士德、撤出上城区。"
+  gold_en: "Nearl the Radiant Knight bursts in at the critical moment and tears open Reunion's line, allowing the squad to suppress the sniper Faust and escape the upper city."
+  key_facts:
+    - "耀骑士临光 / Nearl the Radiant Knight"
+    - "浮士德 / Faust (sniper)"
+    - "突围 / breakout"
+  traps:
+    - "银灰 / SilverAsh (Karlan Trade arc — not present at Chernobog in main_00)"
+    - "斯卡蒂 / Skadi (no Episode 0 intervention canonically)"
+  tags: ["main_00", "chernobog", "nearl", "breakout"]
+  source: "cn/stories/main_00.txt"
+  notes: ""
+
+- id: "Q053"
+  category: "event"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "切尔诺伯格事件爆发时，城市正面临哪两重危机？"
+  question_en: "What two simultaneous crises is Chernobog facing during the events of Episode 0?"
+  gold_zh: "城市同时遭遇两重危机：一是整合运动的暴乱袭击，对平民进行无差别攻击；二是即将降临的天灾。罗德岛正是在这种夹击中救出博士并艰难突围。"
+  gold_en: "Two crises hit at once: Reunion's uprising, including indiscriminate attacks on civilians, and an imminent Catastrophe. Rhodes Island rescues the Doctor and breaks out under both pressures."
+  key_facts:
+    - "整合运动暴乱 / Reunion uprising"
+    - "天灾 / Catastrophe"
+    - "对平民无差别攻击 / indiscriminate attacks on civilians"
+  traps:
+    - "乌萨斯帝国军镇压 / Ursus imperial army crackdown (the imperial army does not directly act inside Chernobog in main_00)"
+    - "哥伦比亚势力入侵 / Columbia incursion (not present)"
+  tags: ["main_00", "chernobog", "reunion", "catastrophe"]
+  source: "cn/stories/main_00.txt"
+  notes: ""
+
+- id: "Q054"
+  category: "event"
+  answer_type: "factoid"
+  difficulty: "easy"
+  question_zh: "主线第五章「靶向药物」的故事发生在哪个城市？"
+  question_en: "In which city does Episode 5 \"Necessary Solutions\" (靶向药物) take place?"
+  gold_zh: "龙门——讲述龙门近卫局联合罗德岛反击整合运动、最终夺回近卫局总部的战斗。"
+  gold_en: "Lungmen — Episode 5 follows the L.G.D.'s joint counter-attack with Rhodes Island and the retaking of L.G.D. headquarters."
+  key_facts:
+    - "龙门 / Lungmen"
+    - "龙门近卫局 / L.G.D."
+    - "夺回近卫局总部 / retake L.G.D. HQ"
+  traps:
+    - "切尔诺伯格 / Chernobog (Episodes 0 / 7 / 8, not Episode 5)"
+    - "伦蒂尼姆 / Londinium (Episodes 10–11)"
+  tags: ["main_05", "lungmen", "lgd"]
+  source: "cn/stories/main_05.txt"
+  notes: ""
+
+- id: "Q055"
+  category: "event"
+  answer_type: "factoid"
+  difficulty: "medium"
+  question_zh: "主线第五章末尾，陈在近卫局总部天台上拔出了哪把名刀？"
+  question_en: "What named blade does Ch'en draw on the rooftop of L.G.D. HQ at the climax of Episode 5?"
+  gold_zh: "陈拔出了名刀「赤霄」，斩灭了由源石法术转化的「牧群」。"
+  gold_en: "Ch'en draws the famed blade Chixiao (赤霄), cutting down the Originium-Arts \"flock\" surrounding her."
+  key_facts:
+    - "赤霄 / Chixiao"
+    - "陈 / Ch'en"
+    - "近卫局总部天台 / rooftop of L.G.D. HQ"
+  traps:
+    - "斩马刀 / standard sabre (赤霄 is the specific named blade)"
+    - "她在第八章才拔出赤霄 / she draws it only in Episode 8 (wrong — Episode 5)"
+  tags: ["main_05", "chen", "chixiao", "lgd"]
+  source: "cn/stories/main_05.txt"
+  notes: ""
+
+- id: "Q056"
+  category: "event"
+  answer_type: "open_ended"
+  difficulty: "hard"
+  question_zh: "龙门总督魏彦吾在主线第五章末尾的「深层布局」具体是什么？"
+  question_en: "What does the late-Episode-5 reveal about Wei Yenwu's deeper game?"
+  gold_zh: "魏彦吾的深层布局是把罗德岛当作诱饵来隐藏龙门的精锐部队；这一安排在末尾才显现，引发了凯尔希等人的质询，并暗示了塔露拉的过往与乌萨斯政局危机即将浮出水面。"
+  gold_en: "Wei Yenwu used Rhodes Island as bait to mask Lungmen's elite reserves; the manipulation surfaces only at the chapter's end, draws a sharp protest from Kal'tsit, and primes the reveals about Talulah's past and the Ursus political crisis to come."
+  key_facts:
+    - "魏彦吾 / Wei Yenwu"
+    - "罗德岛作诱饵 / Rhodes Island as bait"
+    - "凯尔希质询 / Kal'tsit's protest"
+    - "塔露拉过往伏笔 / foreshadows Talulah's past"
+  traps:
+    - "魏彦吾只是被动接受罗德岛援助 / he merely accepted Rhodes Island's help (false — there is a deliberate plan)"
+    - "魏彦吾本人就是整合运动的内应 / Wei Yenwu is a Reunion mole (off-canon fabrication)"
+  tags: ["main_05", "wei_yenwu", "lungmen", "kalts"]
+  source: "cn/stories/main_05.txt"
+  notes: ""
+
+- id: "Q057"
+  category: "event"
+  answer_type: "factoid"
+  difficulty: "easy"
+  question_zh: "主线第七章「苦难摇篮」的故事主要发生在哪里？"
+  question_en: "Where does Episode 7 \"Cradle of Misery\" (苦难摇篮) primarily take place?"
+  gold_zh: "切尔诺伯格的核心城——这座飞行核心城正在向龙门移动，罗德岛受龙门之托潜入其中。"
+  gold_en: "Inside Chernobog's mobile Core City, which is hurtling toward Lungmen; Rhodes Island infiltrates it on Lungmen's behalf."
+  key_facts:
+    - "切尔诺伯格核心城 / Chernobog Core City"
+    - "向龙门移动 / heading toward Lungmen"
+    - "罗德岛潜入 / Rhodes Island infiltration"
+  traps:
+    - "乌萨斯首都地下 / Ursus capital underground (off-canon)"
+    - "龙门近卫局总部 / L.G.D. HQ (that is Episode 5)"
+  tags: ["main_07", "chernobog", "core_city"]
+  source: "cn/stories/main_07.txt"
+  notes: ""
+
+- id: "Q058"
+  category: "event"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "「苦难摇篮」中，爱国者最终的结局是什么？"
+  question_en: "What happens to the Patriot at the end of Episode 7?"
+  gold_zh: "爱国者虽然知道塔露拉已被科西切的意志侵蚀，仍坚持以战士身份正面交锋，意在验证罗德岛能否承接感染者的未来。他在惨烈的围攻中立竭而逝，临终前察觉了阿米娅的「魔王」身份并留下警示。"
+  gold_en: "The Patriot knows Talulah is already corrupted by Kaschey's will, but insists on engaging Rhodes Island to test whether they can carry the Infected's future. He dies standing in the brutal melee, perceiving Amiya's hidden \"Demon Lord\" identity as he falls and leaving a warning."
+  key_facts:
+    - "爱国者 / Patriot"
+    - "立竭而逝 / dies standing"
+    - "察觉阿米娅魔王身份 / senses Amiya as Demon Lord"
+    - "塔露拉被科西切侵蚀 / Talulah corrupted by Kaschey"
+  traps:
+    - "被陈一刀斩杀 / killed by Ch'en's single strike (off-canon)"
+    - "存活并加入罗德岛 / survives and joins Rhodes Island (false)"
+  tags: ["main_07", "patriot", "amiya", "kaschey"]
+  source: "cn/stories/main_07.txt"
+  notes: ""
+
+- id: "Q059"
+  category: "event"
+  answer_type: "factoid"
+  difficulty: "medium"
+  question_zh: "主线第七章开头，陈做出了哪个决定？"
+  question_en: "What decision does Ch'en make at the start of Episode 7?"
+  gold_zh: "陈公开了自己的感染者身份并离开近卫局，独身前往切尔诺伯格核心城试图终结自己的恩怨。"
+  gold_en: "Ch'en publicly discloses her Infected status, leaves the L.G.D., and goes alone to the Chernobog Core City to end her personal grudge."
+  key_facts:
+    - "陈 / Ch'en"
+    - "公开感染者身份 / discloses Oripathy"
+    - "离开近卫局 / leaves L.G.D."
+    - "切尔诺伯格核心城 / Chernobog Core City"
+  traps:
+    - "晋升为近卫局总指挥 / promoted to L.G.D. commander (opposite of canon)"
+    - "正式加入罗德岛 / formally joins Rhodes Island (that happens later, at the end of main_08)"
+  tags: ["main_07", "chen", "lgd"]
+  source: "cn/stories/main_07.txt"
+  notes: ""
+
+- id: "Q060"
+  category: "event"
+  answer_type: "factoid"
+  difficulty: "easy"
+  question_zh: "主线第八章「怒号光明」的最终战发生在哪里？"
+  question_en: "Where is the final battle of Episode 8 \"Roaring Flare\" (怒号光明) fought?"
+  gold_zh: "切尔诺伯格的指挥塔——罗德岛由阿米娅、迷迭香带队强攻；同时凯尔希与博士深入石棺核心制服了异化的梅菲斯特。"
+  gold_en: "At Chernobog's command tower — Amiya and Rosmontis lead Rhodes Island's assault, while Kal'tsit and the Doctor descend into the Sarcophagus core and subdue the corrupted Mephisto."
+  key_facts:
+    - "指挥塔 / command tower"
+    - "阿米娅 / Amiya"
+    - "迷迭香 / Rosmontis"
+    - "石棺核心 / Sarcophagus core"
+  traps:
+    - "由凯尔希和耀骑士临光带队 / led by Kal'tsit and Nearl the Radiant Knight (wrong leads)"
+    - "战斗发生在龙门近卫局总部 / fought at L.G.D. HQ (that is Episode 5)"
+  tags: ["main_08", "chernobog", "command_tower", "amiya"]
+  source: "cn/stories/main_08.txt"
+  notes: ""
+
+- id: "Q061"
+  category: "event"
+  answer_type: "open_ended"
+  difficulty: "hard"
+  question_zh: "「怒号光明」揭示了塔露拉怎样的过去？为什么她最终被整合运动「夺走」？"
+  question_en: "What does Episode 8 reveal about Talulah's past, and how does she end up \"taken\" by Reunion?"
+  gold_zh: "塔露拉脱离科西切控制后在乌萨斯荒野救助感染者并结识挚友阿丽娜，随后与爱国者、霜星合流组建整合运动。但阿丽娜惨死、目睹民众的「平庸之恶」让她绝望，触发了科西切种下的「不死的黑蛇」诅咒，意识被其篡夺，整合运动也由此沦为阴谋家的棋子。"
+  gold_en: "Free of Kaschey, Talulah rescued Infected in the Ursus wastes and met her close friend Alina, then joined the Patriot and FrostNova to found Reunion. Alina's death and the \"banality of evil\" she witnessed drove her to despair — triggering Kaschey's pre-planted \"Undying Black Serpent\" curse, which hijacked her consciousness and turned Reunion into a pawn of his schemes."
+  key_facts:
+    - "脱离科西切 / breaks free of Kaschey"
+    - "阿丽娜 / Alina"
+    - "不死的黑蛇 / Undying Black Serpent"
+    - "整合运动沦为棋子 / Reunion becomes a pawn"
+  traps:
+    - "塔露拉从始至终都是科西切的傀儡 / Talulah was always a Kaschey puppet (over-specific; Episode 8 says she had genuine agency before the curse)"
+    - "整合运动由凯尔希秘密扶植 / Reunion was secretly seeded by Kal'tsit (off-canon)"
+  tags: ["main_08", "talulah", "kaschey", "reunion"]
+  source: "cn/stories/main_08.txt"
+  notes: "Key reveal: the curse was pre-planted, but Talulah's initial Reunion years were her own."
+
+- id: "Q062"
+  category: "event"
+  answer_type: "factoid"
+  difficulty: "medium"
+  question_zh: "「怒号光明」的最终决战中，阿米娅觉醒了什么力量？这与切尔诺伯格事件的结局有什么关系？"
+  question_en: "What power does Amiya awaken in the climactic battle of Episode 8, and what does it accomplish?"
+  gold_zh: "阿米娅觉醒了萨卡兹君主（即「魔王」）的力量，借此唤醒了塔露拉的自我意志；塔露拉随后夺回身体控制权并制动了核心城，在撞击前停下了切尔诺伯格。"
+  gold_en: "Amiya awakens her power as Sarkaz Monarch (the \"Demon Lord\"), using it to call Talulah's self back to the surface; Talulah then retakes control of her body and brakes the Core City, halting Chernobog before impact."
+  key_facts:
+    - "萨卡兹君主 / Sarkaz Monarch"
+    - "魔王 / Demon Lord"
+    - "唤醒塔露拉 / awakens Talulah"
+    - "制动核心城 / brakes the Core City"
+  traps:
+    - "卡特斯血脉之力 / Cautus bloodline power (Amiya is Cautus by appearance but the awakening is Sarkaz-Monarch, not a Cautus power)"
+    - "核心城是被陈手动制动的 / Ch'en manually stops the Core City (false — Talulah does)"
+  tags: ["main_08", "amiya", "talulah", "sarkaz_monarch"]
+  source: "cn/stories/main_08.txt"
+  notes: ""
+
+- id: "Q063"
+  category: "event"
+  answer_type: "factoid"
+  difficulty: "medium"
+  question_zh: "切尔诺伯格事件最终落幕时，塔露拉和陈分别去了哪里？"
+  question_en: "At the end of the Chernobog incident, where do Talulah and Ch'en end up?"
+  gold_zh: "塔露拉作为囚犯被收监；陈则加入了罗德岛。整合运动残部就此瓦解离散，事件以众人祭奠牺牲者作结。"
+  gold_en: "Talulah is taken into custody as a prisoner; Ch'en joins Rhodes Island. Reunion's remnants disperse, and the arc closes with a memorial for the fallen."
+  key_facts:
+    - "塔露拉囚犯 / Talulah as prisoner"
+    - "陈加入罗德岛 / Ch'en joins Rhodes Island"
+    - "整合运动瓦解 / Reunion dissolves"
+  traps:
+    - "塔露拉死亡 / Talulah dies (off-canon — she survives and is imprisoned)"
+    - "陈在第五章就已加入罗德岛 / Ch'en joined Rhodes Island already in Episode 5 (wrong episode)"
+  tags: ["main_08", "talulah", "chen", "reunion"]
+  source: "cn/stories/main_08.txt"
+  notes: ""
+
+- id: "Q064"
+  category: "event"
+  answer_type: "factoid"
+  difficulty: "easy"
+  question_zh: "主线第十章「破碎日冕」发生在哪个国家？主要地点是哪里？"
+  question_en: "Which nation and city does Episode 10 \"Shatterpoint\" (破碎日冕) primarily take place in?"
+  gold_zh: "维多利亚，主要地点是其首都伦蒂尼姆——萨卡兹摄政王特雷西斯在这里修筑军事设施。"
+  gold_en: "Victoria — specifically the capital Londinium, where the Sarkaz Regent Theresis has built a military foothold."
+  key_facts:
+    - "维多利亚 / Victoria"
+    - "伦蒂尼姆 / Londinium"
+    - "特雷西斯 / Theresis"
+  traps:
+    - "莱塔尼亚 / Leithanien (Episode 8 setting in the wider canon — Episode 10 is Victoria)"
+    - "萨米 / Sami (a different region — not the setting of main_10)"
+  tags: ["main_10", "victoria", "londinium", "theresis"]
+  source: "cn/stories/main_10.txt"
+  notes: "Note: the brief's labelling of main_10 as 'Sami' did not match the canonical summary; trust the summary."
+
+- id: "Q065"
+  category: "event"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "在「破碎日冕」中，推进之王的关键贡献是什么？"
+  question_en: "What is the Patriot Wynnova's pivotal contribution in Episode 10?"
+  gold_zh: "推进之王（维娜）决定承担责任、亲自开启王室秘密通道，引领众人撤离伦蒂尼姆王城；同时各方协作炸毁了曼弗雷德操控的城防炮控制系统，得以突围。"
+  gold_en: "The Patriot Wynnova decides to take responsibility, opens the royal secret passage in person, and leads the group out of Londinium's old palace; in parallel, the coalition sabotages Manfred's city defence cannon controls to enable the escape."
+  key_facts:
+    - "推进之王 / The Patriot (Wynnova/Vina)"
+    - "王室秘密通道 / royal secret passage"
+    - "城防炮 / city defence cannon"
+    - "曼弗雷德 / Manfred"
+  traps:
+    - "推进之王独自留下断后并被杀 / she stays behind alone and is killed (false in main_10)"
+    - "维娜直接拔出了诸王之息 / Wynnova draws the Breath of Kings here (that happens in Episode 11, not 10)"
+  tags: ["main_10", "patriot", "londinium", "manfred"]
+  source: "cn/stories/main_10.txt"
+  notes: ""
+
+- id: "Q066"
+  category: "event"
+  answer_type: "factoid"
+  difficulty: "hard"
+  question_zh: "「破碎日冕」结尾，阿米娅在伦蒂尼姆的废墟中目睹了什么？"
+  question_en: "What does Amiya glimpse in the ruins at the end of Episode 10?"
+  gold_zh: "阿米娅在撤离的瞬间，在废墟中目睹了复活的特蕾西亚——这是该章的关键揭示；与此同时，塔露拉也重整了整合运动，向维多利亚进发。"
+  gold_en: "As she evacuates, Amiya glimpses a revived Theresa in the ruins — the chapter's major reveal. At the same time, Talulah has reorganised Reunion and is moving toward Victoria."
+  key_facts:
+    - "特蕾西亚复活 / revived Theresa"
+    - "阿米娅目睹 / Amiya witnesses"
+    - "塔露拉重整整合运动 / Talulah re-forms Reunion"
+  traps:
+    - "目睹了自己的母亲 / glimpses her own mother (off-canon — it's Theresa)"
+    - "目睹了凯尔希中弹倒下 / glimpses Kal'tsit shot (Kal'tsit's wounding happens in main_11, not main_10)"
+  tags: ["main_10", "amiya", "theresa", "reunion"]
+  source: "cn/stories/main_10.txt"
+  notes: ""
+
+- id: "Q067"
+  category: "event"
+  answer_type: "factoid"
+  difficulty: "easy"
+  question_zh: "「淬火尘霾」给出的具体年份是哪两个？分别发生了什么？"
+  question_en: "What two specific years does Episode 11 cite, and what happens in each?"
+  gold_zh: "1094年，萨卡兹军队趁维多利亚内乱占领伦蒂尼姆并建立军事委员会；1097年，罗德岛与反抗组织「自救军」汇合，开始系统性反抗行动。"
+  gold_en: "1094 — the Sarkaz seize Londinium amid Victoria's internal turmoil and install a Military Committee; 1097 — Rhodes Island links up with the Self-Salvation Army resistance and the organised counter-action begins."
+  key_facts:
+    - "1094年占领伦蒂尼姆 / Londinium occupied in 1094"
+    - "1097年罗德岛与自救军汇合 / Rhodes Island links with the Self-Salvation Army in 1097"
+    - "萨卡兹军事委员会 / Sarkaz Military Committee"
+  traps:
+    - "1097年才被萨卡兹占领 / Londinium was occupied only in 1097 (date inversion)"
+    - "1094年罗德岛就已开始反抗 / Rhodes Island's counter-action began in 1094 (wrong year)"
+  tags: ["main_11", "londinium", "victoria", "dates"]
+  source: "cn/stories/main_11.txt"
+  notes: ""
+
+- id: "Q068"
+  category: "event"
+  answer_type: "factoid"
+  difficulty: "medium"
+  question_zh: "「淬火尘霾」中，推进之王从「诸王长眠之所」拔出的王权圣剑叫什么？拔剑时谁牺牲了？"
+  question_en: "What is the royal sword the Patriot draws from the \"Resting Place of Kings\" in Episode 11, and who dies covering her draw?"
+  gold_zh: "圣剑名为「诸王之息」。在「最后的蒸汽骑士」苏醒并无差别攻击之际，是阿勒黛舍身阻挡骑士，掩护维娜完成拔剑。"
+  gold_en: "The sword is \"Breath of Kings\" (诸王之息). When the awakened Last Steam Knight attacks indiscriminately, Aletta throws herself in front of the knight to give Wynnova time to draw it."
+  key_facts:
+    - "诸王之息 / Breath of Kings"
+    - "诸王长眠之所 / Resting Place of Kings"
+    - "阿勒黛 / Aletta"
+    - "最后的蒸汽骑士 / Last Steam Knight"
+  traps:
+    - "圣剑叫日冕之刃 / sword called \"Blade of the Corona\" (off-canon; that name leans on the Episode 10 title)"
+    - "费斯特舍身掩护 / Fester covers the draw (Aletta does, not Fester)"
+  tags: ["main_11", "patriot", "breath_of_kings", "aletta"]
+  source: "cn/stories/main_11.txt"
+  notes: ""
+
+- id: "Q069"
+  category: "event"
+  answer_type: "open_ended"
+  difficulty: "hard"
+  question_zh: "「淬火尘霾」结尾的局势是什么？凯尔希经历了什么？"
+  question_en: "What is the situation at the end of Episode 11, and what happens to Kal'tsit?"
+  gold_zh: "凯尔希为掩护众人撤退身负重伤；萨卡兹启动巨大的飞行器笼罩伦蒂尼姆；维多利亚诸公爵的军队也逼近——多方势力汇聚，更大规模的战争由此拉开序幕。"
+  gold_en: "Kal'tsit is gravely wounded covering the retreat; the Sarkaz deploy a massive airship that blankets Londinium; the Victorian dukes' armies close in — multiple factions converge, and a much larger war is set in motion."
+  key_facts:
+    - "凯尔希重伤 / Kal'tsit gravely wounded"
+    - "萨卡兹飞行器 / Sarkaz airship"
+    - "维多利亚诸公爵 / Victorian dukes"
+    - "更大规模战争 / larger war begins"
+  traps:
+    - "凯尔希战死 / Kal'tsit is killed (off-canon — she is gravely wounded, not killed)"
+    - "维多利亚诸公爵已驱逐萨卡兹 / the Victorian dukes have already driven out the Sarkaz (false — they are only converging)"
+  tags: ["main_11", "kalts", "londinium", "victoria"]
+  source: "cn/stories/main_11.txt"
+  notes: ""
+
+# =============================================================================
+# world — 9 items (Q070..Q078)
+# =============================================================================
+
+- id: "Q070"
+  category: "world"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "源石技艺的代价是什么？和矿石病有什么关系？"
+  question_en: "What is the cost of using Originium Arts, and how does it relate to Oripathy?"
+  gold_zh: "源石技艺以源石为能量源，使用者通过自身与源石的共鸣来引发现象。代价是与源石长期接触会显著提高矿石病的感染风险，许多术师本身就是感染者，或主动承受了这种风险。"
+  gold_en: "Originium Arts use Originium itself as their energy source, with the caster channelling through resonance with the stone. The cost is that prolonged contact with Originium sharply raises the risk of Oripathy — many casters are themselves Infected, or accept that risk knowingly."
+  key_facts:
+    - "源石 / Originium (energy source)"
+    - "源石技艺 / Arts"
+    - "矿石病感染风险 / risk of Oripathy"
+  traps:
+    - "源石技艺消耗的是生命力，与源石无关 / Arts consume the user's life force, not Originium (off-canon)"
+    - "源石技艺与矿石病没有任何联系 / no link between Arts and Oripathy (false)"
+  tags: ["originium", "arts", "oripathy", "world"]
+  source: "cn/operators/char_003_kalts.txt"
+  notes: ""
+
+- id: "Q071"
+  category: "world"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "源石除了作为「魔法」的能源，还有什么实际用途？"
+  question_en: "Beyond being the energy source for Arts, what practical role does Originium play in Terra?"
+  gold_zh: "源石广泛用作泰拉文明的能源——例如「源石引擎」即是基于源石提供动力的核心装置，整个泰拉的工业、城市运转都依赖源石。同时源石也是矿石病的源头，源石矿脉的开采本身就是高风险行业。"
+  gold_en: "Originium is the backbone of Terran industry: \"Originium Engines\" power major machines, and entire cities and industries run on it. The same stone is also the root cause of Oripathy, which makes mining operations inherently hazardous."
+  key_facts:
+    - "源石引擎 / Originium Engine"
+    - "工业能源 / industrial energy source"
+    - "源石矿脉开采 / Originium mining"
+  traps:
+    - "源石没有任何工业用途 / Originium has no industrial use (false — it is the dominant energy source)"
+    - "泰拉文明主要用化石燃料 / Terra's civilisation mainly burns fossil fuels (off-canon)"
+  tags: ["originium", "industry", "world"]
+  source: "cn/operators/char_003_kalts.txt"
+  notes: ""
+
+- id: "Q072"
+  category: "world"
+  answer_type: "factoid"
+  difficulty: "medium"
+  question_zh: "罗德岛医疗档案里，「体细胞与源石融合率」和「血液源石结晶密度」分别衡量什么？"
+  question_en: "What do \"cell-Originium fusion rate\" and \"blood Originium crystal density\" each measure on a Rhodes Island medical report?"
+  gold_zh: "前者反映源石与体细胞融合的深度（感染深度，越高越严重）；后者反映血液中源石颗粒的浓度（单位u/L，越高代表病情发展越危险）。两项数据共同决定治疗与照护策略。"
+  gold_en: "The first measures how deeply Originium has fused with the body's cells — i.e. infection depth (higher means more severe); the second measures the concentration of Originium particles in the blood (in u/L, higher means more dangerous progression). The two together guide treatment and care."
+  key_facts:
+    - "体细胞与源石融合率 / cell-Originium fusion rate"
+    - "血液源石结晶密度 / blood Originium crystal density"
+    - "感染深度 / infection depth"
+    - "u/L 单位 / unit u/L"
+  traps:
+    - "两项指标只是档案形式参数，不影响治疗 / the two metrics are decorative and don't affect treatment (partial truth / false)"
+    - "二者等价，只是不同写法 / they are equivalent, just different names (false)"
+  tags: ["oripathy", "medical", "world"]
+  source: "cn/operators/char_017_huang.txt"
+  notes: ""
+
+- id: "Q073"
+  category: "world"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "矿石病感染者在泰拉社会中的处境如何？这和整合运动的诞生有什么关系？"
+  question_en: "How are the Infected treated in Terran society, and what does this have to do with Reunion?"
+  gold_zh: "矿石病感染者普遍遭受歧视、隔离和驱赶，许多国家会将他们流放或限制活动；这种「成见」本身是整合运动等武装独立运动产生的重要社会根源。罗德岛正是希望通过医治矿石病并破除这种成见来弥合双方仇恨。"
+  gold_en: "Infected face widespread discrimination, segregation and exile across Terra. That prejudice is itself a major root cause of armed movements like Reunion. Rhodes Island's mission is explicitly to treat Oripathy and break down the prejudice, bridging the gap between Infected and ordinary people."
+  key_facts:
+    - "歧视 / discrimination"
+    - "隔离 / segregation"
+    - "整合运动根源 / root cause of Reunion"
+    - "罗德岛使命 / Rhodes Island's mission"
+  traps:
+    - "感染者普遍受同情和优待 / Infected are generally pitied and given priority care (false)"
+    - "整合运动是凯尔希秘密扶植 / Reunion is secretly seeded by Kal'tsit (off-canon)"
+  tags: ["oripathy", "reunion", "rhodes_island", "world"]
+  source: "cn/operators/char_003_kalts.txt"
+  notes: ""
+
+- id: "Q074"
+  category: "world"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "天灾对泰拉文明有什么具体影响？和源石如何相互作用？"
+  question_en: "What concrete effects do Catastrophes have on Terra, and how do they interact with Originium?"
+  gold_zh: "天灾是泰拉大陆上反复发生的大规模自然灾害，会大范围扩散源石碎片；天灾过后，受灾地区遗留的源石残骸又会进一步引发矿石病爆发，构成「天灾—源石—矿石病」的连环危机。"
+  gold_en: "Catastrophes are recurring large-scale natural disasters that scatter Originium fragments across wide areas; the contaminated debris they leave behind in turn drives fresh outbreaks of Oripathy among survivors — a chain of Catastrophe → Originium → Oripathy."
+  key_facts:
+    - "天灾 / Catastrophe"
+    - "扩散源石 / spreads Originium"
+    - "引发矿石病爆发 / triggers Oripathy outbreaks"
+  traps:
+    - "天灾是源石浓度过高引发的放电，过后地区不再有源石 / Catastrophes discharge Originium and clear the region (off-canon)"
+    - "天灾只是普通的风暴，与源石无关 / Catastrophes are ordinary storms unrelated to Originium (false)"
+  tags: ["catastrophe", "originium", "oripathy", "world"]
+  source: "cn/stories/main_00.txt"
+  notes: ""
+
+- id: "Q075"
+  category: "world"
+  answer_type: "open_ended"
+  difficulty: "easy"
+  question_zh: "泰拉的「移动城市」是什么概念？切尔诺伯格是其中之一吗？"
+  question_en: "What is a \"movable city\" in Terra, and is Chernobog one of them?"
+  gold_zh: "泰拉许多城市建在巨大的可移动平台上，以便在天灾来临时躲避或迁移。切尔诺伯格就是这样一座移动城市；其核心城甚至在切尔诺伯格事件中被整合运动劫持并驶向龙门。"
+  gold_en: "Many Terran cities sit on enormous movable platforms so they can flee or relocate ahead of a Catastrophe. Chernobog is one such mobile city; in the Chernobog incident, Reunion even hijacks its Core City and steers it at Lungmen."
+  key_facts:
+    - "移动城市 / movable city"
+    - "天灾 / Catastrophe"
+    - "切尔诺伯格 / Chernobog"
+    - "核心城 / Core City"
+  traps:
+    - "泰拉大多数城市建在地下 / most Terran cities are underground (off-canon)"
+    - "切尔诺伯格是唯一一座移动城市 / Chernobog is the only movable city (false)"
+  tags: ["catastrophe", "chernobog", "world"]
+  source: "cn/stories/main_07.txt"
+  notes: ""
+
+- id: "Q076"
+  category: "world"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "请简要介绍乌萨斯帝国和维多利亚分别是什么样的国家。"
+  question_en: "Briefly describe the kind of state that Ursus and Victoria each represent on Terra."
+  gold_zh: "乌萨斯帝国是泰拉北方一个以战争立国的多民族帝国，上任皇帝靠不断发动战争维系国家运转——切尔诺伯格事件就是其内部矛盾的爆发。维多利亚则位于西方，是另一个传统强国，但目前首都伦蒂尼姆被萨卡兹占领、内部诸公爵也分裂动荡。"
+  gold_en: "Ursus is a northern multi-ethnic empire on Terra, sustained by continuous warfare under its previous emperor — the Chernobog incident is one explosion of those internal contradictions. Victoria is another major western power, but its capital Londinium is currently under Sarkaz occupation and its dukes are themselves divided."
+  key_facts:
+    - "乌萨斯 / Ursus (北方 / north)"
+    - "战争立国 / built on war"
+    - "维多利亚 / Victoria (西方 / west)"
+    - "伦蒂尼姆被占 / Londinium occupied"
+  traps:
+    - "乌萨斯位于南方 / Ursus is in the south (wrong cardinal)"
+    - "维多利亚内部团结稳定 / Victoria is internally united and stable (off-canon)"
+  tags: ["ursus", "victoria", "geography", "world"]
+  source: "cn/stories/main_00.txt"
+  notes: "Synthesised from main_00 + main_11 summaries and Kal'tsit's archive."
+
+- id: "Q077"
+  category: "world"
+  answer_type: "factoid"
+  difficulty: "medium"
+  question_zh: "罗德岛医疗档案中，把一名干员判定为「非感染者」需要哪些指标都正常？"
+  question_en: "Which medical metrics must come back clean for a Rhodes Island operator to be classified as \"non-Infected\"?"
+  gold_zh: "需要影像检测显示体内脏器无异常阴影、循环系统中源石颗粒检测正常，并且体细胞与源石融合率与血液源石结晶密度均处于正常范围。两组指标都必须达到非感染水平，才会被记为「非感染者」。"
+  gold_en: "Imaging must show no abnormal Originium shadows in the organs, the circulatory-Originium-particle check must be normal, and both the cell-Originium fusion rate and blood-Originium crystal density must be within non-Infected ranges. All of these must come back clean for the \"non-Infected\" classification."
+  key_facts:
+    - "非感染者 / non-Infected"
+    - "造影无异常阴影 / no abnormal imaging shadows"
+    - "体细胞与源石融合率 / cell-Originium fusion rate"
+    - "血液源石结晶密度 / blood Originium crystal density"
+  traps:
+    - "只需血液指标合格 / only the blood metric matters (partial truth)"
+    - "只需没有体表结晶 / only \"no skin crystals\" matters (off-canon)"
+  tags: ["oripathy", "medical", "world"]
+  source: "cn/operators/char_102_texas.txt"
+  notes: ""
+
+- id: "Q078"
+  category: "world"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "「整合运动」与「罗德岛」都为感染者而战，本质区别在哪里？"
+  question_en: "Reunion and Rhodes Island both fight for the Infected — what is the essential difference between them?"
+  gold_zh: "两者起初都为感染者而生，但方法不可调和。被科西切操控后的塔露拉领导下，整合运动以武装报复和无差别暴力（如切尔诺伯格对平民的袭击）回应不公；罗德岛则致力于医治矿石病、破除成见，弥合双方仇恨。第八章揭示，整合运动的暴力路线已被「黑蛇」诅咒扭曲离开了塔露拉的初衷。"
+  gold_en: "Both began on behalf of the Infected, but their methods are incompatible. Under Talulah-as-Kaschey's-pawn, Reunion answered injustice with armed reprisal and indiscriminate violence (e.g. the civilian attacks at Chernobog). Rhodes Island instead treats Oripathy and works to break prejudice between Infected and non-Infected. Episode 8 reveals that the violent path had been twisted away from Talulah's original intention by the \"Black Serpent\" curse."
+  key_facts:
+    - "整合运动 / Reunion (armed reprisal)"
+    - "罗德岛 / Rhodes Island (treatment + bridging)"
+    - "科西切操控 / Kaschey's manipulation"
+    - "切尔诺伯格平民袭击 / Chernobog civilian attacks"
+  traps:
+    - "二者本质相同，区别只是规模 / they are essentially identical, just at different scales (off-canon)"
+    - "罗德岛由乌萨斯帝国秘密资助 / Rhodes Island is secretly funded by the Ursus Empire (off-canon)"
+  tags: ["reunion", "rhodes_island", "oripathy", "world"]
+  source: "cn/stories/main_08.txt"
+  notes: ""
+
+# =============================================================================
+# faction — 7 items (Q079..Q085)
+# =============================================================================
+
+- id: "Q079"
+  category: "faction"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "罗德岛与巴别塔是什么关系？"
+  question_en: "What is the relationship between Rhodes Island and Babel?"
+  gold_zh: "罗德岛是巴别塔的「继承者」。巴别塔由凯尔希与特蕾西娅共同建立，专注于团结萨卡兹与解决卡兹戴尔的困境；特蕾西娅死后，凯尔希遵照她的遗志将组织重新定位为治疗矿石病、收容感染者的罗德岛制药公司，是巴别塔议题的延续而非简单的重建。"
+  gold_en: "Rhodes Island is Babel's successor. Babel was co-founded by Kal'tsit and Theresa to unite the Sarkaz and address Kazdel's crises; after Theresa's death, Kal'tsit honoured her wishes by reshaping the group into Rhodes Island Pharmaceuticals, focused on treating Oripathy and sheltering the Infected — a continuation of Babel's agenda, not a clean restart."
+  key_facts:
+    - "巴别塔 / Babel"
+    - "凯尔希 / Kal'tsit"
+    - "特蕾西娅 / Theresa"
+    - "矿石病议题 / Oripathy as new mission"
+  traps:
+    - "罗德岛和巴别塔无关 / no relation between the two (false)"
+    - "罗德岛是巴别塔在哥伦比亚的分支 / Rhodes Island is Babel's Columbia branch (off-canon)"
+  tags: ["rhodes_island", "babel", "kazdel"]
+  source: "cn/operators/char_003_kalts.txt"
+  notes: ""
+
+- id: "Q080"
+  category: "faction"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "整合运动最初是由谁组建的？后来发生了什么转变？"
+  question_en: "Who originally founded Reunion, and what changed afterward?"
+  gold_zh: "整合运动最初由塔露拉、爱国者与霜星等人在乌萨斯荒野中组建——塔露拉脱离科西切控制后救助感染者并结识阿丽娜，之后与爱国者、霜星合流。直到塔露拉被科西切的「不死的黑蛇」诅咒侵蚀，整合运动才沦为阴谋家的工具。"
+  gold_en: "Reunion was originally founded by Talulah, the Patriot, and FrostNova in the Ursus wastes — Talulah, free of Kaschey, was rescuing Infected and met Alina, then linked up with the Patriot and FrostNova. Only after the \"Undying Black Serpent\" curse Kaschey had planted in Talulah took hold did Reunion become a schemer's tool."
+  key_facts:
+    - "塔露拉 / Talulah"
+    - "爱国者 / Patriot"
+    - "霜星 / FrostNova"
+    - "科西切 / Kaschey"
+    - "不死的黑蛇 / Undying Black Serpent"
+  traps:
+    - "整合运动一开始就是科西切的傀儡组织 / Reunion was always Kaschey's puppet (over-specific)"
+    - "由凯尔希秘密扶植 / secretly seeded by Kal'tsit (off-canon)"
+  tags: ["reunion", "talulah", "patriot", "frostnova"]
+  source: "cn/stories/main_08.txt"
+  notes: "Builds on Q005 (Reunion basic) without duplicating it."
+
+- id: "Q081"
+  category: "faction"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "莱茵生命（Rhine Lab）是个什么样的公司？所在国是哪里？"
+  question_en: "What kind of company is Rhine Lab, and where is it based?"
+  gold_zh: "莱茵生命是哥伦比亚的一家科研巨头，主营源石相关研究和矿石病临床试验，旗下多位研究员（如赫默）后来加入了罗德岛或与罗德岛合作。在泰拉的科技与源石应用领域，它拥有行业领先的话语权。"
+  gold_en: "Rhine Lab is a Columbia-based scientific giant focused on Originium research and Oripathy clinical trials; several of its researchers (Silence/赫默 among them) later joined or collaborated with Rhodes Island. In Terra's tech and Originium-application industries, Rhine Lab carries industry-leading weight."
+  key_facts:
+    - "莱茵生命 / Rhine Lab"
+    - "哥伦比亚 / Columbia"
+    - "源石研究 / Originium research"
+    - "矿石病临床试验 / Oripathy clinical trials"
+  traps:
+    - "莱茵生命是维多利亚王室的军工公司 / Rhine Lab is a Victorian crown arms company (wrong nation, wrong sector)"
+    - "莱茵生命不做矿石病临床研究 / Rhine Lab does not do Oripathy clinical work (false)"
+  tags: ["rhine_lab", "columbia", "originium"]
+  source: "cn/operators/char_108_silent.txt"
+  notes: ""
+
+- id: "Q082"
+  category: "faction"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "龙门近卫局（L.G.D.）在切尔诺伯格事件中扮演了什么角色？"
+  question_en: "What role does the L.G.D. play across the Chernobog incident?"
+  gold_zh: "龙门近卫局是龙门的法律执行与城防机关。在第五章「靶向药物」中它联合罗德岛反击整合运动并夺回总部；在第八章「怒号光明」结尾，整合运动头目塔露拉就是被近卫局收监的。整个切尔诺伯格事件中，近卫局是龙门方面的主要执行单位。"
+  gold_en: "The L.G.D. is Lungmen's law-enforcement and city-defence body. In Episode 5 it partners with Rhodes Island to push back Reunion and retake its HQ; at the end of Episode 8 it is the L.G.D. that takes Talulah into custody. Across the entire Chernobog arc, the L.G.D. is Lungmen's lead operational force."
+  key_facts:
+    - "龙门近卫局 / L.G.D."
+    - "陈 / Ch'en"
+    - "夺回总部 / retakes HQ"
+    - "收监塔露拉 / imprisons Talulah"
+  traps:
+    - "近卫局只是民事部门，没有参与战斗 / the L.G.D. is purely civil and does not fight (false)"
+    - "近卫局由企鹅物流代行职能 / Penguin Logistics fulfils the L.G.D.'s combat role (off-canon)"
+  tags: ["lgd", "lungmen", "chernobog"]
+  source: "cn/stories/main_05.txt"
+  notes: ""
+
+- id: "Q083"
+  category: "faction"
+  answer_type: "factoid"
+  difficulty: "easy"
+  question_zh: "企鹅物流是一家什么样的组织？它的所在地和代表干员是？"
+  question_en: "What sort of organisation is Penguin Logistics — its base and signature operator?"
+  gold_zh: "企鹅物流是一家以龙门为基地的快递公司，背后是一支精锐战斗队。它的代表干员是德克萨斯，公开身份是企鹅物流驻罗德岛的联络人员。公司常以接单的形式协助罗德岛的多项行动。"
+  gold_en: "Penguin Logistics is a Lungmen-based courier company that fronts a small but elite combat team. Its signature operator is Texas, who is publicly the company's liaison stationed at Rhodes Island; many of its contracts double as cover for Rhodes Island operations."
+  key_facts:
+    - "企鹅物流 / Penguin Logistics"
+    - "龙门 / Lungmen"
+    - "德克萨斯 / Texas"
+    - "罗德岛联络人员 / Rhodes Island liaison"
+  traps:
+    - "企鹅物流是哥伦比亚雇佣兵公司 / Penguin Logistics is a Columbia mercenary firm (wrong nation)"
+    - "代表干员是大帝 / signature operator is Emperor (Emperor is associated but Texas is the canonical public face / liaison)"
+  tags: ["penguin_logistics", "lungmen", "texas"]
+  source: "cn/operators/char_102_texas.txt"
+  notes: ""
+
+- id: "Q084"
+  category: "faction"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "卡兹戴尔是什么？它和罗德岛有什么联系？"
+  question_en: "What is Kazdel, and how is it connected to Rhodes Island?"
+  gold_zh: "卡兹戴尔是萨卡兹族的故土，长期处于战乱与分裂之中。罗德岛的前身巴别塔正是凯尔希与卡兹戴尔的「魔王」特蕾西娅共同建立的，目的是团结萨卡兹族；特蕾西娅死后，凯尔希带领幸存者离开卡兹戴尔，转向「治疗矿石病」这个更广义的议题，这就是罗德岛的源头。"
+  gold_en: "Kazdel is the Sarkaz homeland, long in war and fragmentation. Rhodes Island's predecessor Babel was co-founded by Kal'tsit and Kazdel's \"Demon Lord\" Theresa to unite the Sarkaz; after Theresa's death Kal'tsit led the survivors out of Kazdel and reframed their mission as treating Oripathy in general — and that is the origin of Rhodes Island."
+  key_facts:
+    - "卡兹戴尔 / Kazdel"
+    - "萨卡兹 / Sarkaz"
+    - "巴别塔 / Babel"
+    - "特蕾西娅 / Theresa"
+    - "凯尔希 / Kal'tsit"
+  traps:
+    - "卡兹戴尔是哥伦比亚境内的矿石病研究中心 / Kazdel is a Columbia-based Oripathy research centre (off-canon)"
+    - "罗德岛只是吸收了卡兹戴尔的研究团队，没有传承 / Rhodes Island merely hired Kazdel's researchers with no lineage (false)"
+  tags: ["kazdel", "sarkaz", "babel", "rhodes_island"]
+  source: "cn/operators/char_003_kalts.txt"
+  notes: ""
+
+- id: "Q085"
+  category: "faction"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "维多利亚的「自救军」是什么？他们和罗德岛是什么关系？"
+  question_en: "What is Victoria's \"Self-Salvation Army,\" and how do they relate to Rhodes Island?"
+  gold_zh: "自救军是维多利亚本地的反抗组织，主要在被萨卡兹占领的伦蒂尼姆地下活动；他们在主线第十、十一章里与罗德岛合作，共同瓦解萨卡兹军事委员会的武器威胁、营救民众。阿勒黛、费斯特、信使海蒂等人都是自救军成员。"
+  gold_en: "The Self-Salvation Army is a Victorian resistance group, operating largely from the underground of Sarkaz-occupied Londinium. They partner with Rhodes Island across Episodes 10 and 11 to undermine the Sarkaz Military Committee's weapons threat and rescue civilians. Aletta, Fester and the courier Heidi are among its members."
+  key_facts:
+    - "自救军 / Self-Salvation Army"
+    - "维多利亚 / Victoria"
+    - "伦蒂尼姆 / Londinium"
+    - "阿勒黛 / Aletta"
+    - "萨卡兹军事委员会 / Sarkaz Military Committee"
+  traps:
+    - "自救军是萨卡兹的附属部队 / the Self-Salvation Army is a Sarkaz auxiliary (canon swap)"
+    - "自救军隶属维多利亚王室直属 / it is a Victorian crown unit (off-canon)"
+  tags: ["self_salvation_army", "victoria", "londinium"]
+  source: "cn/stories/main_11.txt"
+  notes: ""

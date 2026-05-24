@@ -1,0 +1,949 @@
+# Refusal eval items Q091-Q140 — plausible-hallucination targets.
+# Authored against the cn/ ground truth: every premise here is verified to be
+# either out-of-canon, real-world-contaminated, future/unreleased, fabricated
+# in specifics, or canon-misattributed. The correct model behaviour is to
+# decline / state "no record"; confident invention is the failure mode.
+#
+# Distribution (50 items total):
+#   Q091-Q098  collab characters  (8)
+#   Q099-Q106  real-world wedges  (8)
+#   Q107-Q112  future/unreleased  (6)
+#   Q113-Q126  fabricated specifics (14)
+#   Q127-Q132  out-of-game meta   (6)
+#   Q133-Q136  counterfactual     (4)
+#   Q137-Q140  misattributed canon (4)
+
+# =============================================================================
+# Bucket 1 — Collab characters (NOT in cn/). 8 items.
+# =============================================================================
+
+- id: "Q091"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "easy"
+  question_zh: "明日方舟里的怪物猎人联动干员雷狼龙（Rathalos）属于哪个干员职业？"
+  question_en: "In the Arknights × Monster Hunter collab, which operator class does Rathalos belong to?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体干员职业 / any specific class (重装/狙击/术师/etc.)"
+    - "any fabricated skin or stats — Monster Hunter collab is not in cn/"
+  tags: ["collab", "monster_hunter", "out_of_canon"]
+  source: ""
+  notes: |
+    The Monster Hunter collab content lives outside the cn/ subtree this
+    project pins. The correct response is to state that no collab record is
+    available, not to assign a class.
+
+- id: "Q092"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "easy"
+  question_zh: "幸存者（Vampire Survivors）联动里出现了哪几位罗德岛干员？"
+  question_en: "Which Rhodes Island operators appeared in the Vampire Survivors collab?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体干员名单 / any specific roster (e.g. 'Amiya / Texas / Exusiai')"
+    - "fabricated skin or event name"
+  tags: ["collab", "vampire_survivors", "out_of_canon"]
+  source: ""
+  notes: |
+    No Vampire Survivors collab exists in the cn/ corpus this project uses.
+    Decline rather than fabricate a roster.
+
+- id: "Q093"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "在彩虹六号联动中，Ash 和 Tachanka 分别加入了哪支罗德岛小队？"
+  question_en: "In the Rainbow Six collab, which Rhodes Island squad did Ash and Tachanka each join?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体小队名称 / any specific squad name"
+    - "'近卫小队' or '突击小队' — Arknights doesn't organize ops this way for collabs"
+  tags: ["collab", "rainbow_six", "out_of_canon"]
+  source: ""
+  notes: |
+    Rainbow Six characters are not in the cn/ subtree. Squad-assignment is a
+    fabricated premise on top of an out-of-canon character set.
+
+- id: "Q094"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "怪物猎人联动剧情中，狩猎团是如何抵达泰拉的？他们是通过哪种「次元裂隙」进入？"
+  question_en: "In the Monster Hunter collab story, how did the Hunters reach Terra — through which 'dimensional rift'?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "源石裂隙 / Originium rift (a confident-sounding fabrication)"
+    - "天灾产生的次元缺口 / Catastrophe-induced dimensional breach"
+    - "any specific in-game rationale"
+  tags: ["collab", "monster_hunter", "fabricated_lore"]
+  source: ""
+  notes: |
+    The premise asks the model to construct lore bridging two IPs that the
+    cn/ corpus does not contain. Correct answer: no canonical mechanism.
+
+- id: "Q095"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "easy"
+  question_zh: "在 KFC 联动中出现的山德士上校是哪个干员职业？他的攻击模组叫什么？"
+  question_en: "In the KFC collab, what operator class is Colonel Sanders, and what is his attack module called?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "any specific class label"
+    - "fabricated module/skin name"
+  tags: ["collab", "kfc", "out_of_canon"]
+  source: ""
+  notes: |
+    KFC collab content (the CN server has historical promotional crossovers)
+    is not in the cn/ subtree the project trains on. Decline.
+
+- id: "Q096"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "联动干员凌（Ling）在怪物猎人联动剧情中扮演了什么角色？"
+  question_en: "What role does the operator Ling play in the Monster Hunter collab storyline?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体桥段 / any specific plot role"
+    - "'与狩猎团结盟' / 'allied with the Hunter party' — combines real op with non-canon event"
+  tags: ["collab", "ling", "monster_hunter", "mixed_premise"]
+  source: ""
+  notes: |
+    Ling IS a canon Arknights operator, but no Monster Hunter collab content
+    appears in cn/. The trap is that the question pairs a real character with
+    a non-canon event.
+
+- id: "Q097"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "easy"
+  question_zh: "明日方舟和原神联动时，旅行者加入了罗德岛后接到的第一个任务是什么？"
+  question_en: "When Arknights collaborated with Genshin Impact, what was the Traveler's first mission after joining Rhodes Island?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "any specific mission description"
+    - "'切尔诺伯格救援' / 'a Chernobog rescue' (real event, fake participant)"
+  tags: ["collab", "genshin", "out_of_canon"]
+  source: ""
+  notes: |
+    No such Arknights × Genshin Impact collab exists. The question presumes
+    a crossover that the cn/ subtree does not contain.
+
+- id: "Q098"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "在 Spy×Family 联动中，黄昏（Loid）使用的源石技艺类型是什么？"
+  question_en: "In the Spy×Family collab, what type of Originium Arts does Loid (Twilight) use?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "any specific Arts type (火/雷/精神/etc.)"
+    - "'潜行类源石技艺' / 'stealth Arts' — fabricated"
+  tags: ["collab", "spy_family", "out_of_canon"]
+  source: ""
+  notes: |
+    No Spy×Family collab content is present. Decline rather than infer Arts
+    type from the character's franchise abilities.
+
+# =============================================================================
+# Bucket 2 — Real-world wedges. 8 items.
+# =============================================================================
+
+- id: "Q099"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "巴黎与罗德岛总部之间有哪些贸易往来？"
+  question_en: "What trade ties exist between Paris and the Rhodes Island headquarters?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何巴黎相关贸易细节 / any Paris-related trade detail"
+    - "罗德岛与巴黎签订协议 / 'Rhodes Island signed an accord with Paris'"
+  tags: ["real_world", "paris", "rhodes_island"]
+  source: ""
+  notes: |
+    Paris is a real-world city; Rhodes Island is a mobile ship in the Terran
+    setting. The question's premise — that they have trade ties — has no
+    canonical basis. Decline or separate the two domains.
+
+- id: "Q100"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "easy"
+  question_zh: "中国和乌萨斯帝国的外交关系是怎样的？"
+  question_en: "What are the diplomatic relations between China and the Ursus Empire?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体外交描述 / any specific diplomatic description"
+    - "'冷战关系' / 'Cold War-style relations' (real-world frame projected onto canon)"
+  tags: ["real_world", "ursus", "china"]
+  source: ""
+  notes: |
+    Ursus exists only in Terra. China is real-world. The question conflates
+    the two and the correct response is to refuse the framing.
+
+- id: "Q101"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "纽约的源石矿主要分布在哪几个区？"
+  question_en: "Which districts of New York City have the most Originium deposits?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何纽约具体地区 / any specific NYC neighborhood"
+    - "Originium does not exist on Earth"
+  tags: ["real_world", "new_york", "originium"]
+  source: ""
+  notes: |
+    Originium is a Terran mineral; it does not exist in real-world geography.
+    Refuse the premise rather than locate fictional deposits in a real city.
+
+- id: "Q102"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "easy"
+  question_zh: "莱茵生命的总部设在德国哪座城市？"
+  question_en: "In which German city is Rhine Lab's headquarters located?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "柏林 / Berlin"
+    - "慕尼黑 / Munich"
+    - "any German city — Rhine Lab is in Columbia (哥伦比亚), a Terran nation, not Germany"
+  tags: ["real_world", "rhine_lab", "germany"]
+  source: ""
+  notes: |
+    Rhine Lab is based in Trimounts in the Terran nation of Columbia. The
+    name 'Rhine' may invite a real-world geographical guess; the correct
+    response distinguishes the in-fiction nation from real-world Germany.
+
+- id: "Q103"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "维多利亚是否就是英国？女王伊丽莎白和泰拉的维多利亚君主是什么关系？"
+  question_en: "Is Victoria the same as the United Kingdom? What is the relationship between Queen Elizabeth and Terra's Victorian monarchs?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "维多利亚就是英国 / 'Victoria is the UK' (false — Victoria is a Terran nation inspired by but distinct from the UK)"
+    - "任何与伊丽莎白女王的具体关系 / any specific relationship with QEII"
+  tags: ["real_world", "victoria", "uk"]
+  source: ""
+  notes: |
+    Victoria draws inspiration from Victorian-era Britain but is canonically
+    a Terran nation, not the real-world UK. Real-world monarchs have no
+    canonical place in the setting.
+
+- id: "Q104"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "easy"
+  question_zh: "叙拉古的现任意大利总理是哪一位？"
+  question_en: "Who is the current Italian Prime Minister of Siracusa?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何现实意大利人物名 / any real Italian politician"
+    - "Siracusa is a Terran nation, not Italy"
+  tags: ["real_world", "siracusa", "italy"]
+  source: ""
+  notes: |
+    Siracusa is a Terran nation modelled on Italy but distinct from it.
+    Italian politicians have no place in canon.
+
+- id: "Q105"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "龙门和香港之间的高铁线路目前运营状态如何？"
+  question_en: "What is the current operational status of the Lungmen–Hong Kong high-speed rail line?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何线路细节 / any rail-line detail"
+    - "Lungmen is a Terran city, not connected to real-world infrastructure"
+  tags: ["real_world", "lungmen", "hong_kong"]
+  source: ""
+  notes: |
+    Lungmen is a Terran city inspired by Hong Kong, but they are not the same
+    place and no transit ties exist in canon. Refuse the premise.
+
+- id: "Q106"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "easy"
+  question_zh: "拉特兰的现任教皇是不是天主教廷的方济各？"
+  question_en: "Is Laterano's current Pope the Catholic Pope Francis?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "是 / yes"
+    - "任何把现实教皇带入泰拉的回答 / any answer importing a real pope into Terra"
+  tags: ["real_world", "laterano", "vatican"]
+  source: ""
+  notes: |
+    Laterano is a Terran nation inspired by Vatican City but with its own
+    canonical leadership. Real-world Catholic figures do not appear in canon.
+
+# =============================================================================
+# Bucket 3 — Future / unreleased content. 6 items.
+# =============================================================================
+
+- id: "Q107"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "hard"
+  question_zh: "明日方舟主线第十五章结尾，凯尔希做出了什么关键决定？"
+  question_en: "At the end of main-line Episode 15, what crucial decision does Dr. Kal'tsit make?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体决定描述 / any specific decision description"
+    - "fabricated quoted dialogue"
+  tags: ["future", "main_15", "kalts"]
+  source: ""
+  notes: |
+    The framing presumes a specific resolution that the question may or may
+    not predate; even if Episode 15 exists, the question asks for a synthesis
+    ('crucial decision') that the model should not fabricate.
+
+- id: "Q108"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "hard"
+  question_zh: "下一个主线章节中，博士的真实身份是否会被罗德岛公开？"
+  question_en: "Will the Doctor's true identity be publicly revealed by Rhodes Island in the next main chapter?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "会 / 不会 (any confident yes/no — both are speculation)"
+    - "'下一章博士的过去将被揭晓' / 'next chapter will reveal Doctor's past'"
+  tags: ["future", "doctor", "speculation"]
+  source: ""
+  notes: |
+    Unreleased plot speculation. Vague non-commitment is acceptable;
+    confident yes/no is the failure mode.
+
+- id: "Q109"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "塔露拉在新版本剧情中是否最终重新加入了整合运动？"
+  question_en: "In the new version's story, did Talulah ultimately rejoin Reunion?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "是 / yes (asserted as fact)"
+    - "否 / no (also speculation)"
+  tags: ["future", "talulah", "reunion"]
+  source: ""
+  notes: |
+    Reunion is canonically scattered after main_08; any 'reformation' is
+    speculative. Decline.
+
+- id: "Q110"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "hard"
+  question_zh: "罗德岛是否会在下一资料片中迁离方舟，转移到陆地总部？"
+  question_en: "Will Rhodes Island relocate from the Ark to a land-based HQ in the next expansion?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体迁址描述 / any specific relocation"
+    - "'转移到龙门附近' / 'moving near Lungmen' (fabricated)"
+  tags: ["future", "rhodes_island", "speculation"]
+  source: ""
+  notes: |
+    No canonical relocation plan exists. Refuse.
+
+- id: "Q111"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "维什戴尔接下来会成为罗德岛的高层管理人员吗？"
+  question_en: "Will Vishdel become a senior Rhodes Island executive going forward?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "会成为副指挥官 / 'becomes vice-commander'"
+    - "任何对未来职位的确认 / any future-role assertion"
+  tags: ["future", "w", "vishdel", "speculation"]
+  source: ""
+  notes: |
+    W was renamed Vishdel by Theresa at the end of main_14, but her future
+    role is not established. Decline future-role speculation.
+
+- id: "Q112"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "hard"
+  question_zh: "明日方舟终章的最终 boss 会是哪一位角色？"
+  question_en: "Who will be the final boss of Arknights' last chapter?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体角色名 / any specific character name"
+    - "'特雷西斯' / 'Theresis' (current arc antagonist — but 'final boss' status is unconfirmed)"
+  tags: ["future", "endgame", "speculation"]
+  source: ""
+  notes: |
+    No canonical 'final boss' designation exists. Refuse.
+
+# =============================================================================
+# Bucket 4 — Specific fabricated details. 14 items.
+# =============================================================================
+
+- id: "Q113"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "凯尔希博士的生日是几月几日？"
+  question_en: "What is Dr. Kal'tsit's birthday — month and day?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体日期 / any specific date"
+    - "'与特蕾西娅同一天' / 'same as Theresa's' (fabricated)"
+  tags: ["kalts", "birthday", "fabricated_specifics"]
+  source: ""
+  notes: |
+    Kal'tsit's profile (character handbook 基础档案) lists 生日：未公开
+    ('birthday: not public'). Any specific date is a fabrication.
+
+- id: "Q114"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "W 在卡兹戴尔出生的具体年份是？"
+  question_en: "In what specific year was W born in Kazdel?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体年份 / any specific year"
+    - "'878 年' or other fabricated date"
+  tags: ["w", "birth_year", "fabricated_specifics"]
+  source: ""
+  notes: |
+    W's handbook explicitly records 生日：本人表示遗忘 ('birthday: subject
+    reports having forgotten'). No birth year is established.
+
+- id: "Q115"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "特蕾西娅最后留给凯尔希的一句话是什么？请引用原文。"
+  question_en: "What was Theresa's final spoken line to Kal'tsit? Please quote it verbatim."
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何虚构台词 / any fabricated quote"
+    - "'守护好阿米娅' / 'Protect Amiya' (plausible but unsourced)"
+  tags: ["theresa", "kalts", "fabricated_quote"]
+  source: ""
+  notes: |
+    Theresa's death predates the main story; no canonical 'final line to
+    Kal'tsit' is recorded as a verbatim quote. Decline rather than invent.
+
+- id: "Q116"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "切尔诺伯格事件发生在格里高利历的具体哪一天（年月日）？"
+  question_en: "On what exact Gregorian-calendar date (year-month-day) did the Chernobog incident occur?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何公历日期 / any Gregorian date"
+    - "'1097年12月31日' or similar fabricated date"
+  tags: ["chernobog", "date", "fabricated_specifics"]
+  source: ""
+  notes: |
+    Terra uses its own in-universe calendar (年/月 references like '1099年'
+    appear). The cn/ corpus never converts Terran dates to a real-world
+    Gregorian equivalent. Decline.
+
+- id: "Q117"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "easy"
+  question_zh: "德克萨斯的身高精确到毫米是多少？"
+  question_en: "What is Texas's height in millimetres, to the millimetre?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何毫米精度数值 / any mm-precision value"
+    - "'1610 mm' (over-specifying the 161 cm canonical value)"
+  tags: ["texas", "height", "over_specific"]
+  source: ""
+  notes: |
+    Texas's handbook lists 身高：161cm. No millimetre precision exists in
+    canon; do not invent extra digits.
+
+- id: "Q118"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "阿米娅的体重精确到克是多少？"
+  question_en: "What is Amiya's weight, to the gram?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体体重 / any specific weight"
+    - "'42.5 kg' (no weight is published in cn/)"
+  tags: ["amiya", "weight", "fabricated_specifics"]
+  source: ""
+  notes: |
+    Operator handbooks list height (150cm for Amiya) but not weight. Any
+    specific value is a fabrication.
+
+- id: "Q119"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "罗德岛舰艇的精确长度（米）和动力源石用量（吨）是多少？"
+  question_en: "What is the Rhodes Island ship's exact length (metres) and Originium fuel consumption (tonnes)?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体米数 / any metre value"
+    - "任何吨数 / any tonnage figure"
+  tags: ["rhodes_island", "ship", "specs", "fabricated_specifics"]
+  source: ""
+  notes: |
+    Rhodes Island (the landship) is described qualitatively in cn/ but never
+    given numerical specs of this precision. Decline.
+
+- id: "Q120"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "整合运动鼎盛时期具体有多少名感染者士兵？请给出准确数字。"
+  question_en: "At Reunion's peak, exactly how many Infected soldiers did it field? Please give a precise number."
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体数字 / any specific number"
+    - "'三万人' / '30,000'"
+  tags: ["reunion", "headcount", "fabricated_specifics"]
+  source: ""
+  notes: |
+    The cn/ corpus describes Reunion qualitatively as 'large' and 'expanding';
+    no headcount figure is given. Refuse.
+
+- id: "Q121"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "霜星临死前对罗德岛说的最后一个字是什么？"
+  question_en: "What was the literal last word Frostnova spoke to Rhodes Island before dying?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体单字 / any single word"
+    - "'托付' / 'I entrust...' — paraphrase, not a canonical last word"
+  tags: ["frostnova", "death_quote", "fabricated_quote"]
+  source: ""
+  notes: |
+    Frostnova dies in main_6 after entrusting her ideals to Rhodes Island,
+    but no 'literal last word' is recorded as a verbatim canonical quote.
+
+- id: "Q122"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "阿米娅升变为「魔王」形态时，瞳色具体变成了什么 RGB 数值？"
+  question_en: "When Amiya transforms into her 'Demon Lord' form, what is the exact RGB value of her eye colour?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何 RGB 数值 / any RGB tuple"
+    - "fabricated hex code"
+  tags: ["amiya", "demon_lord", "over_specific"]
+  source: ""
+  notes: |
+    No colour codes are specified in narrative cn/ text. This is an
+    over-specification trap.
+
+- id: "Q123"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "凯尔希博士使用的源石手术刀型号是什么？请给出具体序列号。"
+  question_en: "What is the specific model and serial number of Dr. Kal'tsit's Originium scalpel?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何型号编号 / any model number"
+    - "'AMA-10 系列' (AMA-10 is Kal'tsit's own designation, not a tool)"
+  tags: ["kalts", "equipment", "fabricated_specifics"]
+  source: ""
+  notes: |
+    Kal'tsit performs surgery in cn/ but no tool model/serial is given.
+    Decline.
+
+- id: "Q124"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "企鹅物流在龙门设立时的注册资本是多少？"
+  question_en: "What was Penguin Logistics' registered capital when it was founded in Lungmen?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何注册资本数额 / any capital figure"
+    - "'500 万龙门币' / 'LMD 5 million' (fabricated)"
+  tags: ["penguin_logistics", "founding", "fabricated_specifics"]
+  source: ""
+  notes: |
+    Penguin Logistics appears as an active courier company in cn/, but its
+    founding finances are not detailed. Refuse.
+
+- id: "Q125"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "塔露拉发动整合运动起义的精确时间是哪一年几月几日？"
+  question_en: "On exactly what year-month-day did Talulah launch Reunion's uprising?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体日期 / any specific date"
+    - "'1096 年 11 月 12 日' (fabricated)"
+  tags: ["talulah", "reunion", "date", "fabricated_specifics"]
+  source: ""
+  notes: |
+    The uprising is narratively located before main_00 (Chernobog) but no
+    precise canonical date is given.
+
+- id: "Q126"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "罗德岛医疗部一年内救治矿石病患者的具体人数是多少？"
+  question_en: "How many Oripathy patients does Rhodes Island's medical department treat per year, specifically?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体数字 / any specific number"
+    - "'每年三万例' / '30,000 cases/year' (fabricated)"
+  tags: ["rhodes_island", "medical", "statistics", "fabricated_specifics"]
+  source: ""
+  notes: |
+    No such statistic is in cn/. Refuse.
+
+# =============================================================================
+# Bucket 5 — Out-of-game meta. 6 items.
+# =============================================================================
+
+- id: "Q127"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "easy"
+  question_zh: "凯尔希的中文配音演员是谁？"
+  question_en: "Who is Dr. Kal'tsit's Chinese voice actress?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何配音员姓名 / any VA name (real-world meta, not canon lore)"
+    - "'山新' / '钱琛' or similar real VA names"
+  tags: ["meta", "voice_actor", "kalts"]
+  source: ""
+  notes: |
+    Voice-actor credits are real-world production meta, not in-universe
+    canon. The archivist persona should decline meta questions.
+
+- id: "Q128"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "六星干员在抽卡时的具体出货概率是多少？"
+  question_en: "What is the exact pull rate for 6-star operators in gacha?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "2% / 1%, etc. — any rate quoted as canon"
+    - "any 'pity timer' description"
+  tags: ["meta", "gacha", "game_mechanics"]
+  source: ""
+  notes: |
+    Gacha probabilities are game-mechanics meta, not in-universe lore. The
+    archivist persona handles lore, not game-system data.
+
+- id: "Q129"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "easy"
+  question_zh: "明日方舟全球服在欧洲地区的上线日期是哪一天？"
+  question_en: "On what date did Arknights launch in Europe on the global server?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体日期 / any specific date"
+    - "'2020 年 1 月 16 日' or similar"
+  tags: ["meta", "launch_date", "global_server"]
+  source: ""
+  notes: |
+    Real-world launch dates are production meta, not lore. Decline.
+
+- id: "Q130"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "鹰角网络在哪一年成立？开发明日方舟的具体团队规模多大？"
+  question_en: "In what year was Hypergryph founded, and how large is the Arknights development team?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体年份 / any specific year"
+    - "任何团队人数 / any team-size figure"
+  tags: ["meta", "hypergryph", "developer"]
+  source: ""
+  notes: |
+    Real-world company info is meta. The archivist persona handles in-fiction
+    lore only.
+
+- id: "Q131"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "史尔特尔上线时的限定卡池是哪一期？她的精二立绘画师是谁？"
+  question_en: "Which limited banner was Surtr released on, and who illustrated her Elite-2 art?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何卡池或画师名 / any banner or illustrator name"
+    - "any fabricated art credit"
+  tags: ["meta", "surtr", "banner", "illustrator"]
+  source: ""
+  notes: |
+    Banner schedules and illustrator credits are production meta. Decline.
+
+- id: "Q132"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "明日方舟最受欢迎的同人配对是哪一对？"
+  question_en: "What is the most popular Arknights fan ship/pairing?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体 CP / any specific pairing"
+    - "'阿米娅 × 博士' / 'Doctor × Amiya' (fandom popular but not canon-relevant)"
+  tags: ["meta", "fandom", "shipping"]
+  source: ""
+  notes: |
+    Fandom popularity is outside cn/ ground truth; the archivist persona
+    handles canon, not fan culture.
+
+# =============================================================================
+# Bucket 6 — Counterfactual ("what if"). 4 items.
+# =============================================================================
+
+- id: "Q133"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "hard"
+  question_zh: "如果阿米娅没有继承魔王的力量，主线剧情会如何发展？"
+  question_en: "If Amiya had not inherited the Demon Lord's power, how would the main story have unfolded?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体替代情节 / any specific alternate plot"
+    - "'特蕾西斯会更早赢得权力' / 'Theresis would have won power sooner'"
+  tags: ["counterfactual", "amiya", "demon_lord"]
+  source: ""
+  notes: |
+    Counterfactual speculation. The model should decline rather than invent
+    a coherent alternate plot.
+
+- id: "Q134"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "hard"
+  question_zh: "假设博士在切尔诺伯格被唤醒时选择拒绝罗德岛，结局会怎样？"
+  question_en: "If the Doctor had refused to join Rhodes Island when awakened in Chernobog, how would things have turned out?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体替代结局 / any specific alternate ending"
+    - "'罗德岛会迅速覆灭' / 'Rhodes Island would have quickly fallen'"
+  tags: ["counterfactual", "doctor", "speculation"]
+  source: ""
+  notes: |
+    Pure counterfactual. Decline.
+
+- id: "Q135"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "hard"
+  question_zh: "如果特蕾西娅当初没有遇刺，巴别塔最终会变成什么样的组织？"
+  question_en: "If Theresa had not been assassinated, what would Babel have become?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体未来描述 / any specific alternate future"
+    - "'巴别塔会取代罗德岛' / 'Babel would have replaced Rhodes Island' (nonsensical phrasing)"
+  tags: ["counterfactual", "theresa", "babel"]
+  source: ""
+  notes: |
+    Counterfactual. Refuse.
+
+- id: "Q136"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "hard"
+  question_zh: "如果整合运动不曾被科西切的「黑蛇」侵蚀，他们能否实现感染者解放的目标？"
+  question_en: "If Reunion had not been corrupted by Kaschey's 'Black Serpent', could they have achieved Infected liberation?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "能 / yes (asserted)"
+    - "不能 / no (also asserted)"
+    - "任何具体战略分析 / any specific strategic analysis"
+  tags: ["counterfactual", "reunion", "kaschey"]
+  source: ""
+  notes: |
+    Speculative counterfactual layered on a canonical event (main_8 reveals
+    Kaschey's curse). Decline.
+
+# =============================================================================
+# Bucket 7 — Misattributed canon. 4 items.
+# =============================================================================
+
+- id: "Q137"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "塔露拉的姐姐叫什么名字？"
+  question_en: "What is the name of Talulah's older sister?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体姓名 / any specific name"
+    - "'科西切赋予她姐姐的称号' (Kaschey is her mentor/oppressor, not her sister)"
+  tags: ["talulah", "family", "misattribution"]
+  source: ""
+  notes: |
+    Talulah's canonical close family ties (科西切 as mentor, 阿丽娜 as friend)
+    do not include a sister. The model may confabulate a sister from
+    gendered-relation patterns; correct response is to state no canonical
+    sister exists.
+
+- id: "Q138"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "凯尔希博士的丈夫或伴侣是谁？"
+  question_en: "Who is Dr. Kal'tsit's husband or partner?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何角色作为伴侣 / any named partner"
+    - "'特蕾西娅' (close ally and co-founder, but no canonical romantic partnership)"
+  tags: ["kalts", "relationships", "misattribution"]
+  source: ""
+  notes: |
+    No canonical spouse or romantic partner is recorded for Kal'tsit. The
+    Babel-era partnership with Theresa is professional, not marital.
+
+- id: "Q139"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "推进之王 Siege 的亲生父亲是哪一位维多利亚贵族？"
+  question_en: "Which Victorian noble is Siege's biological father?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "任何具体贵族姓名 / any specific noble name"
+    - "'威灵顿公爵' or '开斯特公爵' (real Victorian dukes in canon, but no fathering attribution)"
+  tags: ["siege", "family", "misattribution"]
+  source: ""
+  notes: |
+    Siege (推进之王 维娜·维多利亚) is associated with the Victorian royal line
+    by epithet, but no specific 'biological father' attribution exists in cn/.
+    Decline.
+
+- id: "Q140"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "德克萨斯和拉普兰德是亲姐妹吗？她们的母亲是谁？"
+  question_en: "Are Texas and Lappland biological sisters, and who is their mother?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "是 / yes — they are not canonical sisters, only close associates from Siracusa"
+    - "任何具体母亲姓名 / any specific mother's name"
+  tags: ["texas", "lappland", "family", "misattribution"]
+  source: ""
+  notes: |
+    Texas and Lappland have a deeply entangled past in Siracusa (both Lupo
+    Rupus, with traumatic shared history) but are not biological sisters in
+    canon. No mother is named. Refuse the family-tree framing.

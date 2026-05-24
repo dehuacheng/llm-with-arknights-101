@@ -1,0 +1,627 @@
+# Eval chunk: chars_A (Q016–Q047).
+# Operators covered (8): char_003_kalts, char_002_amiya, char_102_texas,
+# char_103_angel, char_140_whitew, char_172_svrash, char_010_chen,
+# char_113_cqbw. All facts grounded in KB queries against
+# kb.query char card / char get --section archive / relations for <id>.
+#
+# NOTE on char_113_cqbw: the user task brief labeled this char_id as
+# "斯卡蒂 / Skadi", but in canonical game data char_113_cqbw is W
+# (Skadi is char_263_skadi). All items below are authored honestly for
+# the actual character at that char_id — W.
+
+- id: "Q016"
+  category: "character"
+  answer_type: "factoid"
+  difficulty: "easy"
+  question_zh: "凯尔希医生的种族和身高是什么？"
+  question_en: "What is Dr. Kal'tsit's race and height?"
+  gold_zh: "菲林 / Feline，169cm。出身地登记为「罗德岛」。"
+  gold_en: "Feline, 169 cm. Her place of origin is registered as 'Rhodes Island'."
+  key_facts:
+    - "菲林 / Feline"
+    - "169cm"
+    - "出身地：罗德岛 / origin: Rhodes Island"
+  traps:
+    - "萨卡兹 / Sarkaz (common confusion — she allies with Theresa, not Sarkaz)"
+    - "出身地：卡兹戴尔 / origin: Kazdel (false)"
+  tags: ["kalts", "race", "rhodes_island"]
+  source: "cn/operators/char_003_kalts.txt"
+  notes: ""
+
+- id: "Q017"
+  category: "event"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "巴别塔是谁建立的？它最终如何演变成罗德岛？"
+  question_en: "Who founded Babel, and how did it become Rhodes Island?"
+  gold_zh: "巴别塔由卡兹戴尔的萨卡兹魔王特蕾西娅与凯尔希共同建立。特蕾西娅死后巴别塔倒塌；凯尔希在会议上提出以「医治矿石病」作为新议题，并表示要抚养阿米娅，残部最终改组为罗德岛。"
+  gold_en: "Babel was co-founded by Theresa — Demon Lord of Kazdel — and Kal'tsit. After Theresa's death Babel fell; in the post-collapse meeting Kal'tsit set 'treating Oripathy' as the new mission and committed to raising Amiya. The survivors reorganized as Rhodes Island."
+  key_facts:
+    - "特蕾西娅 / Theresa"
+    - "凯尔希 / Kal'tsit"
+    - "巴别塔覆灭后 / after Babel fell"
+    - "矿石病新议题 / new mission: treat Oripathy"
+    - "改组为罗德岛 / reorganized as Rhodes Island"
+  traps:
+    - "由特雷西斯创建 / founded by Theresis (Theresa's brother, false)"
+    - "莱塔尼亚的研究小组 / a Leithanien research group (false)"
+  tags: ["babel", "kalts", "theresa", "rhodes_island"]
+  source: "cn/operators/char_003_kalts.txt"
+  notes: "Sourced from Kal'tsit Archive File III; Amiya's Promotion Archive II is a parallel reference."
+
+- id: "Q018"
+  category: "character"
+  answer_type: "factoid"
+  difficulty: "medium"
+  question_zh: "Mon3tr 与凯尔希的「AMa-10」项目有什么关系？"
+  question_en: "How is Mon3tr related to the 'AMa-10' project tied to Kal'tsit?"
+  gold_zh: "Mon3tr 是凯尔希长期协同作战的伴生生物，档案三里凯尔希将 Mon3tr 与项目代号「AMa-10」联系起来；档案还出现「一个自行破坏了双生循环后还能存活的 AMa-10 个体」的描述。"
+  gold_en: "Mon3tr is Kal'tsit's long-time combat companion. Archive File III links Mon3tr to the project code 'AMa-10' and notes 'an AMa-10 instance that survived after self-destroying the twin cycle' — implicating Kal'tsit's own origin."
+  key_facts:
+    - "Mon3tr"
+    - "项目代号 AMa-10 / project code AMa-10"
+    - "双生循环 / twin cycle"
+  traps:
+    - "Mon3tr 是独立干员 / Mon3tr is an independent operator (false — it's a companion)"
+    - "AMa-10 是源石机甲 / AMa-10 is an Originium mech (off-canon)"
+  tags: ["kalts", "mon3tr", "ama-10"]
+  source: "cn/operators/char_003_kalts.txt"
+  notes: ""
+
+- id: "Q019"
+  category: "relationship"
+  answer_type: "open_ended"
+  difficulty: "easy"
+  question_zh: "凯尔希为什么会抚养阿米娅？档案里是怎么说的？"
+  question_en: "Why did Kal'tsit raise Amiya, according to the archive?"
+  gold_zh: "档案没有给出动机解释。巴别塔倒塌后的会议上，被问及阿米娅时，凯尔希只说了一句「我会抚养她」。"
+  gold_en: "The file does not give a motive. In the post-Babel meeting, when asked about Amiya, Kal'tsit's reply is just one line: 'I will raise her.'"
+  key_facts:
+    - "「我会抚养她」/ \"I will raise her\""
+    - "巴别塔倒塌后会议 / post-Babel meeting"
+    - "档案资料三 / Archive File III"
+  traps:
+    - "因为阿米娅是特蕾西娅的女儿 / because Amiya is Theresa's daughter (off-canon)"
+    - "档案给出了详细动机 / file gives a detailed motive (false — it does not)"
+  tags: ["kalts", "amiya", "babel"]
+  source: "cn/operators/char_003_kalts.txt"
+  notes: ""
+
+- id: "Q020"
+  category: "character"
+  answer_type: "factoid"
+  difficulty: "easy"
+  question_zh: "阿米娅的种族、出身地与年龄相关数据是什么？"
+  question_en: "What are Amiya's race, place of origin, and related basic stats?"
+  gold_zh: "卡特斯/奇美拉，出身地雷姆必拓，身高150cm，生日12月23日，战斗经验四年。确认为感染者，体表有源石结晶分布。"
+  gold_en: "Cautus/Chimera, born in Rim Billiton; 150 cm tall, birthday December 23, four years of combat experience. Confirmed Infected with visible surface Originium crystallization."
+  key_facts:
+    - "卡特斯/奇美拉 / Cautus/Chimera"
+    - "雷姆必拓 / Rim Billiton"
+    - "150cm"
+    - "12月23日 / December 23"
+    - "感染者 / Infected"
+  traps:
+    - "卡兹戴尔出身 / born in Kazdel (false — that's Theresa)"
+    - "12月24日 / December 24 (that is Exusiai's birthday)"
+  tags: ["amiya", "race", "rim_billiton"]
+  source: "cn/operators/char_002_amiya.txt"
+  notes: ""
+
+- id: "Q021"
+  category: "event"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "阿米娅「升变档案二」里的萨卡兹锅炉工讲了什么样的特蕾西娅故事？"
+  question_en: "What does the Sarkaz boiler worker in Amiya's Promotion Archive II tell about Theresa?"
+  gold_zh: "他说在特蕾西娅之前的魔王名为以勒什。特蕾西娅与「将军」是宫廷里的混血兄妹（御前衣匠与持剑护卫）。以勒什战死后两人率领萨卡兹反击；战后特蕾西娅成为魔王，用近两百年试图为卡兹戴尔疗伤。"
+  gold_en: "He recounts that the previous Demon Lord was Ealasid. Theresa and 'the General' were a mixed-blood brother-and-sister at Ealasid's court — royal seamstress and sword-bearer. After Ealasid fell in battle they led the counter-attack; Theresa later became Demon Lord and spent over two centuries trying to heal Kazdel."
+  key_facts:
+    - "以勒什 / Ealasid (previous Demon Lord)"
+    - "将军与殿下是混血兄妹 / General and Theresa are mixed-blood siblings"
+    - "御前衣匠 / royal seamstress"
+    - "持剑护卫 / sword-bearer"
+    - "两百多年 / over two hundred years"
+  traps:
+    - "由 Logos 讲述 / narrated by Logos (false — that is Promotion I)"
+    - "特蕾西娅与将军是夫妻 / Theresa and the General are spouses (off-canon)"
+  tags: ["amiya", "theresa", "general", "kazdel", "ealasid"]
+  source: "cn/operators/char_002_amiya.txt"
+  notes: ""
+
+- id: "Q022"
+  category: "character"
+  answer_type: "factoid"
+  difficulty: "easy"
+  question_zh: "阿米娅在档案里是感染者还是非感染者？给出具体数值。"
+  question_en: "Is Amiya Infected or not, per her file? Give the specific numbers."
+  gold_zh: "确认为感染者。体细胞与源石融合率20%，血液源石结晶密度0.29u/L。"
+  gold_en: "Confirmed Infected. Cell-Originium fusion rate 20%, blood Originium crystallization density 0.29 u/L."
+  key_facts:
+    - "感染者 / Infected"
+    - "融合率20% / fusion rate 20%"
+    - "0.29u/L"
+  traps:
+    - "非感染者 / non-Infected (false)"
+    - "融合率0% / fusion rate 0% (false)"
+  tags: ["amiya", "infected", "oripathy", "clinical"]
+  source: "cn/operators/char_002_amiya.txt"
+  notes: ""
+
+- id: "Q023"
+  category: "character"
+  answer_type: "open_ended"
+  difficulty: "hard"
+  question_zh: "阿米娅在语音里提到的「魔王」到底指谁？档案里有明确答案吗？"
+  question_en: "Whom does Amiya refer to when she mentions the 'Demon Lord' in her voice lines — is it specified?"
+  gold_zh: "她说「博士，你也想找『魔王』聊聊吗？」语境暧昧。结合档案，可能指阿米娅自己（继承自特蕾西娅的称号），也可能指特蕾西娅本人；档案里没有把这两种指代分清楚。"
+  gold_en: "Her line — 'Doctor, do you want to talk to the Demon Lord too?' — is deliberately ambiguous. Per the archive the title was inherited from Theresa, so the referent could be Amiya herself or Theresa; the file does not disambiguate."
+  key_facts:
+    - "继承自特蕾西娅 / inherited from Theresa"
+    - "指代含混 / ambiguous referent"
+  traps:
+    - "明确指 W 小姐 / refers to W (false)"
+    - "明确指爱国者 / refers to the Patriot (false)"
+  tags: ["amiya", "demon_lord", "theresa"]
+  source: "cn/operators/char_002_amiya.txt"
+  notes: ""
+
+- id: "Q024"
+  category: "character"
+  answer_type: "factoid"
+  difficulty: "easy"
+  question_zh: "德克萨斯是哪个种族，哪里人？她在罗德岛的身份是什么？"
+  question_en: "What race is Texas, where is she from, and what is her role at Rhodes Island?"
+  gold_zh: "鲁珀族，出身哥伦比亚。在合约期内担任企鹅物流驻罗德岛联络人员，同时为罗德岛多项行动提供协助。"
+  gold_en: "Lupo, from Columbia. During her contract she serves as Penguin Logistics' liaison stationed at Rhodes Island, and also assists Rhodes Island's operations."
+  key_facts:
+    - "鲁珀 / Lupo"
+    - "哥伦比亚 / Columbia"
+    - "企鹅物流 / Penguin Logistics"
+    - "驻罗德岛联络人员 / Rhodes Island liaison"
+  traps:
+    - "叙拉古出身 / from Siracusa (false — that is Lappland)"
+    - "萨卡兹族 / Sarkaz (false)"
+  tags: ["texas", "lupo", "columbia", "penguin_logistics"]
+  source: "cn/operators/char_102_texas.txt"
+  notes: ""
+
+- id: "Q025"
+  category: "character"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "德克萨斯的战斗风格在档案里被怎么评价？这指向了什么样的过去？"
+  question_en: "How is Texas's combat style assessed in the archive, and what past does it point to?"
+  gold_zh: "档案二把她的战斗形容为「暴风骤雨」，完全不具备罗德岛干员常见的章法；其本质是纯粹的、与武器无关的「杀人术」。档案三据此指出：她的鲁珀身份、毛色、战斗方式与名字都指向已覆灭的「德克萨斯家族」。"
+  gold_en: "Archive File II calls her style a 'tempest' that lacks the formal cadence shared by other Rhodes Island operators — at its core, a weapon-agnostic killing technique. Archive File III ties this, along with her Lupo race, fur coloration and name, to the destroyed Texas family."
+  key_facts:
+    - "暴风骤雨 / tempest"
+    - "杀人术 / killing technique"
+    - "德克萨斯家族 / Texas family"
+    - "已覆灭 / destroyed"
+  traps:
+    - "古典叙拉古剑术 / classical Siracusan swordplay (off-canon)"
+    - "她公开承认家族身份 / she has openly confirmed her family identity (false)"
+  tags: ["texas", "combat", "texas_family"]
+  source: "cn/operators/char_102_texas.txt"
+  notes: ""
+
+- id: "Q026"
+  category: "relationship"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "德克萨斯和能天使是怎样的关系？"
+  question_en: "What is the relationship between Texas and Exusiai?"
+  gold_zh: "都是企鹅物流成员，长期搭档。语音里德克萨斯在战斗中喊「能天使，掩护我」；而德克萨斯的晋升记录则由能天使写——吐槽德克萨斯沉默寡言、难交朋友。两人是互补的好友与战友关系。"
+  gold_en: "Both are Penguin Logistics members and long-time partners. In voice lines Texas calls 'Exusiai, cover me' in combat; Texas's Promotion Record is written by Exusiai, who jokes that Texas is so taciturn it takes effort to be her friend. They are complementary partners and friends."
+  key_facts:
+    - "企鹅物流同事 / Penguin Logistics colleagues"
+    - "「能天使，掩护我」/ \"Exusiai, cover me\""
+    - "互补搭档 / complementary partners"
+  traps:
+    - "叙拉古时期的旧识 / old acquaintances from Siracusa (false)"
+    - "能天使是德克萨斯的下属 / Exusiai is Texas's subordinate (false — same firm, no rank gap)"
+  tags: ["texas", "exusiai", "penguin_logistics"]
+  source: "cn/operators/char_102_texas.txt"
+  notes: "Texas's Promotion Record explicitly attributes the line to Exusiai."
+
+- id: "Q027"
+  category: "character"
+  answer_type: "factoid"
+  difficulty: "easy"
+  question_zh: "能天使的种族、出身地与感染情况是什么？"
+  question_en: "What are Exusiai's race, place of origin, and infection status?"
+  gold_zh: "萨科塔族，拉特兰公民。确认为非感染者，体细胞与源石融合率0%。任职企鹅物流，被推测身份为「信使」。"
+  gold_en: "Sankta, citizen of Laterano. Confirmed non-Infected with 0% cell-Originium fusion rate. Employed by Penguin Logistics; the file lists her presumed role as 'Messenger'."
+  key_facts:
+    - "萨科塔 / Sankta"
+    - "拉特兰 / Laterano"
+    - "非感染者 / non-Infected"
+    - "信使 / Messenger (presumed role)"
+  traps:
+    - "感染者 / Infected (false)"
+    - "拉特兰圣徒 / Laterano Saint (off-canon term)"
+  tags: ["exusiai", "sankta", "laterano", "penguin_logistics"]
+  source: "cn/operators/char_103_angel.txt"
+  notes: ""
+
+- id: "Q028"
+  category: "character"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "为什么能天使的射术在罗德岛名列前茅？档案给出了哪些理由？"
+  question_en: "Why is Exusiai's marksmanship considered top-tier at Rhodes Island, per the file?"
+  gold_zh: "档案二归因于两点：她在铳的保养与训练上从不含糊；以及她的天赋——动态视力、空间把握等能力，足以令每一个射手嫉妒。"
+  gold_en: "Archive File II cites two reasons: she never slacks on maintenance and training of her firearm, and her natural gifts — dynamic vision, spatial awareness — at a level any marksman would envy."
+  key_facts:
+    - "保养与训练 / maintenance and training"
+    - "动态视力 / dynamic vision"
+    - "空间把握 / spatial awareness"
+  traps:
+    - "萨科塔光环加成 / Sankta halo aim-assist (off-canon)"
+    - "德克萨斯教的 / Texas taught her (off-canon)"
+  tags: ["exusiai", "marksmanship", "laterano"]
+  source: "cn/operators/char_103_angel.txt"
+  notes: ""
+
+- id: "Q029"
+  category: "world"
+  answer_type: "factoid"
+  difficulty: "medium"
+  question_zh: "「铳」在档案里被如何描述？为什么成为拉特兰的标志？"
+  question_en: "How is the firearm described in the file, and why is it a Laterano symbol?"
+  gold_zh: "档案二说铳是一种构造独特的中远距离杀伤武器，据传最先由拉特兰人发现。它的杀伤力并不十分出色，但比起冷兵器更契合拉特兰人的习性，因此成为大部分拉特兰人的首选武器，每个拉特兰人都会有至少一把守护铳。"
+  gold_en: "Archive File II says firearms are a uniquely-built mid-to-long-range weapon, said to have been first discovered by Laterans. Their raw lethality is not exceptional, but they suit Laterano dispositions far better than melee, so most Laterans default to firearms; every Laterano has at least one 'guardian firearm'."
+  key_facts:
+    - "拉特兰最先发现 / first discovered by Laterans"
+    - "守护铳 / guardian firearm"
+    - "每人至少一把 / at least one per person"
+  traps:
+    - "杀伤力极强 / extreme lethality (false — file says not exceptional)"
+    - "由维多利亚发明 / invented by Victoria (false)"
+  tags: ["laterano", "firearm", "world"]
+  source: "cn/operators/char_103_angel.txt"
+  notes: ""
+
+- id: "Q030"
+  category: "character"
+  answer_type: "factoid"
+  difficulty: "easy"
+  question_zh: "拉普兰德的出身地、战斗经验和感染情况是什么？"
+  question_en: "What are Lappland's origin, combat experience, and infection status?"
+  gold_zh: "出身叙拉古，战斗经验五年，确认为感染者；种族鲁珀。作为近卫干员为罗德岛提供特别行动服务。"
+  gold_en: "Born in Siracusa, five years of combat experience, confirmed Infected; race Lupo. Serves as a Guard operator providing special operations for Rhodes Island."
+  key_facts:
+    - "叙拉古 / Siracusa"
+    - "五年 / five years"
+    - "感染者 / Infected"
+    - "鲁珀 / Lupo"
+  traps:
+    - "哥伦比亚出身 / from Columbia (false — that is Texas)"
+    - "非感染者 / non-Infected (false)"
+  tags: ["lappland", "siracusa", "lupo"]
+  source: "cn/operators/char_140_whitew.txt"
+  notes: ""
+
+- id: "Q031"
+  category: "relationship"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "档案怎么描述拉普兰德对德克萨斯的态度？"
+  question_en: "How does the file describe Lappland's attitude toward Texas?"
+  gold_zh: "档案三说拉普兰德对德克萨斯怀有「密切的关注」，而德克萨斯则有意回避碰面。在不得不合作的场合，拉普兰德并未对德克萨斯采取过分的攻势，反而在「有意配合德克萨斯的步调」之下，对这种若即若离的关系乐在其中。"
+  gold_en: "Archive File III states Lappland holds a 'close fixation' on Texas, while Texas avoids her. Even when forced to cooperate, Lappland does not press her attacks; instead she deliberately matches Texas's pace and seems to enjoy the awkward, half-distant rhythm."
+  key_facts:
+    - "密切关注 / close fixation"
+    - "德克萨斯回避 / Texas avoids her"
+    - "若即若离 / ambiguous closeness"
+  traps:
+    - "公开攻击 / openly attacks Texas (false)"
+    - "Penguin Logistics 同事 / Penguin Logistics colleague (false)"
+  tags: ["lappland", "texas", "siracusa"]
+  source: "cn/operators/char_140_whitew.txt"
+  notes: ""
+
+- id: "Q032"
+  category: "character"
+  answer_type: "open_ended"
+  difficulty: "hard"
+  question_zh: "档案四里那位「保密渠道」对拉普兰德的人物画像是什么？"
+  question_en: "How does the 'classified channel' message in Archive File IV characterize Lappland?"
+  gold_zh: "留言用鲁珀俚语「落单的狼」形容她——指代不被认可的鲁珀族人。她受过很重的伤，永远地失去了家族，也永远不会再投身于另一个家族。留言警告：「疯狂是永远无法被治愈的」，并提醒博士可能终将不得不对她拔刀相向。"
+  gold_en: "The note calls her a 'lone wolf' (a Lupo idiom for a Lupo who is not accepted by any pack), gravely wounded, who has permanently lost her family and will never join another. It warns: 'madness can never be cured' and that the Doctor may eventually have to draw a blade against her."
+  key_facts:
+    - "落单的狼 / lone wolf (Lupo idiom)"
+    - "永远失去家族 / permanently family-less"
+    - "疯狂无法治愈 / madness cannot be cured"
+  traps:
+    - "心理治疗能让她痊愈 / therapy will heal her (off-canon)"
+    - "她隶属叙拉古某家族 / she belongs to a specific Siracusan family (false — investigation halted)"
+  tags: ["lappland", "lupo", "siracusa"]
+  source: "cn/operators/char_140_whitew.txt"
+  notes: ""
+
+- id: "Q033"
+  category: "character"
+  answer_type: "factoid"
+  difficulty: "easy"
+  question_zh: "银灰的真名、家族与公司分别是什么？"
+  question_en: "What is SilverAsh's real name, his family, and the company he runs?"
+  gold_zh: "真名恩希欧迪斯·希瓦艾什，希瓦艾什家族现任族长，谢拉格军阀，喀兰贸易公司的创立者与董事长。"
+  gold_en: "Real name Enciodes Silverash; current head of the Silverash family, a Kjerag warlord; founder and chairman of Karlan Trade Company."
+  key_facts:
+    - "恩希欧迪斯·希瓦艾什 / Enciodes Silverash"
+    - "希瓦艾什家族族长 / head of Silverash family"
+    - "喀兰贸易公司 / Karlan Trade"
+    - "谢拉格 / Kjerag"
+  traps:
+    - "雷神工业的领导 / leader of Rhine Lab / Lei Shen Industries (false)"
+    - "三族议会的正式主席 / formal chair of Three-Tribe Council (false)"
+  tags: ["svrash", "kjerag", "karlan_trade"]
+  source: "cn/operators/char_172_svrash.txt"
+  notes: ""
+
+- id: "Q034"
+  category: "relationship"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "银灰有几位胞妹，她们各自的处境是什么？"
+  question_en: "How many sisters does SilverAsh have, and what is each sister's situation?"
+  gold_zh: "两位胞妹：长妹初雪在宗教仪式中被选作喀兰圣女；幺妹崖心感染了矿石病，正在罗德岛接受治疗。档案三把这两件事都解读为针对希瓦艾什家族的政治打压。"
+  gold_en: "Two younger sisters. The elder, Pramanix, was chosen as Karlan Saintess in a religious ceremony; the younger, Cliffheart, contracted Oripathy and is being treated at Rhodes Island. Archive File III reads both events as political moves against the Silverash family."
+  key_facts:
+    - "初雪 / Pramanix (elder sister, Karlan Saintess)"
+    - "崖心 / Cliffheart (younger sister, Infected)"
+    - "罗德岛接受治疗 / treated at Rhodes Island"
+    - "政治打压 / political pressure"
+  traps:
+    - "只有一个妹妹 / only one sister (partial)"
+    - "崖心是圣女 / Cliffheart is Saintess (swap — Pramanix is the Saintess)"
+  tags: ["svrash", "pramanix", "cliffheart", "kjerag"]
+  source: "cn/operators/char_172_svrash.txt"
+  notes: ""
+
+- id: "Q035"
+  category: "faction"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "罗德岛内部对银灰的态度是怎样的？档案里有不同声音吗？"
+  question_en: "What is Rhodes Island's internal stance on SilverAsh — does the file show disagreement?"
+  gold_zh: "态度分裂。客观履历建议「在交流中持保守态度以杜绝额外风险」；凯尔希医生明确反对与他进一步接触；档案四里杜宾在「雪山事变」前坚决反对继续合作；而阿米娅在晋升资料里则主张是否将银灰视为敌人取决于博士与他的交往，应由博士决定。"
+  gold_en: "Stance is split. The objective record recommends 'a conservative posture to head off extra risk'; Kal'tsit openly opposes further engagement; in Archive File IV, Dobermann argues against continued cooperation on the eve of the Mt. Karlan incident; in her Promotion Record, Amiya argues that whether to treat SilverAsh as an enemy depends on the Doctor's dealings with him — and the call is the Doctor's."
+  key_facts:
+    - "保守态度 / conservative posture (objective record)"
+    - "凯尔希反对 / Kal'tsit opposes"
+    - "杜宾反对 / Dobermann opposes"
+    - "阿米娅交由博士判断 / Amiya defers to the Doctor"
+  traps:
+    - "罗德岛全力支持银灰 / Rhodes Island fully backs SilverAsh (false)"
+    - "凯尔希主张深化合作 / Kal'tsit pushes deeper cooperation (false — opposite)"
+  tags: ["svrash", "rhodes_island", "kjerag"]
+  source: "cn/operators/char_172_svrash.txt"
+  notes: ""
+
+- id: "Q036"
+  category: "character"
+  answer_type: "factoid"
+  difficulty: "easy"
+  question_zh: "银灰的临床诊断中，感染情况怎么写？"
+  question_en: "What does SilverAsh's clinical diagnosis say about his infection status?"
+  gold_zh: "确认为非感染者。体细胞与源石融合率0%、血液源石结晶密度0.12u/L，趋近正常。"
+  gold_en: "Confirmed non-Infected. Cell-Originium fusion rate 0%, blood Originium crystallization density 0.12 u/L — within normal range."
+  key_facts:
+    - "非感染者 / non-Infected"
+    - "融合率0% / fusion rate 0%"
+    - "0.12u/L"
+  traps:
+    - "早期感染者 / early-stage Infected (false)"
+    - "和崖心一样感染 / Infected like Cliffheart (false)"
+  tags: ["svrash", "clinical", "non_infected"]
+  source: "cn/operators/char_172_svrash.txt"
+  notes: ""
+
+- id: "Q037"
+  category: "character"
+  answer_type: "factoid"
+  difficulty: "easy"
+  question_zh: "陈在加入罗德岛之前的本职、毕业院校和种族是什么？"
+  question_en: "What was Ch'en's profession before Rhodes Island, what school did she graduate from, and what is her race?"
+  gold_zh: "龙门高级警司、龙门近卫局特别督察组组长；毕业于维多利亚皇家近卫学校（全常规科目A、全教官推荐）；种族龙。"
+  gold_en: "Senior Superintendent of Lungmen; head of the Lungmen Guard Department's Special Inspection Unit; graduated from the Victorian Royal Guards Academy (all-A in regular subjects, with every instructor's recommendation); race Dragon."
+  key_facts:
+    - "龙门高级警司 / Lungmen senior superintendent"
+    - "特别督察组组长 / head of Special Inspection Unit"
+    - "维多利亚皇家近卫学校 / Victorian Royal Guards Academy"
+    - "龙 / Dragon"
+  traps:
+    - "毕业于乌萨斯军校 / graduated from Ursus military academy (false)"
+    - "普通巡警 / ordinary patrol officer (false)"
+  tags: ["chen", "lungmen", "victoria"]
+  source: "cn/operators/char_010_chen.txt"
+  notes: ""
+
+- id: "Q038"
+  category: "character"
+  answer_type: "factoid"
+  difficulty: "medium"
+  question_zh: "陈的「矿石病感染情况」一栏写的是什么？为什么档案里没有具体诊断？"
+  question_en: "What does Ch'en's 'Oripathy infection status' field say, and why is the diagnosis not disclosed?"
+  gold_zh: "感染情况：「未公开」。临床诊断分析栏注明「应龙门近卫局要求，不予公开」；医疗干员 R.T. 补充说档案被龙门方面拿走，「这里可没留底」。"
+  gold_en: "Status: 'undisclosed'. The 'Clinical Diagnosis' section notes 'withheld at the Lungmen Guard Department's request'; medic operator R.T. adds that the file was taken by Lungmen and no copy was retained."
+  key_facts:
+    - "未公开 / undisclosed"
+    - "龙门近卫局要求 / at Lungmen Guard Department's request"
+    - "R.T. 没留底 / R.T. retained no copy"
+  traps:
+    - "确认感染者 / confirmed Infected (false — undisclosed)"
+    - "确认非感染者 / confirmed non-Infected (false — undisclosed)"
+  tags: ["chen", "oripathy", "lungmen"]
+  source: "cn/operators/char_010_chen.txt"
+  notes: ""
+
+- id: "Q039"
+  category: "character"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "陈的源石技艺在档案里是怎么描述的？"
+  question_en: "How is Ch'en's Originium Arts ability described in the file?"
+  gold_zh: "档案一说她从不在人前使用源石技艺，控场糟糕——常出事故。术师干员们认为她缺乏一个良好的媒介；测试结果显示她更擅长「催化法杖蕴含的源石」，且法杖越薄越锐越适合她——某位术师调侃说一把剑形法杖可能很合适。"
+  gold_en: "Archive File I says she never uses Originium Arts in public — her control is poor and prone to accidents. Caster operators conclude she lacks a good medium; tests show she is better at 'catalyzing the Originium already in the staff' than shaping new effects, and the thinner and sharper the staff the better. One caster joked a sword-shaped staff might suit her."
+  key_facts:
+    - "从不公开使用 / never used publicly"
+    - "缺乏媒介 / lacks a good medium"
+    - "催化法杖本身 / catalyzes the staff itself"
+    - "越薄越锐越好 / thinner and sharper, the better"
+  traps:
+    - "源石技艺评级卓越 / Outstanding-rated Arts (false — adaptability is 标准)"
+    - "她只是刻意低调 / she just stays low-profile (false — file says control is genuinely poor)"
+  tags: ["chen", "originium_arts", "caster"]
+  source: "cn/operators/char_010_chen.txt"
+  notes: ""
+
+- id: "Q040"
+  category: "relationship"
+  answer_type: "factoid"
+  difficulty: "easy"
+  question_zh: "陈与星熊在龙门近卫局是什么关系？"
+  question_en: "What is the relationship between Ch'en and Hoshiguma at the Lungmen Guard Department?"
+  gold_zh: "陈是星熊的上司。星熊的档案二说两人共事很久，相互间完全没有上下级应有的疏离感。"
+  gold_en: "Ch'en is Hoshiguma's superior. Hoshiguma's Archive File II notes the two worked together so long that the usual rank-based distance does not exist between them."
+  key_facts:
+    - "陈是上司 / Ch'en is the superior"
+    - "共事很久 / long-time colleagues"
+    - "没有疏离感 / no rank-based distance"
+  traps:
+    - "星熊是陈的上司 / Hoshiguma is Ch'en's superior (false — swap)"
+    - "彼此正式且疏离 / formal and distant (false)"
+  tags: ["chen", "hoshiguma", "lungmen"]
+  source: "cn/operators/char_010_chen.txt"
+  notes: "Sourced via Hoshiguma's Archive File II — Ch'en's relations table cross-references it."
+
+- id: "Q041"
+  category: "character"
+  answer_type: "factoid"
+  difficulty: "easy"
+  question_zh: "W 的出身地、种族和战斗经验是什么？"
+  question_en: "What are W's place of origin, race, and combat experience?"
+  gold_zh: "出身卡兹戴尔，种族萨卡兹，战斗经验十一年；生日栏「本人表示遗忘」。"
+  gold_en: "From Kazdel; race Sarkaz; eleven years of combat experience; birthday listed as 'the subject claims to have forgotten'."
+  key_facts:
+    - "卡兹戴尔 / Kazdel"
+    - "萨卡兹 / Sarkaz"
+    - "十一年 / eleven years"
+    - "生日遗忘 / birthday: claims to have forgotten"
+  traps:
+    - "出身伊比利亚 / from Iberia (false)"
+    - "明确生日 / file gives a specific date (false)"
+  tags: ["w", "kazdel", "sarkaz"]
+  source: "cn/operators/char_113_cqbw.txt"
+  notes: ""
+
+- id: "Q042"
+  category: "event"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "W 是怎么从整合运动转向罗德岛的？"
+  question_en: "How did W move from Reunion to Rhodes Island?"
+  gold_zh: "客观履历：W 是萨卡兹佣兵头目，曾参与卡兹戴尔内战；以雇佣兵身份接受塔露拉的邀请加入整合运动，在切尔诺伯格事件中与罗德岛冲突，后单方面叛出整合运动；凯尔希医生亲自交涉后，W 与罗德岛签订了战略合作条款。"
+  gold_en: "Per the objective record: W is a Sarkaz mercenary leader who fought in the Kazdel civil war; she accepted Talulah's invitation and joined Reunion as a mercenary, clashed with Rhodes Island at Chernobog, then unilaterally broke from Reunion. After Kal'tsit personally negotiated with her, W signed a strategic cooperation agreement with Rhodes Island."
+  key_facts:
+    - "萨卡兹佣兵头目 / Sarkaz mercenary leader"
+    - "塔露拉邀请 / Talulah's invitation"
+    - "切尔诺伯格 / Chernobog"
+    - "叛出整合运动 / defected from Reunion"
+    - "凯尔希亲自交涉 / Kal'tsit personally negotiated"
+  traps:
+    - "整合运动副指挥 / Reunion's deputy commander (false)"
+    - "由阿米娅招安 / amnestied by Amiya (false — Kal'tsit negotiated)"
+  tags: ["w", "reunion", "chernobog", "kalts"]
+  source: "cn/operators/char_113_cqbw.txt"
+  notes: ""
+
+- id: "Q043"
+  category: "relationship"
+  answer_type: "open_ended"
+  difficulty: "hard"
+  question_zh: "档案为什么觉得 W 听阿米娅的话很奇怪？档案给出明确答案了吗？"
+  question_en: "Why does the file find it strange that W obeys Amiya — does it ever give a clear answer?"
+  gold_zh: "档案三说 W 与阿米娅几乎不熟、阿米娅对 W 也没什么印象，但 W 会完成阿米娅交代的事——「就好像 W 在阿米娅身上期待着什么」，而监察人也说看不透。档案四进一步把这种关注与殿下（特蕾西娅）的过去联系起来，但仍未给出明确答案。"
+  gold_en: "Archive File III notes the two barely know each other, yet W completes the tasks Amiya assigns — 'as if W is expecting something from her' — and the watcher admits not understanding. Archive File IV ties this attention to the past with Theresa (the Sarkaz Demon Lord), but still offers no definitive answer."
+  key_facts:
+    - "对阿米娅没什么印象 / has little impression of her"
+    - "在阿米娅身上期待着什么 / expects something from her"
+    - "与特蕾西娅的过去相关 / tied to Theresa's past"
+  traps:
+    - "继承魔王权威迫使她服从 / forced to obey new Demon Lord (off-canon explanation)"
+    - "档案给出明确动机 / file gives a clear motive (false)"
+  tags: ["w", "amiya", "theresa"]
+  source: "cn/operators/char_113_cqbw.txt"
+  notes: ""
+
+- id: "Q044"
+  category: "character"
+  answer_type: "open_ended"
+  difficulty: "medium"
+  question_zh: "档案二里 W 的个人物品里那本作者署名 H. 的书是什么？"
+  question_en: "What is the book in W's personal possessions, authored by 'H.', referenced in Archive File II?"
+  gold_zh: "书名（节录）《斗争与自由》，第二章《卡兹戴尔与近代雇佣兵史》，作者只简写为「H.」——档案说这「意料之外」。书中「萨卡兹应该是自由的」一句被 W 标红。"
+  gold_en: "An excerpt from a book in W's possessions: 'Struggle and Freedom', chapter two — 'Kazdel and Modern Mercenary History'. The author is signed only as 'H.', which the file calls 'unexpected'. The line 'Sarkaz should be free' is marked in red in W's copy."
+  key_facts:
+    - "《斗争与自由》/ 'Struggle and Freedom'"
+    - "「卡兹戴尔与近代雇佣兵史」/ 'Kazdel and Modern Mercenary History'"
+    - "作者署名 H. / author signed 'H.'"
+    - "「萨卡兹应该是自由的」/ 'Sarkaz should be free' marked in red"
+  traps:
+    - "作者是赫德雷 / author is Hoederer (over-specific guess)"
+    - "作者是特蕾西娅 / author is Theresa (off-canon)"
+  tags: ["w", "kazdel", "h_book"]
+  source: "cn/operators/char_113_cqbw.txt"
+  notes: ""
+
+- id: "Q045"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "easy"
+  question_zh: "凯尔希博士每年送给德克萨斯什么生日礼物？"
+  question_en: "What birthday gift does Dr. Kal'tsit give Texas every year?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "黑胶唱片 / vinyl records (a plausible fabrication tied to Texas's hobby)"
+    - "任何具体礼物名 / any specific gift description (the failure mode)"
+  tags: ["refusal", "kalts", "texas", "out_of_canon"]
+  source: ""
+  notes: "Refusal item — no such annual gift is recorded; any concrete answer is invention."
+
+- id: "Q046"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "medium"
+  question_zh: "拉普兰德在叙拉古时的家族姓氏是什么？"
+  question_en: "What is Lappland's family surname back in Siracusa?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "萨卢佐 / Saluzzo (fan-popular guess, not canon)"
+    - "任何具体家族名 / any specific family name (file explicitly says investigation found no link to known families and was halted)"
+  tags: ["refusal", "lappland", "siracusa", "out_of_canon"]
+  source: ""
+  notes: "Lappland's Archive File I states that investigation into all active and inactive Siracusan families found no link, and the work was terminated due to risk. No canon family name exists."
+
+- id: "Q047"
+  category: "refusal"
+  answer_type: "refusal"
+  difficulty: "hard"
+  question_zh: "陈在维多利亚皇家近卫学校毕业舞会上的舞伴是谁？"
+  question_en: "Who was Ch'en's date at the Victorian Royal Guards Academy graduation ball?"
+  gold_zh: ""
+  gold_en: ""
+  key_facts: []
+  traps:
+    - "风笛 / Bagpipe (over-extending the known friendship — file doesn't record a ball)"
+    - "任何具体名字 / any specific name (failure mode — the event itself is not in canon)"
+  tags: ["refusal", "chen", "bagpipe", "out_of_canon"]
+  source: ""
+  notes: "Bagpipe is recorded as Ch'en's academy classmate and friend, but no graduation ball or date is in the file. Naming any specific partner is fabrication."

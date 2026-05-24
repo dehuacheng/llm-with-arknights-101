@@ -1,0 +1,719 @@
+- id: Q001
+  category: character
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 斯卡蒂的出身地与种族档案登记为什么？
+  question_en: What are Skadi's registered place of origin and race?
+  gold_zh: 出身地：阿戈尔；种族：未公开。身高166cm，体重一栏为「■■kg」。
+  gold_en: 'Place of origin: Ægir; Race: undisclosed. Height 166 cm; the weight field is redacted as ''■■kg''.'
+  key_facts:
+  - 阿戈尔 / Ægir
+  - 种族未公开 / race undisclosed
+  - 166cm
+  traps:
+  - '种族：阿戈尔人 / race: Ægirian (Ægir is her origin, not a confirmed race)'
+  - '种族：萨卡兹 / race: Sarkaz (false)'
+  tags:
+  - skadi
+  - egir
+  - race
+  - basic_info
+  source: cn/operators/char_263_skadi.txt
+  notes: ''
+- id: Q002
+  category: character
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 为什么斯卡蒂在罗德岛干员之间不太受欢迎？
+  question_en: Why is Skadi unpopular among most Rhodes Island operators?
+  gold_zh: 档案资料一指出几点：她离群索居、少言寡语，主动避开社交邀请；战场上很少与队友配合，常独自解决任务让队友收拾残局；回绝他人时冷言冷语，战场形象残酷。这些综合起来让不少干员对她不满，甚至流传起被妖魔化的传闻。
+  gold_en: 'Her Archive File I cites several factors: she is reclusive and quiet, actively avoids social invitations, rarely
+    coordinates with teammates in battle (often soloing missions and leaving others to mop up), and is curt when refusing
+    people. Combined with her brutal combat image, this bred dissatisfaction and even semi-mythologised rumors about her on
+    the ship.'
+  key_facts:
+  - 离群索居 / reclusive
+  - 不与队友配合 / does not coordinate with teammates
+  - 战场形象残酷 / brutal combat image
+  traps:
+  - 因为她是萨卡兹 / because she is Sarkaz (her race is undisclosed)
+  - 因为她长期与凯尔希对立 / because she clashes with Kal'tsit (off-canon)
+  tags:
+  - skadi
+  - personality
+  - rhodes_island
+  source: cn/operators/char_263_skadi.txt
+  notes: ''
+- id: Q003
+  category: relationship
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 档案中将斯卡蒂的战斗动作与哪位近卫干员作了相似性对比？
+  question_en: Which Guard operator is Skadi's combat style explicitly compared to in her archive?
+  gold_zh: 档案资料二明确指出，斯卡蒂的某些动作与近卫干员幽灵鲨十分相似，而且两人对源石技艺都极度缺乏认知。
+  gold_en: Archive File II states that some of Skadi's movements closely resemble those of the Guard operator Specter, and
+    both share an extreme deficit in Originium Arts adaptation.
+  key_facts:
+  - 幽灵鲨 / Specter
+  - 动作相似 / similar movements
+  - 源石技艺缺乏认知 / both lack Originium-Arts adaptation
+  traps:
+  - 陈 / Ch'en (different style; off-canon comparison)
+  - 煌 / Blaze (off-canon)
+  tags:
+  - skadi
+  - specter
+  - relationship
+  - combat_style
+  source: cn/operators/char_263_skadi.txt
+  notes: Archive File II of Skadi.
+- id: Q004
+  category: refusal
+  answer_type: refusal
+  difficulty: easy
+  question_zh: 斯卡蒂在 2024 年罗德岛部署日的演讲内容是什么？
+  question_en: What was the content of Skadi's speech at the 2024 Rhodes Island Deployment Day?
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  traps:
+  - 档案中无此记录 / no record (correct refusal)
+  - any fabricated speech content (the failure mode)
+  tags:
+  - skadi
+  - out_of_canon
+  - refusal
+  source: ''
+  notes: Premise (a specific 2024 speech) is not in canon. Skadi is in fact described as taciturn and avoidant of social settings
+    — fabricating a speech for her is contrary to her archive.
+- id: Q005
+  category: character
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 史尔特尔的种族和出身地档案登记是什么？
+  question_en: What are Surtr's recorded race and place of origin?
+  gold_zh: 种族：萨卡兹；出身地：不明。身高162cm，已确认为矿石病感染者。
+  gold_en: 'Race: Sarkaz; Place of origin: unknown. Height 162 cm; confirmed as Oripathy-infected.'
+  key_facts:
+  - 萨卡兹 / Sarkaz
+  - 出身地不明 / origin unknown
+  - 感染者 / infected
+  traps:
+  - '出身地：卡兹戴尔 / origin: Kazdel (the field literally reads ''unknown'')'
+  - '种族：库兰塔 / race: Kuranta (false)'
+  tags:
+  - surtr
+  - sarkaz
+  - basic_info
+  source: cn/operators/char_350_surtr.txt
+  notes: ''
+- id: Q006
+  category: character
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 史尔特尔的记忆障碍有什么独特之处？
+  question_en: What is unusual about Surtr's memory disorder?
+  gold_zh: 档案资料三说明，她的记忆认知障碍并非普通的记忆缺失，而是「一段时间的多重记忆混乱」——脑中存有大量不同记忆，其中的她拥有完全不同的人际关系、身处不同的地理位置。调查难度极高，难以辨别真伪。
+  gold_en: 'Archive File III says her condition is not ordinary memory loss but ''multi-memory confusion over a stretch of
+    time'': her head holds many disparate memories in which she has entirely different relationships and locations. It is
+    too hard to investigate which (if any) are real.'
+  key_facts:
+  - 多重记忆混乱 / multiple-memory confusion
+  - 不同人际关系 / different relationships in each memory
+  - 真伪难辨 / cannot determine which is real
+  traps:
+  - 完全失忆 / total amnesia (incorrect — she has too many memories, not none)
+  - 由凯尔希消除 / erased by Kal'tsit (off-canon)
+  tags:
+  - surtr
+  - memory
+  - archive
+  source: cn/operators/char_350_surtr.txt
+  notes: ''
+- id: Q007
+  category: character
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 史尔特尔最初被罗德岛在哪里发现？
+  question_en: Where was Surtr first found by Rhodes Island?
+  gold_zh: 档案资料一记载，她在乌萨斯周边一个遭天灾侵害的小镇废墟中被罗德岛干员发现，当时正独自在损毁的房屋中休息。干员们误以为她遇难，将其带回罗德岛；事后才知道她只是路过当地暂作休整。
+  gold_en: Archive File I records that Rhodes Island operators on a post-disaster survey near the Ursus periphery found her
+    alone, resting in a damaged building of a Catastrophe-hit town. They mistook her for a victim and brought her back; she
+    had only been passing through and taking a break.
+  key_facts:
+  - 乌萨斯周边 / Ursus periphery
+  - 天灾废墟 / Catastrophe ruins
+  - 灾后勘探 / post-disaster survey
+  traps:
+  - 卡兹戴尔战场 / Kazdel battlefield (off-canon)
+  - 由凯尔希亲自带回 / personally brought back by Kal'tsit (off-canon)
+  tags:
+  - surtr
+  - ursus
+  - rescue
+  - origin
+  source: cn/operators/char_350_surtr.txt
+  notes: ''
+- id: Q008
+  category: character
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 史尔特尔的双手大剑有什么档案记录的特点？
+  question_en: What does Surtr's archive say about her two-handed greatsword?
+  gold_zh: 档案资料二指出：她可借这把剑轻松破坏周遭环境，剑体引起的高温能轻易融化一般物质，但原理难以解析；其来历连她本人也无法回忆，「不知不觉这把剑就陪伴着她了」。
+  gold_en: Archive File II notes the greatsword lets her trivially destroy her surroundings; the heat it generates can melt
+    ordinary matter, but the mechanism resists analysis. Even Surtr cannot recall where it came from — 'before she knew it,
+    the sword was simply with her'.
+  key_facts:
+  - 双手大剑 / two-handed greatsword
+  - 高温融化物质 / heat melts matter
+  - 来历不明 / unknown origin
+  traps:
+  - 由凯尔希配发 / issued by Kal'tsit (off-canon)
+  - 卡兹戴尔家族传承 / a Kazdel family heirloom (off-canon)
+  tags:
+  - surtr
+  - weapon
+  - archive
+  source: cn/operators/char_350_surtr.txt
+  notes: ''
+- id: Q009
+  category: character
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 玛恩纳的种族、出身地和身高分别是？
+  question_en: What are Mlynar's race, place of origin and height?
+  gold_zh: 种族：库兰塔；出身地：卡西米尔；身高191cm。已确认为非矿石病感染者。
+  gold_en: 'Race: Kuranta; Origin: Kazimierz; Height: 191 cm. Confirmed as a non-infected.'
+  key_facts:
+  - 库兰塔 / Kuranta
+  - 卡西米尔 / Kazimierz
+  - 191cm
+  traps:
+  - '种族：萨卡兹 / race: Sarkaz (false; he is Kuranta)'
+  - 感染者 / infected (he is confirmed non-infected)
+  tags:
+  - mlynar
+  - kazimierz
+  - kuranta
+  - basic_info
+  source: cn/operators/char_4064_mlynar.txt
+  notes: ''
+- id: Q010
+  category: relationship
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 玛恩纳与干员临光、瑕光之间是什么关系？
+  question_en: What is Mlynar's family relationship to operators Nearl and Nearl the Radiant Knight?
+  gold_zh: 客观履历记载：玛恩纳·临光是临光家前家主，也是干员临光（玛嘉烈）与瑕光（玛莉娅）的叔叔。他迄今没有获得任何形式的骑士封号。
+  gold_en: His objective record states Mlynar Nearl is the former head of the Nearl family, and the uncle of operators Nearl
+    (Margaret) and Nearl the Radiant Knight (Maria). He has never held any knightly title.
+  key_facts:
+  - 临光家前家主 / former Nearl family head
+  - 临光与瑕光的叔叔 / uncle of Nearl and Nearl the Radiant Knight
+  - 无骑士封号 / no knightly title
+  traps:
+  - 玛嘉烈与玛莉娅的父亲 / father of Margaret and Maria (he is their uncle)
+  - 现任家主 / current family head (he is the former head)
+  tags:
+  - mlynar
+  - nearl
+  - kazimierz
+  - family
+  source: cn/operators/char_4064_mlynar.txt
+  notes: Objective record explicit on 'uncle' (叔叔).
+- id: Q011
+  category: character
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 玛恩纳为何加入罗德岛？是在什么事件之后？
+  question_en: Why did Mlynar join Rhodes Island, and after what event?
+  gold_zh: 档案资料四记载，他在「茨沃涅克附近地区的感染者暴动事件」之后接受合作邀请加入罗德岛。在被人事部追问加入动机时他给出突兀的回答：「我只是一直在想，我必须证明卡西米尔仍然有路可走。」客观履历也注明是在特锦赛后约两个月接受邀请。
+  gold_en: 'Archive File IV records he joined after ''the Infected uprising in the area near Cwiernik'', responding to HR''s
+    later prompt with the abrupt line: ''I just kept thinking — I must prove that Kazimierz still has a path forward.'' His
+    objective record dates the cooperation agreement to about two months after the Major.'
+  key_facts:
+  - 茨沃涅克感染者暴动 / Cwiernik Infected uprising
+  - 特锦赛后约两个月 / about two months after the Major
+  - 证明卡西米尔仍有路可走 / prove Kazimierz still has a path
+  traps:
+  - 为了与瑕光团聚 / to reunite with Nearl the Radiant Knight (off-canon)
+  - 由凯尔希直接征召 / directly recruited by Kal'tsit (off-canon)
+  tags:
+  - mlynar
+  - rhodes_island
+  - kazimierz
+  - motivation
+  source: cn/operators/char_4064_mlynar.txt
+  notes: ''
+- id: Q012
+  category: character
+  answer_type: factoid
+  difficulty: hard
+  question_zh: 档案中如何描述玛恩纳父亲西里尔与母亲约兰塔的早年事迹？
+  question_en: How does Mlynar's archive describe his parents Cyril and Yolanta Nearl?
+  gold_zh: 档案资料三记载：约二十五年前的征战骑士对乌萨斯突袭中，斯尼茨与约兰塔在同一骑士团旗下崭露头角；斯尼茨甚至在关键战役中临时接过重伤骑士团长的指挥权。约兰塔出身于古老的骑士家族，原本预定进入银枪天马骑士团，但斯尼茨坚持她更适合弯弓而非银枪——这判断在她第一次拉弓时就已得出。
+  gold_en: 'Archive File III: about 25 years ago, during the Crusader Knights'' surprise attack on Ursus, Cyril (Sniezh) and
+    Yolanta first distinguished themselves under the same knight order; Cyril even temporarily took command of the order after
+    its leader was critically wounded. Yolanta came from an old knightly family and had been slated to join the Silver Pegasus
+    order, but Cyril insisted the bow suited her better than the silver spear — a judgment he made the first time she drew
+    a bowstring.'
+  key_facts:
+  - 二十五年前征战骑士对乌萨斯突袭 / Crusader Knights' surprise attack on Ursus ~25 years ago
+  - 斯尼茨临时接过指挥权 / Cyril took temporary command
+  - 约兰塔更适合弓 / Yolanta suited to the bow
+  traps:
+  - 在莱塔尼亚战场 / on a Leithanien battlefield (off-canon)
+  - 约兰塔最终加入银枪天马 / Yolanta did join Silver Pegasus (no — Cyril redirected her)
+  tags:
+  - mlynar
+  - nearl
+  - kazimierz
+  - history
+  source: cn/operators/char_4064_mlynar.txt
+  notes: Archive File III,权限记录.
+- id: Q013
+  category: character
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 夜莺的种族、出身地与档案登记的身高是？
+  question_en: What are Nightingale's race, place of origin and registered height?
+  gold_zh: 种族：萨卡兹；出身地：卡兹戴尔；身高164cm。已确认为矿石病感染者，体表有源石结晶分布。
+  gold_en: 'Race: Sarkaz; Origin: Kazdel; Height: 164 cm. Confirmed Oripathy-infected, with surface Originium crystallisation.'
+  key_facts:
+  - 萨卡兹 / Sarkaz
+  - 卡兹戴尔 / Kazdel
+  - 感染者 / infected
+  traps:
+  - '种族：库兰塔 / race: Kuranta (false)'
+  - '出身地：莱塔尼亚 / origin: Leithanien (a Sarkaz operator she works near, but wrong)'
+  tags:
+  - nightingale
+  - sarkaz
+  - kazdel
+  - basic_info
+  source: cn/operators/char_179_cgbird.txt
+  notes: ''
+- id: Q014
+  category: character
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 档案中怎么解释夜莺所制造的「圣域」？
+  question_en: How does Nightingale's archive describe her 'Sanctuary'?
+  gold_zh: 档案资料一描述：夜莺擅长一种十分奇特的源石技艺——由她本人为中心编织、不可见的区域，可以缓冲乃至消弭敌人向我方释放的攻击性源石技艺。不熟习源石技艺的干员因畏惧，将这股力量称作「圣域」。凯尔希怀疑这与她的治愈天赋同出一源，但尚未得到证明。
+  gold_en: 'Archive File I: Nightingale wields an unusual Arts ability — an invisible zone she weaves centred on herself,
+    which buffers or wholly negates incoming offensive Arts from enemies. Operators unfamiliar with Arts dubbed it ''Sanctuary''
+    out of awe and fear. Kal''tsit suspects it shares an origin with her healing gift, though the conjecture is unproven.'
+  key_facts:
+  - 圣域 / Sanctuary
+  - 缓冲攻击性源石技艺 / buffers offensive Arts
+  - 凯尔希猜想与治愈同源 / Kal'tsit suspects same root as her healing
+  traps:
+  - 物理护盾 / physical shield (it is invisible, Arts-based)
+  - 由闪灵设计 / designed by Shining (false)
+  tags:
+  - nightingale
+  - arts
+  - sanctuary
+  source: cn/operators/char_179_cgbird.txt
+  notes: ''
+- id: Q015
+  category: relationship
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 夜莺、闪灵和临光是什么关系？她们是怎么来到罗德岛的？
+  question_en: What is the relationship between Nightingale, Shining and Nearl, and how did they reach Rhodes Island?
+  gold_zh: 档案资料二记载，三人是感染者援助团体「使徒」的成员，一同抵达罗德岛。闪灵向凯尔希主动提出希望罗德岛为夜莺进行全面检查与对策性治疗——夜莺存在严重的失忆、肢体机能缺失等问题。是闪灵把夜莺带出了那段经历。
+  gold_en: 'Archive File II: the three are members of an Infected-aid group called ''the Apostles'' and arrived at Rhodes
+    Island together. Shining personally asked Kal''tsit to give Nightingale a thorough examination and targeted treatment
+    — Nightingale suffers severe amnesia and limb-function deficits. Shining is the one who pulled Nightingale out of her
+    earlier ordeal.'
+  key_facts:
+  - 使徒 / the Apostles
+  - 闪灵、临光、夜莺 / Shining, Nearl, Nightingale
+  - 闪灵带夜莺出来 / Shining brought Nightingale out
+  traps:
+  - 夜莺与凯尔希是旧识 / Nightingale and Kal'tsit are old acquaintances (off-canon)
+  - 三人由罗德岛主动招募 / Rhodes Island actively recruited them (no — they came on their own)
+  tags:
+  - nightingale
+  - shining
+  - nearl
+  - apostles
+  - relationship
+  source: cn/operators/char_179_cgbird.txt
+  notes: ''
+- id: Q016
+  category: refusal
+  answer_type: refusal
+  difficulty: medium
+  question_zh: 夜莺在加入罗德岛之前，是哪个莱茵生命实验项目的主导研究员？
+  question_en: Which Rhine Lab research project did Nightingale lead before joining Rhodes Island?
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  traps:
+  - 档案中无此记录 / no record (correct refusal)
+  - any fabricated Rhine Lab project name (the failure mode)
+  tags:
+  - nightingale
+  - rhine_lab
+  - out_of_canon
+  - refusal
+  source: ''
+  notes: Premise is off-canon. Nightingale is an Infected aid-group member from Kazdel; her archive notes severe records gaps,
+    but explicitly does NOT place her at Rhine Lab. Fabricating a project is the failure mode.
+- id: Q017
+  category: character
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 山的种族、出身地与身高是？
+  question_en: What are Mountain's race, origin and height?
+  gold_zh: 种族：菲林；出身地：哥伦比亚；身高195cm。已确认为矿石病感染者，体表有源石结晶分布。
+  gold_en: 'Race: Feline; Origin: Columbia; Height: 195 cm. Confirmed Oripathy-infected, with surface Originium crystallisation.'
+  key_facts:
+  - 菲林 / Feline
+  - 哥伦比亚 / Columbia
+  - 195cm
+  traps:
+  - '种族：库兰塔 / race: Kuranta (false)'
+  - 非感染者 / non-infected (false — he is infected)
+  tags:
+  - mountain
+  - feline
+  - columbia
+  - basic_info
+  source: cn/operators/char_264_f12yin.txt
+  notes: ''
+- id: Q018
+  category: character
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 山的出身和入狱经历是什么？他的矿石病在哪里被感染？
+  question_en: What is Mountain's family background and how did he come to be infected?
+  gold_zh: 客观履历与临床档案显示：他是哥伦比亚某建筑业龙头公司CEO之子，全家被竞争对手陷害而入狱；他在监狱中感染了矿石病。出狱后加入罗德岛。其档案的「战斗经验」一栏特别写作「狱中斗殴经验：六年」。
+  gold_en: 'His objective record and clinical notes say he is the son of a Columbian construction CEO whose family was framed
+    by a competitor and imprisoned. He contracted Oripathy in prison and joined Rhodes Island after release. His combat-experience
+    field is uniquely titled ''years of prison brawling: six''.'
+  key_facts:
+  - 哥伦比亚建筑公司CEO之子 / son of a Columbian construction CEO
+  - 举家被陷害入狱 / family framed into prison
+  - 在监狱感染矿石病 / contracted Oripathy in prison
+  traps:
+  - 战场感染 / battlefield infection (false — it was prison)
+  - 孤儿出身 / orphan background (false — has a family)
+  tags:
+  - mountain
+  - columbia
+  - oripathy
+  - background
+  source: cn/operators/char_264_f12yin.txt
+  notes: Basic-info field 「狱中斗殴经验」六年 is itself a striking detail.
+- id: Q020
+  category: character
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 山的招募文本里那句简短的句子是什么？
+  question_en: What is the short tagline in Mountain's recruitment text?
+  gold_zh: 「自由的囚徒山，不动如山。」并附有「你可以试试，但你无法前进一步。」
+  gold_en: '''Mountain, the prisoner of freedom — immovable as a mountain.'' Followed by ''You can try, but you will not advance
+    a single step.'''
+  key_facts:
+  - 自由的囚徒 / prisoner of freedom
+  - 不动如山 / immovable as a mountain
+  traps:
+  - 「沉默的巨人」 / 'silent giant' (off-canon phrasing)
+  - 「钢铁卫士」 / 'iron sentinel' (off-canon phrasing)
+  tags:
+  - mountain
+  - recruitment_text
+  - flavor
+  source: cn/operators/char_264_f12yin.txt
+  notes: Profile section / 干员招聘文本.
+- id: Q021
+  category: character
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 星熊的种族、出身地和身高是？
+  question_en: What are Hoshiguma's race, origin and height?
+  gold_zh: 种族：鬼；出身地：东国；身高184cm。已确认为非矿石病感染者。
+  gold_en: 'Race: Oni; Origin: Higashi; Height: 184 cm. Confirmed as non-infected.'
+  key_facts:
+  - 鬼 / Oni
+  - 东国 / Higashi
+  - 184cm
+  traps:
+  - '种族：萨卡兹 / race: Sarkaz (false)'
+  - '出身地：龙门 / origin: Lungmen (Lungmen is where she works, not her origin)'
+  tags:
+  - hoshiguma
+  - oni
+  - higashi
+  - basic_info
+  source: cn/operators/char_136_hsguma.txt
+  notes: ''
+- id: Q022
+  category: character
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 星熊为何能破格加入龙门近卫局？是谁交涉的？
+  question_en: How did Hoshiguma exceptionally join the Lungmen Guard, and who arranged it?
+  gold_zh: 客观履历指出：星熊存在数项指控记录；经龙门总督魏彦吾交涉，近卫局凭借她的优异能力与良好表现，破格将其吸纳进近卫局特别督察组。她在处理高危险性犯罪事件、要员保护与灾害紧急救援等领域表现出较高专业性。
+  gold_en: Her objective record notes she has several indictments on file. Lungmen Governor Wei Yenwu personally negotiated
+    her exceptional admission to the Guard, citing her ability and conduct; she was placed in the Special Inspections team
+    and excels at high-risk crime response, VIP protection and disaster relief.
+  key_facts:
+  - 魏彦吾交涉 / Wei Yenwu negotiated
+  - 破格加入近卫局 / exceptional admission to the Guard
+  - 数项指控记录 / several indictments on file
+  traps:
+  - 陈晖洁亲自推荐 / personally recommended by Ch'en (false — Ch'en is her colleague)
+  - 通过常规考试入职 / admitted through standard exams (false — it was exceptional)
+  tags:
+  - hoshiguma
+  - lungmen
+  - wei_yenwu
+  - career
+  source: cn/operators/char_136_hsguma.txt
+  notes: ''
+- id: Q023
+  category: relationship
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 档案中如何描述星熊与陈在近卫局的关系？
+  question_en: How does the archive describe Hoshiguma's working relationship with Ch'en at the Guard?
+  gold_zh: 档案资料二指出：在职位上陈长官是星熊的上司，但根据履历，星熊加入近卫局的时间还要在陈长官之前，并且两人共事很久——因此相互之间完全没有上下级应有的疏离感。星熊在龙门的方方面面（黑道、白道、政治、经济、教育、外交）的了解远胜陈长官。
+  gold_en: 'Archive File II: by rank Ch''en is her superior, but Hoshiguma actually joined the Guard before Ch''en and they
+    have long worked together, so there is none of the usual distance between superior and subordinate. Hoshiguma''s knowledge
+    of Lungmen''s underworld, civic life, politics, economy, education and foreign affairs vastly exceeds Ch''en''s.'
+  key_facts:
+  - 陈是名义上的上司 / Ch'en is her nominal superior
+  - 星熊入职早于陈 / Hoshiguma joined earlier than Ch'en
+  - 对龙门更熟 / more knowledgeable about Lungmen
+  traps:
+  - 陈是星熊的下属 / Ch'en is Hoshiguma's subordinate (wrong — Ch'en outranks her)
+  - 二人初次合作就是切尔诺伯格 / they first cooperated at Chernobog (off-canon)
+  tags:
+  - hoshiguma
+  - chen
+  - lungmen_guard
+  - relationship
+  source: cn/operators/char_136_hsguma.txt
+  notes: ''
+- id: Q024
+  category: character
+  answer_type: factoid
+  difficulty: hard
+  question_zh: 魏彦吾在星熊晋升记录中留给博士的提示是什么？
+  question_en: What hint does Wei Yenwu leave the Doctor in Hoshiguma's promotion record?
+  gold_zh: 晋升记录中魏彦吾说：「这个人，星熊，我可以借给你们。」并提示「若你以为她是个理智的人，那说明你还没有完全了解她。」他还指出，那面盾名为「般若」——等到星熊愿意亲自告诉博士那面盾的来历时，博士才算真正了解她。
+  gold_en: 'In her promotion record, Wei Yenwu tells the Doctor: ''This person, Hoshiguma, I can lend to you.'' He warns:
+    ''If you think she is a rational person, then you don''t truly know her yet.'' He names her shield ''Hannya'' and says
+    only when she herself tells the Doctor where it came from will he truly know her.'
+  key_facts:
+  - 魏彦吾 / Wei Yenwu
+  - 般若（盾名）/ Hannya (shield's name)
+  - 盾的来历是了解她的关键 / knowing the shield's origin is the key to knowing her
+  traps:
+  - 盾名「青龙」 / shield named 'Azure Dragon' (off-canon)
+  - 魏彦吾说她是理智之人 / Wei calls her rational (the OPPOSITE — he warns she isn't)
+  tags:
+  - hoshiguma
+  - wei_yenwu
+  - hannya
+  - promotion
+  source: cn/operators/char_136_hsguma.txt
+  notes: Promotion record / 晋升记录.
+- id: Q025
+  category: character
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 塞雷娅的种族、出身地与档案中前职位是？
+  question_en: What are Saria's race, place of origin and former position per archive?
+  gold_zh: 种族：瓦伊凡；出身地：哥伦比亚；身高174cm。前职位为莱茵生命防卫科主任。
+  gold_en: 'Race: Vouivre; Origin: Columbia; Height: 174 cm. Her former position was Head of Defense at Rhine Lab.'
+  key_facts:
+  - 瓦伊凡 / Vouivre
+  - 哥伦比亚 / Columbia
+  - 前莱茵生命防卫科主任 / former Rhine Lab Defense Department head
+  traps:
+  - '种族：库兰塔 / race: Kuranta (false)'
+  - 前莱茵生命CEO / former Rhine Lab CEO (false — she headed Defense, not the company)
+  tags:
+  - saria
+  - vouivre
+  - rhine_lab
+  - basic_info
+  source: cn/operators/char_202_demkni.txt
+  notes: ''
+- id: Q026
+  category: character
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 塞雷娅的源石技艺有何独到之处？
+  question_en: What is distinctive about Saria's Originium Arts?
+  gold_zh: 档案资料一记载：除常规源石技艺外，塞雷娅能自由操作以自身为圆心、一定区域内的钙元素及其化合物。结合医学知识，可用于阻挡敌人、削弱敌人、武装自身或配合队友——「源石技艺的强大不在于它的运作方式，而在于它所能达到的目的」。
+  gold_en: 'Archive File I: beyond ordinary Arts, Saria can freely manipulate calcium and calcium compounds within a region
+    centred on herself. Combined with her medical knowledge, she can block enemies, weaken them, armour herself, or support
+    teammates: ''the power of Arts lies not in how it works but in what end it serves.'''
+  key_facts:
+  - 操作钙元素及其化合物 / manipulates calcium and its compounds
+  - 自身为圆心 / centred on herself
+  - 结合医学知识 / combined with medical knowledge
+  traps:
+  - 火焰系源石技艺 / fire-based Arts (false)
+  - 可以操作所有金属 / manipulates all metals (false — calcium specifically)
+  tags:
+  - saria
+  - arts
+  - calcium
+  source: cn/operators/char_202_demkni.txt
+  notes: ''
+- id: Q027
+  category: relationship
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 档案中塞雷娅与赫默的紧张关系源自什么？
+  question_en: What is the source of the tension between Saria and Silence in the archive?
+  gold_zh: 档案资料三说明：与罗德岛合作的莱茵干员普遍对塞雷娅表现尊敬，但医疗干员赫默对她有明显敌意。冲突源于莱茵生命的一项实验——主导人正是赫默。该实验失败后，塞雷娅独自镇压了失控的实验品；也正因此她决定离开莱茵生命。她每次尝试与伊芙利特沟通时，赫默都会出面阻止。
+  gold_en: 'Archive File III: most Rhine operators respect Saria, but Silence shows open hostility. The conflict stems from
+    a Rhine Lab experiment Silence led. After it failed, Saria alone subdued the rampaging experimental subject — and the
+    incident drove her departure from Rhine Lab. Whenever Saria tries to speak with Ifrit, Silence blocks her.'
+  key_facts:
+  - 莱茵生命失败实验 / a failed Rhine Lab experiment
+  - 赫默主导 / Silence led it
+  - 塞雷娅独自镇压实验品 / Saria alone subdued the subject
+  - 伊芙利特相关 / involves Ifrit
+  traps:
+  - 二人是科研竞争对手 / they are rival researchers (incomplete — it's a specific incident)
+  - 塞雷娅伤害了赫默 / Saria injured Silence (off-canon)
+  tags:
+  - saria
+  - silence
+  - ifrit
+  - rhine_lab
+  - relationship
+  source: cn/operators/char_202_demkni.txt
+  notes: ''
+- id: Q028
+  category: character
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 塞雷娅的盾兼具什么功能？档案中如何评价她的战场角色？
+  question_en: What dual function does Saria's shield serve, and how does the archive frame her battlefield role?
+  gold_zh: 档案资料二指出：塞雷娅的盾牌同时也是她的法杖。她的战地指挥造诣很深，小队方针偏向固守，有她参与的任务中极少出现干员伤亡。一位干员的概括：「当塞雷娅女士举起盾牌时，她不是在保护身后的干员，她是在保护整支小队。」
+  gold_en: 'Archive File II: her shield is also her staff. She is a strong field commander; her squad doctrine leans conservative,
+    and operations with her present rarely incur operator casualties. As one operator puts it: ''When Lady Saria raises her
+    shield, she is not protecting the operators behind her — she is protecting the whole squad.'''
+  key_facts:
+  - 盾即法杖 / shield is also her staff
+  - 战地指挥造诣深 / strong field commander
+  - 极少干员伤亡 / very few casualties
+  traps:
+  - 只能近战 / melee-only (false — she is a strategist with Arts)
+  - 偏激进打法 / aggressive doctrine (the opposite — she is conservative)
+  tags:
+  - saria
+  - defender
+  - leadership
+  - rhine_lab
+  source: cn/operators/char_202_demkni.txt
+  notes: ''
+- id: Q029
+  category: character
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 艾雅法拉的种族、出身地、身高和战斗经验是？
+  question_en: What are Eyjafjalla's race, origin, height and combat experience?
+  gold_zh: 种族：卡普里尼；出身地：莱塔尼亚；身高145cm；战斗经验：「没有战斗经验」。已确认为矿石病感染者，体表有源石结晶分布。
+  gold_en: 'Race: Caprinae; Origin: Leithanien; Height: 145 cm; Combat experience: ''no combat experience''. Confirmed Oripathy-infected,
+    with surface Originium crystallisation.'
+  key_facts:
+  - 卡普里尼 / Caprinae
+  - 莱塔尼亚 / Leithanien
+  - 145cm
+  - 没有战斗经验 / no combat experience
+  traps:
+  - 战斗经验：五年 / 5 years (her field literally says NONE)
+  - '种族：菲林 / race: Feline (false — she is Caprinae)'
+  tags:
+  - eyjafjalla
+  - caprinae
+  - leithanien
+  - basic_info
+  source: cn/operators/char_180_amgoat.txt
+  notes: ''
+- id: Q030
+  category: character
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 艾雅法拉的父母是怎样的人？他们是怎么去世的？
+  question_en: Who were Eyjafjalla's parents, and how did they die?
+  gold_zh: 档案资料二记载：她出生于莱塔尼亚一个学术氛围浓厚的家庭，父母都就职于莱塔尼亚威廉大学——父亲为源石技艺学院教授、研修生导师，母亲为自然环境与生态系统研究专家。二人曾共同起草关于泰拉天灾系统的调查项目，并在一次火山实地考察中遭遇火山碎屑流，不幸丧生。
+  gold_en: 'Archive File II: she was born into an academic family in Leithanien; both parents worked at Leithanien William
+    University — her father a Professor at the Originium-Arts Institute and graduate advisor, her mother a researcher in natural
+    environments and ecology. They had co-drafted a project on Terra''s Catastrophe systems and were killed by pyroclastic
+    flow during a volcanic field survey.'
+  key_facts:
+  - 莱塔尼亚威廉大学 / Leithanien William University
+  - '父：源石技艺学院教授 / father: Arts Institute professor'
+  - '母：环境与生态系统专家 / mother: environment & ecology specialist'
+  - 火山碎屑流丧生 / killed by pyroclastic flow
+  traps:
+  - 父母死于战争 / killed in war (false)
+  - 父母仍在世 / still alive (false — both deceased)
+  tags:
+  - eyjafjalla
+  - leithanien
+  - family
+  - background
+  source: cn/operators/char_180_amgoat.txt
+  notes: ''
+- id: Q031
+  category: character
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 艾雅法拉的矿石病在生理上有什么明显症状？
+  question_en: What physical symptom of Oripathy is most prominent in Eyjafjalla?
+  gold_zh: 档案资料三说明：她的听觉神经系统受矿石病压迫严重，伴发不同程度的听觉失灵；日常交流必须借助助听工具或多次重复对话。她在症状进一步恶化前已由罗德岛介入治疗，目前病情发展趋于缓慢。
+  gold_en: 'Archive File III: Oripathy is severely compressing her auditory nerves, causing varying degrees of hearing loss.
+    She must use a hearing aid or rely on repeated phrasing for everyday conversation. Rhodes Island intervened before symptoms
+    worsened further, and progression is now slow.'
+  key_facts:
+  - 听觉神经系统受压迫 / auditory nerve system compressed
+  - 听觉失灵 / hearing loss
+  - 助听工具 / hearing aid
+  traps:
+  - 视觉问题 / vision problems (false — it's hearing)
+  - 行动能力丧失 / loss of mobility (false)
+  tags:
+  - eyjafjalla
+  - oripathy
+  - hearing
+  source: cn/operators/char_180_amgoat.txt
+  notes: ''
+- id: Q032
+  category: character
+  answer_type: factoid
+  difficulty: hard
+  question_zh: 艾雅法拉的「小黑羊」是什么？档案里提到了什么异常现象？
+  question_en: What are Eyjafjalla's 'little black sheep', and what unusual behaviour does her archive describe?
+  gold_zh: 晋升记录记载：「小黑羊」是艾雅法拉母亲生前送给她的宠物，平日温顺迟缓，主要爱好是在艾雅法拉房间或宽敞处睡觉，可以帮她搬运书本货物。权限记录指出，它们体型其实并不小，行踪却很神秘；当它们生气或高兴时会产生极热的温度，随意触摸甚至可能烫伤——机制尚需研究。
+  gold_en: 'Promotion record: the ''little black sheep'' were given to Eyjafjalla as pets by her late mother; normally gentle
+    and slow, they like to nap in her room or open spaces and can ferry books and packages for her. A restricted note adds
+    that despite being called ''little'' they are actually large, their whereabouts are mysterious, and when angry or happy
+    they radiate intense heat — a touch can scald you. The mechanism is still under study.'
+  key_facts:
+  - 母亲所赠 / gift from her mother
+  - 可以搬运书本 / can carry books
+  - 情绪激动时产生极热 / radiates intense heat when emotional
+  traps:
+  - 由凯尔希实验培育 / engineered by Kal'tsit (off-canon)
+  - 为普通宠物羊 / ordinary pet goats (false — they radiate heat)
+  tags:
+  - eyjafjalla
+  - pets
+  - leithanien
+  - promotion
+  source: cn/operators/char_180_amgoat.txt
+  notes: Promotion record / 晋升记录, includes 权限记录 sub-section.

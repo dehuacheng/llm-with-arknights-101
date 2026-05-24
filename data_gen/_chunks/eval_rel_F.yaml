@@ -1,0 +1,653 @@
+- id: Q001
+  category: relationship
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 凯尔希与阿米娅之间是怎样的关系？档案里是如何描述的？
+  question_en: What is the relationship between Kal'tsit and Amiya, as described in the archive?
+  gold_zh: 凯尔希是阿米娅的监护人/养母。巴别塔覆灭后的会议上，被问及阿米娅时凯尔希只说了一句「我会抚养她」；档案三里也将「监护人/养母」明确列为凯尔希对阿米娅的角色。
+  gold_en: Kal'tsit is Amiya's guardian and de facto adoptive mother. In the post-Babel meeting Kal'tsit's only reply about
+    Amiya is the single line 'I will raise her'; her archive explicitly labels the role as guardian/foster-mother.
+  key_facts:
+  - 监护人/养母 / guardian and foster-mother
+  - 「我会抚养她」 / "I will raise her"
+  - 巴别塔覆灭后 / after Babel fell
+  traps:
+  - 亲生母女 / biological mother and daughter (false — never stated in canon)
+  - 上级与下属 / mere superior–subordinate (under-specifies the parental role)
+  tags:
+  - kalts
+  - amiya
+  - babel
+  - rhodes_island
+  source: cn/operators/char_003_kalts.txt
+  notes: Baked relation type=family_of with notes='监护人/养母'; quote from kalts 档案资料三.
+- id: Q002
+  category: relationship
+  answer_type: factoid
+  difficulty: easy
+  question_zh: Mon3tr 与凯尔希是什么关系？
+  question_en: What is Mon3tr's relationship to Kal'tsit?
+  gold_zh: Mon3tr 是凯尔希长期协同作战的伴生生物。凯尔希在语音中说「Mon3tr 和我会保护所有人的，特别是博士你」。
+  gold_en: Mon3tr is Kal'tsit's long-time combat companion. In a voice line she says, 'Mon3tr and I will protect everyone
+    — especially you, Doctor.'
+  key_facts:
+  - 伴生生物 / companion creature
+  - 协同作战 / combat partner
+  traps:
+  - 独立干员 / independent operator (false — Mon3tr is a companion, not a roster operator)
+  - 凯尔希的宠物 / pet (under-specifies — combat-grade companion, project-coded)
+  tags:
+  - kalts
+  - mon3tr
+  - ama-10
+  source: cn/operators/char_003_kalts.txt
+  notes: Baked relation type=ally_of, notes=伴生生物/协同作战.
+- id: Q003
+  category: relationship
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 凯尔希与特蕾西娅曾经的关系是怎样的？
+  question_en: What was the past relationship between Kal'tsit and Theresa?
+  gold_zh: 两人是巴别塔时期的同伴与下属上级关系——凯尔希听从特蕾西娅的指示行事；同时特蕾西娅在晋升记录中对凯尔希说「但我一直是你的同伴。之后依然也是」，明确把凯尔希视为同伴。
+  gold_en: They were Babel-era comrades, with Kal'tsit acting under Theresa's direction. Theresa's words in the promotion
+    record — 'But I have always been your companion. I always will be' — frame Kal'tsit as a companion as well as a subordinate.
+  key_facts:
+  - 巴别塔同伴 / Babel-era comrades
+  - 听从特蕾西娅的指示 / followed Theresa's direction
+  - 「我一直是你的同伴」/ "I have always been your companion"
+  traps:
+  - 姐妹关系 / sisters (off-canon — they are not stated to be biological kin)
+  - 敌对关系 / adversarial (false — they were comrades, not enemies)
+  tags:
+  - kalts
+  - theresa
+  - babel
+  source: cn/operators/char_003_kalts.txt
+  notes: Baked relations ally_of + subordinate_of (Theresa as tail); quotes from kalts 晋升记录 and 档案资料三.
+- id: Q004
+  category: relationship
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 华法琳与凯尔希的关系如何？
+  question_en: What is Warfarin's relationship to Kal'tsit?
+  gold_zh: 华法琳与凯尔希共同建立了罗德岛的医疗体系基盘；她在职位上是凯尔希的下属，凯尔希甚至下令华法琳不得主动接近博士。
+  gold_en: Warfarin co-founded Rhodes Island's medical system with Kal'tsit. She is a subordinate in standing — Kal'tsit at
+    one point ordered Warfarin not to approach the Doctor on her own initiative.
+  key_facts:
+  - 共同建立罗德岛医疗体系 / co-founded Rhodes Island's medical system
+  - 下属 / subordinate
+  - 凯尔希曾下令限制其行动 / Kal'tsit issued an order restricting her approach to the Doctor
+  traps:
+  - 完全平等的合伙人 / equal co-leaders (over-specifies — Warfarin is a subordinate)
+  - 敌对关系 / rivals (false — they cooperate)
+  tags:
+  - kalts
+  - warfarin
+  - rhodes_island
+  - medical
+  source: cn/operators/char_171_bldsk.txt
+  notes: 'Baked relations from char_171_bldsk (Warfarin): ally_of + subordinate_of with tail=Kal''tsit.'
+- id: Q005
+  category: relationship
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 德克萨斯与拉普兰德是怎样的关系？档案是怎么说的？
+  question_en: How does the archive describe the relationship between Texas and Lappland?
+  gold_zh: 两人是叙拉古的旧识与宿敌。干员拉普兰德对作为罗德岛行动协助人员的德克萨斯怀有密切的关注；德克萨斯本人也提到「我在叙拉古见过拉普兰德」，但对两人的胜负刻意回避。
+  gold_en: They are old acquaintances and rivals from Siracusa. Lappland 'maintains a close watch' over Texas in her capacity
+    at Rhodes Island; Texas confirms 'I met Lappland in Siracusa' but explicitly declines to discuss who won.
+  key_facts:
+  - 叙拉古旧识 / Siracusan acquaintances
+  - 宿敌 / rivals
+  - 「我在叙拉古见过拉普兰德」/ "I met Lappland in Siracusa"
+  traps:
+  - 姐妹 / sisters (false — same faction past, not kin)
+  - 罗德岛新结识的朋友 / new friends met at Rhodes Island (wrong — the relationship predates RI)
+  tags:
+  - texas
+  - lappland
+  - siracusa
+  - rivalry
+  source: cn/operators/char_140_whitew.txt
+  notes: Baked relation type=rival_of for both; quotes from Lappland 档案 and Texas alter (char_1028_texas2).
+- id: Q006
+  category: relationship
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 能天使在企鹅物流里担任什么角色？
+  question_en: What role does Exusiai hold within Penguin Logistics?
+  gold_zh: 能天使是企鹅物流的「核心」之一（虽然她加入时间较晚），并以信使/武装押运的身份活动；她兼任罗德岛驻派联络人员之一。
+  gold_en: Exusiai is described as one of Penguin Logistics' 'core' members despite joining late, and she works as a messenger
+    / armed-escort. She also serves as a Penguin Logistics liaison stationed at Rhodes Island.
+  key_facts:
+  - 企鹅物流核心成员 / core member of Penguin Logistics
+  - 信使/武装押运 / messenger / armed escort
+  traps:
+  - 企鹅物流的领导者 / leader of Penguin Logistics (false — leadership is held by 老板; Exusiai is not the boss)
+  - 罗德岛专职狙击 / Rhodes Island full-time sniper (incomplete — she is on loan via Penguin Logistics)
+  tags:
+  - exusiai
+  - penguin_logistics
+  - rhodes_island
+  source: cn/operators/char_103_angel.txt
+  notes: 'Baked: char_1041_angel2 ally_of texas notes=''她才是企鹅物流的核心''; char_103_angel identifies_as 信使.'
+- id: Q007
+  category: relationship
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 空对德克萨斯是怎样的态度？
+  question_en: How does Sora regard Texas?
+  gold_zh: 空把德克萨斯视为「救命恩人」，并说「她还教了我很多事情，所以只要有时间我都想待在她身边」。
+  gold_en: Sora regards Texas as her 'lifesaver' and says, 'She also taught me many things, so whenever I have time I want
+    to be by her side.'
+  key_facts:
+  - 救命恩人 / lifesaver
+  - 「教了我很多事情」/ "taught me many things"
+  traps:
+  - 前同行歌手 / former fellow singer (off-canon — Texas is not a singer)
+  - 姐妹 / sisters (false)
+  tags:
+  - sora
+  - texas
+  - penguin_logistics
+  source: cn/operators/char_101_sora.txt
+  notes: Baked relation ally_of with quote from char_101_sora.
+- id: Q008
+  category: relationship
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: W 与赫德雷、伊内丝之间是什么关系？
+  question_en: What is W's relationship with Hoederer and Ines?
+  gold_zh: 三人是长期搭档/前雇佣兵同伴。W 在档案中提到日常即「做完饭之后伊内丝一定会要我去搭帐篷，接着赫德雷多半就要拉我去踩点了」；赫德雷的档案也明确他「曾以整合运动所属萨卡兹雇佣兵的身份与伊内丝、W 一起出现在切尔诺伯格」。
+  gold_en: The three are long-term comrades and former mercenary teammates. W's own line — 'After cooking, Ines will always
+    make me set up the tent, then Hoederer will pull me along to scout' — captures the routine; Hoederer's file confirms he
+    'appeared at Chernobog alongside Ines and W as Reunion-affiliated Sarkaz mercenaries.'
+  key_facts:
+  - 长期队友 / long-term teammates
+  - 前雇佣兵同伴 / former mercenary comrades
+  - 切尔诺伯格 / Chernobog
+  traps:
+  - W 是赫德雷的下属 / W is Hoederer's subordinate (over-specifies — they are peers)
+  - 三人是家人 / they are family (false — comrades, not kin)
+  tags:
+  - w
+  - hoederer
+  - ines
+  - sarkaz
+  - mercenaries
+  source: cn/operators/char_113_cqbw.txt
+  notes: Baked relations from W (char_113_cqbw), Hoederer (char_4088_hodrer), Ines (char_4087_ines).
+- id: Q009
+  category: relationship
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: W 对特蕾西娅持什么态度？
+  question_en: What is W's stance toward Theresa?
+  gold_zh: W 是特蕾西娅（殿下）忠实的追随者——档案里说她「就是个只知道跟在殿下后面，也只对殿下唯命是从的孩子」。
+  gold_en: W is a devoted follower of Theresa (the 'Highness') — her file says she 'is the kind of child who only follows
+    the Highness and obeys only her commands.'
+  key_facts:
+  - 唯命是从 / obeys her unconditionally
+  - 殿下=特蕾西娅 / 'Highness' = Theresa
+  traps:
+  - W 视特蕾西娅为母亲 / W sees Theresa as her mother (off-canon — she is loyal subordinate, not adopted family)
+  - W 早已背叛特蕾西娅 / W has long betrayed Theresa (false — she remains loyal to Theresa's memory)
+  tags:
+  - w
+  - theresa
+  - sarkaz
+  source: cn/operators/char_113_cqbw.txt
+  notes: Baked relation subordinate_of, notes='殿下即特蕾西娅'.
+- id: Q010
+  category: relationship
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 陈晖洁的父亲与她的关系是什么状态？
+  question_en: What is the current state of Ch'en Hui-Jie's relationship with her father?
+  gold_zh: 已经断绝关系。档案中明文写道：「你的父亲已经和你断绝关系」。
+  gold_en: 'Severed. The archive explicitly records: ''Your father has cut ties with you.'''
+  key_facts:
+  - 断绝关系 / severed ties
+  traps:
+  - 亲密无间 / very close (false — they are estranged)
+  - 父亲已去世 / father is deceased (over-specifies — the file only says he severed ties)
+  tags:
+  - chen
+  - family
+  - lungmen
+  source: cn/operators/char_010_chen.txt
+  notes: Baked relation family_of with notes='父亲，已断绝关系'.
+- id: Q011
+  category: relationship
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 陈与星熊在工作上是什么关系？
+  question_en: What is the working relationship between Ch'en and Hoshiguma?
+  gold_zh: 陈是星熊的上司——「在职位上，陈长官是星熊小姐的上司」；但二人「共事了很久……相互之间完全没有上下级应有的疏离感」。
+  gold_en: Ch'en is Hoshiguma's superior — 'In rank, Chief Ch'en is Hoshiguma's superior' — but 'they have worked together
+    so long that they show none of the distance one would expect between superior and subordinate.'
+  key_facts:
+  - 陈是上司 / Ch'en is the superior
+  - 长期共事 / long-time partners
+  - 亲密无隔阂 / close, without superior-subordinate distance
+  traps:
+  - 星熊是陈的上司 / Hoshiguma is Ch'en's superior (swapped — wrong direction)
+  - 学生时代同学 / school classmates (false — that's Bagpipe, not Hoshiguma)
+  tags:
+  - chen
+  - hoshiguma
+  - lungmen_guard
+  source: cn/operators/char_136_hsguma.txt
+  notes: Baked relations char_136_hsguma ally_of + subordinate_of with tail=陈.
+- id: Q012
+  category: relationship
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 陈和诗怀雅是怎样的关系？
+  question_en: What is the relationship between Ch'en and Swire?
+  gold_zh: 两人是前龙门近卫局的同僚（诗怀雅档案明文：「前同僚」），但关系明显紧张——诗怀雅形容陈「在过道上碰见就会被她恶狠狠地盯着」。
+  gold_en: They are former colleagues at the Lungmen Guard (Swire's file explicitly labels them '前同僚' / former colleagues),
+    but the relationship is plainly strained — Swire describes Ch'en as 'glaring at me viciously whenever we crossed paths
+    in the corridor.'
+  key_facts:
+  - 前龙门近卫局同僚 / former Lungmen Guard colleagues
+  - 关系紧张 / strained / rivalrous
+  traps:
+  - 童年好友 / childhood friends (off-canon — the canonical childhood-friend tie is between Swire and other Lungmen figures, not
+    Ch'en)
+  - 敌人 / enemies (over-specifies — rivalrous colleagues, not enemies)
+  tags:
+  - chen
+  - swire
+  - lungmen
+  source: cn/operators/char_308_swire.txt
+  notes: Baked relations char_1033_swire2 ally_of (notes=前同僚); char_308_swire rival_of.
+- id: Q013
+  category: relationship
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 陈与风笛之间有什么过往？
+  question_en: What past do Ch'en and Bagpipe share?
+  gold_zh: 两人是维多利亚皇家近卫学校的同学，「在学生时代两人就结下了深厚友谊」。
+  gold_en: They were classmates at the Royal Victorian Guards Academy; 'They formed a deep friendship as students.'
+  key_facts:
+  - 维多利亚皇家近卫学校同学 / classmates at the Royal Victorian Guards Academy
+  - 深厚友谊 / deep friendship
+  traps:
+  - 在龙门近卫局共事 / colleagues at the Lungmen Guard (wrong workplace — academy, not guard)
+  - 训练班的师徒 / master-apprentice (false — they were peers)
+  tags:
+  - chen
+  - bagpipe
+  - victoria
+  - academy
+  source: cn/operators/char_222_bpipe.txt
+  notes: Baked relation char_222_bpipe ally_of 陈, notes='学生时代好友'.
+- id: Q014
+  category: relationship
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 银灰、崖心、初雪是什么关系？
+  question_en: How are SilverAsh, Cliffheart and Pramanix related?
+  gold_zh: 三人是希瓦艾什家的兄妹。银灰是兄长，崖心（本名恩希亚）是幺妹、感染了矿石病并在罗德岛接受医治；初雪是长妹，在宗教仪式中被选作喀兰圣女，连兄长在公开场合见到她时也必须合掌行礼。
+  gold_en: They are siblings of the Silverash family. SilverAsh is the elder brother; Cliffheart (real name Enciodes) is the
+    youngest sister, Oripathy-infected and under treatment at Rhodes Island; Pramanix is the elder sister, chosen as Karlan
+    Saintess in a religious rite — so even her brother, the nominal head of Kjerag, must press his palms together to greet
+    her in public.
+  key_facts:
+  - 希瓦艾什家族 / Silverash family
+  - 银灰是兄长 / SilverAsh is the elder brother
+  - 崖心是幺妹/感染矿石病 / Cliffheart is youngest sister, Oripathy-infected
+  - 初雪是长妹/喀兰圣女 / Pramanix is elder sister, the Karlan Saintess
+  traps:
+  - 三人都是堂亲 / they are cousins (false — they are siblings)
+  - 崖心是长姐 / Cliffheart is the eldest (swap — Cliffheart is youngest)
+  tags:
+  - silverash
+  - cliffheart
+  - pramanix
+  - kjerag
+  - siblings
+  source: cn/operators/char_172_svrash.txt
+  notes: Baked relations char_172_svrash family_of with 崖心/恩希亚/初雪.
+- id: Q015
+  category: relationship
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 斯卡蒂与幽灵鲨、歌蕾蒂娅是什么关系？
+  question_en: How are Skadi, Specter, and Gladiia related?
+  gold_zh: 三人都来自阿戈尔，都是「深海猎人」。斯卡蒂与幽灵鲨的若干动作十分相似，被视为同伴；歌蕾蒂娅是深海猎人总战争设计师之一，更是这一群体的核心。
+  gold_en: All three are Aegirians and members of the Abyssal Hunters. Skadi and Specter share strikingly similar movements
+    and are treated as comrades; Gladiia is one of the Abyssal Hunters' chief war-designers and a central figure in the group.
+  key_facts:
+  - 阿戈尔人 / Aegirian
+  - 深海猎人 / Abyssal Hunters
+  - 斯卡蒂与幽灵鲨同伴 / Skadi and Specter are comrades
+  - '歌蕾蒂娅 总战争设计师 / Gladiia: chief war-designer'
+  traps:
+  - 斯卡蒂、幽灵鲨是亲姐妹 / Skadi and Specter are biological sisters (off-canon)
+  - 歌蕾蒂娅是斯卡蒂的下属 / Gladiia is Skadi's subordinate (swap — Gladiia is the senior figure)
+  tags:
+  - skadi
+  - specter
+  - gladiia
+  - abyssal_hunters
+  - aegir
+  source: cn/operators/char_263_skadi.txt
+  notes: Baked relations across char_263_skadi, char_1012_skadi2, char_1023_ghost2, char_474_glady.
+- id: Q016
+  category: relationship
+  answer_type: open_ended
+  difficulty: hard
+  question_zh: 乌尔比安在深海猎人体系中扮演什么角色？特别是与斯卡蒂的关系？
+  question_en: What role does Ulpianus play among the Abyssal Hunters, especially in relation to Skadi?
+  gold_zh: 乌尔比安是深海猎人之一，并且是斯卡蒂战斗手段的导师——「斯卡蒂的那些手段都是这个叫乌尔比安的家伙教的」。但他本人自评在身体机能上比不上斯卡蒂和幽灵鲨。
+  gold_en: Ulpianus is an Abyssal Hunter and the mentor who taught Skadi her fighting methods — 'Skadi's techniques were all
+    taught by this Ulpianus fellow.' By his own admission, his physical metrics rank below Skadi's and Specter's.
+  key_facts:
+  - 深海猎人 / Abyssal Hunter
+  - 乌尔比安教导斯卡蒂战斗方式 / Ulpianus taught Skadi her combat techniques
+  traps:
+  - 斯卡蒂是乌尔比安的老师 / Skadi is Ulpianus's teacher (swap — Ulpianus mentors Skadi)
+  - 乌尔比安在身体机能上压制全体猎人 / Ulpianus physically dominates all hunters (false — he says the opposite)
+  tags:
+  - ulpianus
+  - skadi
+  - abyssal_hunters
+  source: cn/operators/char_263_skadi.txt
+  notes: Baked relations char_4145_ulpia mentor_of 斯卡蒂 with notes='教导战斗方式'.
+- id: Q018
+  category: relationship
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 麦哲伦与伊芙利特的关系是怎样的？
+  question_en: What is the relationship between Magallan and Ifrit?
+  gold_zh: 二人关系融洽——档案明确说：「整个莱茵生命里能够让伊芙利特安静下来的也没几个」，麦哲伦是其中之一。
+  gold_en: They are on close terms. Her file states bluntly, 'There are very few in all of Rhine Lab who can quiet Ifrit down,'
+    and Magallan is one of them.
+  key_facts:
+  - 麦哲伦能让伊芙利特安静下来 / Magallan can quiet Ifrit
+  - 莱茵生命同事 / Rhine Lab colleagues
+  traps:
+  - 麦哲伦是伊芙利特的主治医生 / Magallan is Ifrit's primary physician (false — that's Silence)
+  - 童年好友 / childhood friends (off-canon — they meet through Rhine Lab work)
+  tags:
+  - magallan
+  - ifrit
+  - rhine_lab
+  source: cn/operators/char_248_mgllan.txt
+  notes: Baked relation char_248_mgllan ally_of 伊芙利特.
+- id: Q019
+  category: relationship
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 山（Mountain）的越狱事件与赫默有何关联？
+  question_en: How is Mountain's prison-break tied to Silence (Warfarin)?
+  gold_zh: 档案说山的「来历中和莱茵生命以及越狱有关的部分需要被保密」；赫默是越狱事件的共同参与者之一。
+  gold_en: The file states that 'the parts of Mountain's background tied to Rhine Lab and the prison break must be kept confidential,'
+    and lists Silence among the joint participants in that prison break.
+  key_facts:
+  - 莱茵生命越狱事件 / Rhine Lab prison break
+  - 赫默是共同参与者 / Silence is a joint participant
+  traps:
+  - 山的越狱由凯尔希主导 / the prison break was led by Kal'tsit (off-canon)
+  - 山的越狱与企鹅物流相关 / the prison break was a Penguin Logistics op (false)
+  tags:
+  - mountain
+  - silence
+  - rhine_lab
+  - prison_break
+  source: cn/operators/char_264_f12yin.txt
+  notes: Baked relation char_264_f12yin ally_of 赫默 notes='越狱事件共同参与者'.
+- id: Q020
+  category: relationship
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 莫斯提马与能天使是什么关系？
+  question_en: How are Mostima and Exusiai related?
+  gold_zh: 档案描述能天使「为了知晓蕾缪安身受重伤的真相，她尾随莫斯提马离开圣城」；这奠定了她俩多年朋友与企鹅物流共事者的关系。
+  gold_en: Exusiai's file says she 'tailed Mostima out of the Holy City in order to learn the truth about Lemuen's serious
+    injury' — establishing them as long-time friends and Penguin Logistics co-workers.
+  key_facts:
+  - 尾随莫斯提马离开圣城 / followed Mostima out of the Holy City
+  - 好友 / friends
+  traps:
+  - 莫斯提马是能天使的姐姐 / Mostima is Exusiai's older sister (swap — that's Lemuen, the cardinal sister)
+  - 莫斯提马首次出现在拉特兰，与能天使无关 / Mostima first appeared in Laterano, unrelated to Exusiai (incomplete)
+  tags:
+  - mostima
+  - exusiai
+  - laterano
+  source: cn/operators/char_213_mostma.txt
+  notes: Baked relations char_1041_angel2 ally_of 莫斯提马; char_213_mostma ally_of 能天使.
+- id: Q021
+  category: relationship
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 菲亚梅塔在罗德岛与莫斯提马什么关系？
+  question_en: What is Fiammetta's relationship to Mostima at Rhodes Island?
+  gold_zh: 菲亚梅塔通常与莫斯提马一同行动，并自称是她的「监管人」。
+  gold_en: Fiammetta usually operates alongside Mostima and openly claims to be Mostima's 'overseer.'
+  key_facts:
+  - 行动搭档 / operational partner
+  - 监管人 / overseer / minder
+  traps:
+  - 菲亚梅塔是莫斯提马的下属 / Fiammetta is Mostima's subordinate (swap — Fiammetta acts as overseer)
+  - 菲亚梅塔与莫斯提马互不相识 / they are strangers (false — close partners)
+  tags:
+  - fiammetta
+  - mostima
+  - laterano
+  source: cn/operators/char_213_mostma.txt
+  notes: Baked relation char_300_phenxi ally_of 莫斯提马 notes='行动搭档及监管对象'.
+- id: Q022
+  category: relationship
+  answer_type: open_ended
+  difficulty: hard
+  question_zh: 年（Nian）在罗德岛中的角色，以及她与年家兄弟姐妹的关系？
+  question_en: What is Nian's role at Rhodes Island, and how does she relate to her siblings?
+  gold_zh: 年现「凭访客身份逗留于罗德岛」，偶尔为金属加工项目提供建议，与阿米娅是友好朋友关系但很少碰面。她是炎国「重岳」一脉的妹妹，「年、夕、令」三姐妹（重岳是她们的兄长）；与同辈黍、令、夕等也以兄弟姐妹相称。
+  gold_en: 'Nian holds visitor status at Rhodes Island and occasionally advises its metalworking projects; she and Amiya are
+    ''friendly but rarely meet.'' Within Yan she is a younger sister in the Chongyue family: Chongyue is the elder brother
+    of the trio ''Nian, Dusk, Ling,'' and Shu, Yu, and Wang refer to her in matching sibling terms.'
+  key_facts:
+  - 罗德岛访客身份 / Rhodes Island visitor status
+  - 金属加工项目顾问 / metalworking project advisor
+  - 炎国巨兽兄妹 / Yan beast-clan siblings (Chongyue, Nian, Dusk, Ling, etc.)
+  traps:
+  - 年是罗德岛的全职干员 / Nian is a full-time Rhodes Island operator (over-specifies — visitor status only)
+  - 年与重岳无任何亲缘关系 / Nian is unrelated to Chongyue (false — Chongyue is her elder brother)
+  tags:
+  - nian
+  - yan
+  - rhodes_island
+  - siblings
+  source: cn/operators/char_2014_nian.txt
+  notes: Baked relations across char_2014_nian, char_2015_dusk, char_2023_ling, char_2024_chyue, char_2025_shu, char_2026_yu,
+    char_2027_wang.
+- id: Q023
+  category: relationship
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 泥岩与整合运动、与罗德岛的关系如何变化？
+  question_en: How did Mudrock's affiliation evolve between Reunion and Rhodes Island?
+  gold_zh: 泥岩曾是萨卡兹雇佣兵，随军加入整合运动，后因意见不合带领小队远离乌萨斯；最终经精英干员 Logos 接触，进入罗德岛，并以「我服从您的指挥」的态度接受指挥；登舰之初她对凯尔希医生的存在表示「虽然很吃惊，但是也能让人更安心」。
+  gold_en: Mudrock was a Sarkaz mercenary who joined Reunion's march, then 'led her squad away from Ursus due to a disagreement.'
+    She later made contact with elite operator Logos in Kazdel and reached Rhodes Island, accepting the chain of command ('I
+    am only a Rhodes Island operator now, I obey your orders'); on first hearing Kal'tsit was at Rhodes Island she remarked
+    'It's surprising, but it also makes one feel more at ease.'
+  key_facts:
+  - 前萨卡兹雇佣兵 / former Sarkaz mercenary
+  - 随军加入整合运动后脱离 / joined Reunion, then split off
+  - 经 Logos 进入罗德岛 / reached Rhodes Island via Logos
+  traps:
+  - 泥岩从未加入过整合运动 / Mudrock never joined Reunion (false — she did, then left)
+  - 泥岩是 W 的下属 / Mudrock is W's subordinate (off-canon — they share a Sarkaz background but distinct paths)
+  tags:
+  - mudrock
+  - reunion
+  - rhodes_island
+  - sarkaz
+  source: cn/operators/char_311_mudrok.txt
+  notes: 'Baked relations char_311_mudrok: member_of 整合运动 (脱离), member_of 罗德岛, ally_of Logos, subordinate_of 凯尔希.'
+- id: Q024
+  category: relationship
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 山（Mountain）和格拉尼有什么交往？
+  question_en: How do Mountain and Grani interact?
+  gold_zh: 格拉尼把山等人在罗德岛完成了注册手续；档案里也提到这一事件「她是打算离去的，不过被赫默留了下来」。山与格拉尼是行动同伴。
+  gold_en: Grani completed registration paperwork at Rhodes Island for Mountain and others; according to the file, 'She intended
+    to leave, but Silence kept her on.' Mountain and Grani are operational comrades.
+  key_facts:
+  - 完成注册手续 / completed registration together
+  - 行动同伴 / operational comrades
+  traps:
+  - 山是格拉尼的导师 / Mountain is Grani's mentor (over-specifies — they are peers)
+  - 格拉尼对山有敌意 / Grani is hostile to Mountain (false)
+  tags:
+  - mountain
+  - grani
+  - rhodes_island
+  source: cn/operators/char_264_f12yin.txt
+  notes: Baked relation char_214_kafka ally_of 山 (注册事件中的同伴).
+- id: Q025
+  category: relationship
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 夜刀（深海色）与玻意耳之间存在什么联系？
+  question_en: What connection exists between Deepcolor and Glaucus?
+  gold_zh: 档案明文：玻意耳「与干员深海色互为友人，不过多数时候只是默默看着深海色小姐作画」。
+  gold_en: Per the archive, Glaucus 'is friends with Deepcolor — though most of the time she simply watches Deepcolor paint
+    in silence.'
+  key_facts:
+  - 互为友人 / friends
+  - 默默看作画 / watches her paint
+  traps:
+  - 二人合作绘制大型作品 / they co-produce large paintings (over-specifies — Glaucus watches, doesn't co-paint)
+  - 二人是莱茵生命同事 / they are Rhine Lab colleagues (off-canon — Glaucus works with Rhine Industry's weapon-eval team, not Lab)
+  tags:
+  - glaucus
+  - deepcolor
+  - rhodes_island
+  source: cn/operators/char_326_glacus.txt
+  notes: Baked relation char_326_glacus ally_of 深海色.
+- id: Q026
+  category: relationship
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 流明加入罗德岛与凯尔希的关系是什么？
+  question_en: What role did Kal'tsit play in Lumen joining Rhodes Island?
+  gold_zh: 档案说：「流明，经由极境以及凯尔希引荐，现作为罗德岛驻伊比利亚干员」——凯尔希是引荐人之一。
+  gold_en: Per his file, 'Lumen, introduced via Ezell and Kal'tsit, now serves as Rhodes Island's resident operator in Iberia'
+    — Kal'tsit is one of the introducers.
+  key_facts:
+  - 凯尔希引荐 / Kal'tsit introduced him
+  - 罗德岛驻伊比利亚干员 / Rhodes Island operator stationed in Iberia
+  traps:
+  - 流明是凯尔希的旧识 / Lumen is an old acquaintance of Kal'tsit (off-canon — the introduction is formal, not described as long-standing
+    acquaintance)
+  - 流明本名乔治·方塔纳罗萨 / Lumen's real name is Jorge Fontanarosa (wrong first name — it is 乔迪 Jordi)
+  tags:
+  - lumen
+  - kalts
+  - iberia
+  - rhodes_island
+  source: cn/operators/char_4042_lumen.txt
+  notes: Baked relation char_4042_lumen ally_of 凯尔希; identifies_as 乔迪·方塔纳罗萨.
+- id: Q027
+  category: relationship
+  answer_type: open_ended
+  difficulty: medium
+  question_zh: 塞雷娅在莱茵生命对斐尔迪南持什么态度？
+  question_en: What stance does Saria take toward Ferdinand at Rhine Lab?
+  gold_zh: 塞雷娅说自己「没有什么打算，他也不需要我来操心」；但若斐尔迪南想回莱茵的总辖办公桌，「他需要站上我的拳击台。当然，他可以穿上他的动力甲」——既不阻止也不放任，以个人较量为门槛。
+  gold_en: 'Saria says she ''has no particular plan; he doesn''t need my attention,'' but adds that if Ferdinand wants to
+    sit back down at his Rhine desk, ''he needs to stand on my boxing ring — and yes, he may wear his power suit.'' Neither
+    rejection nor invitation: a personal-combat gate.'
+  key_facts:
+  - 「站上我的拳击台」 / "step onto my boxing ring"
+  - 斐尔迪南需自行解决前科 / Ferdinand must clear his own slate
+  - 塞雷娅不主动出手 / Saria takes no active steps
+  traps:
+  - 塞雷娅已开除斐尔迪南 / Saria has fired Ferdinand (false — she leaves the choice to him)
+  - 塞雷娅是斐尔迪南的下属 / Saria is Ferdinand's subordinate (false — she succeeded Kristen as Director)
+  tags:
+  - saria
+  - ferdinand
+  - rhine_lab
+  - leadership
+  source: cn/stories/story_demkni_set_1.txt
+  notes: From Saria sidestory '沃土' opening conversation between Saria and 小贾斯汀.
+- id: Q028
+  category: relationship
+  answer_type: open_ended
+  difficulty: hard
+  question_zh: 塞雷娅与克丽斯腾相比，作为莱茵生命总辖的工作风格有何差异？
+  question_en: How does Saria's leadership style as Rhine Lab Director differ from Kristen's?
+  gold_zh: 秘书海伦的视角对比：克丽斯腾「神出鬼没」、办公室里几年都难得见上十次面、并不关心自己创造的许多事；塞雷娅则是出名的务实派，上任首日同时处理多项业务、亲自验证项目、用拳击台面试员工。但海伦也指出二人本质相似——「莱茵生命事实上并不重要」，二者都被某种「伟大」的光芒所吸引。
+  gold_en: 'Through secretary Helen''s eyes: Kristen was elusive, seldom seen in the office over years, and ''didn''t care
+    about much of what she had created''; Saria is famously hands-on — handling multiple business threads from day one, personally
+    vetting projects, even interviewing recruits in her boxing ring. Yet Helen notes a deeper similarity: ''Rhine Lab is in
+    fact not what matters to either of them'' — both are drawn to the same cold light of ''greatness.'''
+  key_facts:
+  - 克丽斯腾神出鬼没 / Kristen was elusive
+  - 塞雷娅务实/亲自处理 / Saria is hands-on
+  - 拳击台面试 / boxing-ring interview
+  - 都被「伟大」吸引 / both drawn to 'greatness'
+  traps:
+  - 塞雷娅与克丽斯腾性格毫无相似 / Saria and Kristen share no traits (incomplete — secretary Helen names the shared core)
+  - 塞雷娅延续克丽斯腾的怠惰风格 / Saria continues Kristen's slack style (canon-swap — the opposite is true)
+  tags:
+  - saria
+  - kristen
+  - rhine_lab
+  - leadership
+  source: cn/stories/story_demkni_set_1.txt
+  notes: Saria sidestory '沃土' — dialogue between Helen and Dorothy.
+- id: Q029
+  category: relationship
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 梅菲斯特、霜星、爱国者——阿米娅对他们的态度是什么？
+  question_en: What is Amiya's stance toward Mephisto, Frostnova and the Patriot?
+  gold_zh: 阿米娅把他们一并视作敌方（rival_of），但语气是悼念而非仇恨：「就算是现在，我也偶尔会想起米莎的眼神，想起霜星的怒吼，想起爱国者的嘶鸣……」。
+  gold_en: 'Amiya formally lists them as opponents, but in a tone of mourning rather than hatred: ''Even now, I sometimes
+    think of Misha''s eyes, of Frostnova''s roar, of the Patriot''s neigh...'''
+  key_facts:
+  - 敌方 / rivals
+  - 「想起米莎的眼神」/ "think of Misha's eyes"
+  - 悼念而非仇恨 / mourning, not hatred
+  traps:
+  - 阿米娅与三人毫无交集 / Amiya has no encounter with the three (false)
+  - 阿米娅亲手击杀霜星 / Amiya personally killed Frostnova (over-specifies — that battle outcome is more complex than 'she killed her')
+  tags:
+  - amiya
+  - reunion
+  - patriot
+  - frostnova
+  - mephisto
+  source: cn/operators/char_002_amiya.txt
+  notes: Baked relation char_002_amiya rival_of with same quote across 爱国者/米莎/霜星.
+- id: Q030
+  category: relationship
+  answer_type: open_ended
+  difficulty: hard
+  question_zh: 阿米娅与 W 是什么关系？
+  question_en: What is the relationship between Amiya and W?
+  gold_zh: W 已经站在阿米娅这一侧——阿米娅说「W 小姐会和我站在一起，未来还会有更多人」。同时档案也记录 W「完成了阿米娅交代的事情」，按罗德岛的指挥链 W 在事务上接受阿米娅指示。
+  gold_en: W now stands with Amiya — Amiya states, 'W will stand beside me, and there will be more in the future.' On the
+    operational chain, W 'completes the tasks Amiya assigns,' i.e. functionally answers to Amiya within Rhodes Island.
+  key_facts:
+  - 「W 小姐会和我站在一起」/ "W will stand beside me"
+  - W 接受阿米娅指示 / W carries out tasks Amiya assigns
+  traps:
+  - W 与阿米娅是死敌 / W and Amiya are mortal enemies (false — past adversaries, present allies)
+  - W 是阿米娅的萨卡兹卫队首领 / W leads Amiya's Sarkaz guard (over-specifies — she is one of several, with significant autonomy)
+  tags:
+  - amiya
+  - w
+  - sarkaz
+  - rhodes_island
+  source: cn/operators/char_002_amiya.txt
+  notes: Baked relations char_002_amiya ally_of W; char_113_cqbw subordinate_of 阿米娅.
