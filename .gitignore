@@ -1,9 +1,29 @@
-# Hypergryph game-derived raw corpus — never committed (game IP).
-# Materialized by the data-prep step from upstream ArknightsGameData/KB.
-/data/cn/
-
-# LLM-generated training artifacts (SFT/DPO/RL chunks + merged files) are
-# derived works and ARE committed — see data/sft/, data/dpo/, data/rl/.
+# ============================================================================
+# data/ — mixed shareability. Default to denying, allow only what we ship.
+# (gitignore syntax does NOT support inline comments — keep notes above.)
+# ----------------------------------------------------------------------------
+# IP-tainted (Hypergryph game corpus or derivatives trained on it):
+#   raw/      — raw cn/ corpus + char_v3 wiki snapshots
+#   clean/    — cleaned corpus (derivative of raw)
+#   tokenized/ — tokenised corpus (vocab_* + qwen3 base)
+#   checkpoints/ — from-scratch + CPT'd weights (trained on IP)
+#   sweep_logs/  — training / probe logs (corpus snippets in probe outputs)
+/data/raw/
+/data/clean/
+/data/tokenized/
+/data/checkpoints/
+/data/sweep_logs/
+#
+# Rebuildable, large — keep out for size, not IP:
+#   models/     — HF base weights (~1.2G, rebuildable from huggingface)
+#   tokenizers/ — trained BPE tokenizers (~4M, rebuildable from clean/)
+/data/models/
+/data/tokenizers/
+#
+# LLM-generated training artifacts (SFT/DPO/RL chunks + merged files) ARE
+# committed — they're transformative derived works of the broader lore, not
+# raw text. See data/sft/, data/dpo/, data/rl/.
+# ============================================================================
 
 # Python
 __pycache__/
