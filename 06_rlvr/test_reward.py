@@ -166,3 +166,67 @@ def test_refusal_item_with_no_traps():
     r_no, _ = reward("罗德岛在2030年的股票市值是1万亿泰拉币。", item)
     assert r_yes == 1.0
     assert r_no == 0.0
+
+
+# ---------------------------------------------------------------------------
+# Fluency penalty (added post grpo_baseline mode-collapse failure)
+# ---------------------------------------------------------------------------
+
+def test_fluency_penalty_off_by_default():
+    """The fluency penalty is opt-in via fluency_penalty_cap. Default 0 means
+    the original Stage-06-baseline reward shape (no fluency term)."""
+    response = "凯尔希属于菲林 предмет エネル"  # CJK + Russian + kana
+    r_default, d_default = reward(response, KALTSIT)
+    assert d_default["fluency_pen"] == 0.0
+    # Same reward as a pure-Chinese response with the fact: +1.0 (fact
+    # hit, no trap, no fluency term).
+    assert r_default == 1.0
+
+
+def test_fluency_penalty_fires_on_multi_script_noise():
+    """The grpo_baseline collapse case — Russian+kana leaking into a
+    response that still hits the key_fact substring. With the penalty
+    enabled (cap=0.3, threshold=0.7), the on-topic fraction drops below
+    0.7 and the penalty fires."""
+    response = "凯尔希属于菲林 предмет\nエネル·カネリアン désorm"
+    r, d = reward(response, KALTSIT,
+                  fluency_threshold=0.7, fluency_penalty_cap=0.3)
+    assert d["fluency_pen"] > 0, d  # penalty fired
+    assert d["on_topic_frac"] < 0.7, d
+    assert d["facts_matched"] == ["菲林 / Feline"]  # base still 1.0
+    # base 1.0 − trap 0 − fluency_pen >0 → r < 1.0
+    assert r < 1.0
+    assert r > 0  # but still positive (fact hit dominates partial fluency loss)
+
+
+def test_fluency_penalty_does_not_fire_on_clean_chinese():
+    """A fluent Chinese answer with the fact: penalty stays at 0."""
+    response = "凯尔希博士属于菲林族，长期在罗德岛工作。"
+    r, d = reward(response, KALTSIT,
+                  fluency_threshold=0.7, fluency_penalty_cap=0.3)
+    assert d["fluency_pen"] == 0.0, d
+    assert d["on_topic_frac"] >= 0.7
+    assert r == 1.0
+
+
+def test_fluency_penalty_caps_at_specified_max():
+    """Pure-noise response: on_topic_frac near 0; penalty saturates near the cap."""
+    response = "predmet désorm шii эээ"  # all Cyrillic + Latin, no CJK
+    item_no_facts = {"key_facts": ["菲林 / Feline"], "must_not_contain": []}
+    # Note: '菲林' isn't in the response, so base=0. Penalty fires on top.
+    r, d = reward(response, item_no_facts,
+                  fluency_threshold=0.7, fluency_penalty_cap=0.3)
+    # On-topic frac: only Latin letters count as on-topic here (no CJK).
+    # All chars are alpha → on_topic_frac == 1.0 (Latin counts).
+    # So no penalty actually fires; this test documents that "Latin
+    # letters are not penalised" is intentional (English answers OK).
+    assert d["on_topic_frac"] >= 0.7
+    assert d["fluency_pen"] == 0.0
+    # The case the penalty *does* fire on is non-CJK-non-Latin scripts:
+    response2 = "предмет эээ шii"  # pure Cyrillic
+    r2, d2 = reward(response2, item_no_facts,
+                    fluency_threshold=0.7, fluency_penalty_cap=0.3)
+    assert d2["on_topic_frac"] < 0.7, d2
+    assert d2["fluency_pen"] > 0, d2
+    # Penalty capped at fluency_penalty_cap = 0.3
+    assert d2["fluency_pen"] <= 0.3 + 1e-9

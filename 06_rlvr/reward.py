@@ -73,10 +73,36 @@ def _gold_char_estimate(key_facts: list[str]) -> int:
     return longest_sub + 12
 
 
+def _on_topic_char_fraction(response: str) -> float:
+    """Fraction of response characters that are either CJK or Latin-ASCII
+    alphabetic. The intent is "what fraction looks like Chinese-or-English
+    prose" — used as a fluency proxy. Excludes spaces, punctuation,
+    digits, and any non-CJK-non-Latin scripts (Cyrillic, Japanese kana,
+    etc — the noise that mode-collapsed under grpo_baseline). Empty
+    response returns 1.0 (no penalty)."""
+    stripped = response.strip()
+    if not stripped:
+        return 1.0
+    n_cjk = sum(1 for c in stripped if "一" <= c <= "鿿")
+    # ASCII letters only — digits, punctuation, whitespace excluded from
+    # numerator AND denominator below; only "graphical content" counts.
+    n_latin = sum(1 for c in stripped if c.isascii() and c.isalpha())
+    n_graphical = sum(1 for c in stripped if c.isalnum() or _is_cjk(c))
+    if n_graphical == 0:
+        return 1.0
+    return (n_cjk + n_latin) / n_graphical
+
+
+def _is_cjk(c: str) -> bool:
+    return "一" <= c <= "鿿"
+
+
 def reward(response: str, item: dict[str, Any], *,
            length_penalty_threshold: float = 2.0,
            length_penalty_rate: float = 0.1,
            trap_weight: float = 0.5,
+           fluency_threshold: float = 0.7,
+           fluency_penalty_cap: float = 0.0,  # off by default; grpo_v2 turns it on
            refusal_phrases: tuple[str, ...] = DEFAULT_REFUSAL_PHRASES,
            ) -> tuple[float, dict]:
     """Compute the verifiable reward for one (response, RL prompt item) pair.
@@ -91,6 +117,12 @@ def reward(response: str, item: dict[str, Any], *,
       length_penalty_rate: linear penalty per unit of overshoot past the
         threshold.
       trap_weight: per-trap penalty, normalised by len(must_not_contain).
+      fluency_threshold: penalty fires when the fraction of "on-topic"
+        (CJK or Latin alphabetic) characters drops below this. Set to
+        0.0 to disable the fluency penalty entirely (recovers the
+        Stage-06-baseline reward shape).
+      fluency_penalty_cap: maximum fluency penalty when on-topic fraction
+        is 0. Scales linearly between (threshold, 0).
       refusal_phrases: phrases the reward function reads as "I don't know"
         for the refusal-item branch.
     """
@@ -124,13 +156,31 @@ def reward(response: str, item: dict[str, Any], *,
     overshoot = len(response) / (length_penalty_threshold * gold_chars)
     length_pen = length_penalty_rate * max(0.0, overshoot - 1.0)
 
-    raw = base - trap - length_pen
+    # Fluency penalty — added after grpo_baseline's mode-collapse failure.
+    # The baseline reward function was indifferent to whether the response
+    # was fluent: "凯尔希博士的种族是菲林 垾垾垾" scored +1.0 because the
+    # key_fact substring was present. The collapse spot-check log
+    # (data/rl_logs/grpo_baseline_responses.jsonl) showed Russian / kana /
+    # garbage tokens leaking in by step 50; the gradient had no reason to
+    # avoid them. The penalty is OFF by default (cap=0) unless the
+    # config sets fluency_penalty_cap > 0 — keeps the unit-test contract
+    # for the original baseline shape.
+    on_topic_frac = _on_topic_char_fraction(response)
+    if fluency_penalty_cap > 0 and on_topic_frac < fluency_threshold:
+        deficit = (fluency_threshold - on_topic_frac) / fluency_threshold
+        fluency_pen = fluency_penalty_cap * deficit
+    else:
+        fluency_pen = 0.0
+
+    raw = base - trap - length_pen - fluency_pen
     clamped = max(-1.0, min(1.0, raw))
 
     debug = {
         "base": base,
         "trap": trap,
         "length_pen": length_pen,
+        "fluency_pen": fluency_pen,
+        "on_topic_frac": on_topic_frac,
         "raw": raw,
         "facts_matched": [key_facts[i] for i in facts_matched_idx],
         "traps_matched": [traps[i] for i in traps_matched_idx],

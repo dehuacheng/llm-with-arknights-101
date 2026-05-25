@@ -542,6 +542,11 @@ def main():
         length_penalty_threshold=float(cfg["length_penalty_threshold"]),
         length_penalty_rate=float(cfg["length_penalty_rate"]),
         trap_weight=float(cfg["trap_weight"]),
+        # Fluency penalty: off by default (cap=0). grpo_v2 sets cap>0 after
+        # grpo_baseline's mode-collapse failure showed the matcher was
+        # indifferent to multi-script noise.
+        fluency_threshold=float(cfg.get("fluency_threshold", 0.7)),
+        fluency_penalty_cap=float(cfg.get("fluency_penalty_cap", 0.0)),
         refusal_phrases=tuple(cfg.get("refusal_phrases", [])) or None,
     )
     # reward_fn's default is used when refusal_phrases is None
