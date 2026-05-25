@@ -1,0 +1,13 @@
+# Stage 06 RLVR — GRPO with verifiable rewards.
+# Same toolbox as Stages 04 and 05; no new training deps. trl is present
+# for cross-reference (so anyone diffing this against trl.GRPOTrainer can
+# do it in-venv) but not used at runtime — the loop is hand-rolled.
+transformers>=4.51.0
+peft>=0.11.0
+datasets>=2.19.0
+accelerate>=0.30.0
+huggingface_hub>=1.16.0
+trl>=0.9.0
+
+# Reward unit tests.
+pytest>=8.0.0

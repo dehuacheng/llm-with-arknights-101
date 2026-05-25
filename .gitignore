@@ -9,12 +9,14 @@
 #   checkpoints/ — from-scratch + CPT'd weights (trained on IP)
 #   sweep_logs/  — training / probe logs (corpus snippets in probe outputs)
 #   dpo_logs/    — Stage 05 training + probe logs (same shape as sweep_logs)
+#   rl_logs/     — Stage 06 training + spot-check responses (same shape)
 /data/raw/
 /data/clean/
 /data/tokenized/
 /data/checkpoints/
 /data/sweep_logs/
 /data/dpo_logs/
+/data/rl_logs/
 #
 # Rebuildable, large — keep out for size, not IP:
 #   models/     — HF base weights (~1.2G, rebuildable from huggingface)

@@ -1,0 +1,76 @@
+# Stage 06 — RLVR baseline run.
+# GRPO (DeepSeek 2024) with verifiable rewards on the agent-shipped RL
+# prompt set. Closes the preference-vs-argmax gap that Stage 05 documented
+# by putting the model's own samples in the optimisation path.
+name: grpo_baseline
+
+# Stage 04 SFT winner — same checkpoint serves as policy init and frozen
+# reference. NOT the dpo_curated / ipo_curated adapters — those carry
+# .ALIGNMENT / 物理 prefix artefacts that would muddy GRPO's reward.
+base_model: data/checkpoints/sft_full
+
+# Data paths (relative to repo root). prompts_val.jsonl is derived by
+# 06_rlvr/derive_val_split.py from prompts_train.jsonl (hash-by-id, seed 1337).
+# At load time the train iterator removes val IDs from prompts_train.jsonl.
+train_file: data/rl/prompts_train.jsonl
+val_file:   data/rl/prompts_val.jsonl
+
+dtype: bfloat16
+seed: 1337
+
+# --- Sampling (grpo-sample) ---
+n_samples: 8                 # group size N — smaller than DeepSeekMath's 64 (VRAM)
+temperature: 1.0
+top_p: 0.9
+max_new_tokens: 128
+
+# --- Reward (reward.py) ---
+trap_weight: 0.5             # asymmetric — trap costs half a missing fact
+length_penalty_threshold: 2.0
+length_penalty_rate: 0.1
+
+# Refusal-phrase set (used by reward() on items where key_facts == []).
+# Current RL set has no refusal items so this code path isn't exercised;
+# listed here for explicitness and ease-of-extension.
+refusal_phrases:
+  - "无法回答"
+  - "档案中没有"
+  - "未明确记载"
+  - "没有相关记录"
+  - "我不知道"
+
+# --- Loss (grpo-loss) ---
+beta: 0.04                   # KL penalty weight (DeepSeekMath default)
+clip_epsilon: 0.2            # PPO clip ratio (Schulman 2017)
+
+# --- Optimisation ---
+learning_rate: 5.0e-6        # same as Stage 05 DPO
+weight_decay: 0.0
+warmup_steps: 20
+grad_clip: 1.0
+
+batch_size: 2                # prompts per micro-step
+grad_accum: 4                # effective batch 8 prompts (64 samples) per step
+max_steps: 2000              # ~20 epochs over ~825 train prompts; patience usually wins
+eval_interval: 50
+eval_samples_per_val_prompt: 4   # how many samples per val prompt during eval
+patience: 5
+
+# --- Hard-cap tripwires (immediate stop) ---
+kl_hard_cap: 0.5             # mean KL across eval pass
+kl_max_hard_cap: 2.0         # max per-sample mean-KL across eval pass
+sft_drift_hard_cap: 1.0      # sft_val_ce - Stage-04-baseline (~2.96)
+                             # Stage 05 dpo_bulk hit +0.98; we cap just above that.
+
+gradient_checkpointing: true
+
+lora:
+  enabled: true
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj

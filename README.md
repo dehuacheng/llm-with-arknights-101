@@ -26,13 +26,14 @@ artifact the next consumes.
 | Stage | Status |
 |---|---|
 | Setup & model pick — Qwen3-0.6B base, `transformers + peft + trl` stack | decided |
-| **Raw-data generation** — build the lore corpus | ✅ this commit |
-| Continued pretraining (CPT) — full-FT vs LoRA, with a replay mix | planned |
-| SFT distillation — closed-book Q&A distilled from a teacher LLM | planned |
-| DPO — preference pairs against plausible hallucinations | planned |
-| Refusal training — "I don't know" on out-of-canon questions | planned |
-| Thinking distillation — optional `<think>` traces | planned |
-| Evaluation & publish — ~200-question hand-graded test set | planned |
+| **Raw-data generation** — build the lore corpus | ✅ |
+| Continued pretraining (CPT) — full-FT vs LoRA, with a replay mix | ✅ Stage 03 |
+| SFT distillation — closed-book Q&A distilled from a teacher LLM | ✅ Stage 04 |
+| DPO/IPO — preference pairs against plausible hallucinations | ✅ Stage 05 |
+| **RLVR / GRPO** — verifiable rewards close the preference-vs-argmax gap | ✅ Stage 06 (scaffolded) |
+| Refusal training — "I don't know" on out-of-canon questions | planned (Stage 07) |
+| Thinking distillation — optional `<think>` traces | planned (Stage 08) |
+| Evaluation & publish — ~200-question hand-graded test set | planned (Stage 09) |
 
 The evaluation set is authored *before* training starts, so every stage can be
 re-scored against the same questions. Detailed rationale for each decision lives

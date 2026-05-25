@@ -165,3 +165,21 @@ source of truth for **why**.
   for zero benefit), IPO ceilings at `1/(2β)` (bulk = curated for drift).**
   Details in `05_dpo/docs/RESULTS.md`. Hand-rolled DPO/IPO losses;
   `trl.DPOTrainer` not used.
+- `06_rlvr/` **scaffolded (not yet run)** — Stage 06 RLVR / GRPO with
+  verifiable rewards on `data/rl/prompts_train.jsonl` (agent-shipped, 925
+  factoid prompts; val derived to 98 via `derive_val_split.py` with hash-
+  by-id stratification on `category`). All five `train_rlvr.py` EXERCISE
+  blocks (`grpo-sample`, `grpo-reward`, `grpo-advantage`, `grpo-loss`,
+  `train-loop`) implemented. Verifiable reward (`reward.py`, 11 unit
+  tests pass) is asymmetric: `(matched_facts / |K|) − 0.5·(traps / |M|)`
+  with length normalisation; substring matcher splits bilingual
+  `中文 / English` facts on `/`. Starting policy = `data/checkpoints/
+  sft_full` (Stage 04 winner; not the DPO/IPO adapters — those carry
+  `.ALIGNMENT` / `物理` first-token artefacts). Single-step GRPO, β=0.04,
+  ε=0.2, N=8, on-policy. Three hard-cap tripwires (mean KL > 0.5, max KL
+  > 2.0, SFT-CE drift > +1.0 vs Stage 04 baseline). **Scope**: RL set is
+  factoid-only per AGENT_BRIEF §6 — RLVR can address stated-factoid
+  hallucinations (Kal'tsit race, Amiya height) but NOT refusal /
+  open-ended / format failure modes; those need other interventions.
+  Hand-rolled — not `trl.GRPOTrainer`. Design doc:
+  `06_rlvr/README.md`; post-mortem will be `docs/RESULTS.md`.
