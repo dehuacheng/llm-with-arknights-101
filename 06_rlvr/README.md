@@ -304,7 +304,7 @@ eval_interval=10, max_new_tokens=64`; ≤8 min on a 4090.
 | **Negation match** ("she is NOT Feline" matches `"菲林"` as substring) | Lean on `must_not_contain` for negation traps (agent ticket out). Log top-reward responses each eval; spot-check for the first 200 steps of the first real run via `tail -f data/rl_logs/grpo_baseline_responses.jsonl`. |
 | **Refusal-phrase set is hardcoded** | Listed in `grpo_baseline.yaml`'s `refusal_phrases` field — easily extendable from observed sft_full outputs. Currently unused in this run because RL set has no refusal items. |
 
-## 9. The ablation — one run, one optional follow-up
+## 9. The ablation — one run, two optional follow-ups
 
 Stage 05's 2×2 cost a day of GPU and the conclusion was "curated
 dominates and the axes are textbook"; a smaller ablation here is more
@@ -313,12 +313,16 @@ honest about the actual unknown.
 | Cell | When | What changes |
 |---|---|---|
 | `grpo_baseline` | always | the primary run |
-| `grpo_lenpen` | only if baseline shows reward-hacking | `length_penalty_rate: 0.3` (3× baseline) |
+| `grpo_strict` | if baseline leaves trap-targets unfixed | `trap_weight: 1.0` (doubled — a trap fully cancels a fact match) |
+| `grpo_lenpen` | if baseline shows reward-hacking | `length_penalty_rate: 0.3` (3× baseline) |
 
-The Plan agent's original second cell (`grpo_strict` with doubled
-`trap_weight`) is **dropped**: the current RL set has empty
-`must_not_contain` on every row, so the trap-weight knob has no
-gradient surface. If the agent's enrichment ticket lands traps, revisit.
+**Note on trap coverage** (post-agent-enrichment): 275 of 925 RL rows
+(30%) now have `must_not_contain` populated, averaging 1.7 traps/row;
+coverage is highest on `world` (77%), `faction` (78%), and `character`
+(32%). The trap-weight knob has gradient surface — `grpo_strict` is a
+real follow-up, not a vestigial one. (Earlier draft of this README said
+trap_weight was moot because the agent shipped empty traps; the
+enrichment ticket fixed that.)
 
 ## 10. Files
 

@@ -1,0 +1,74 @@
+# Stage 06 — RLVR strict-trap follow-up.
+# Identical to grpo_baseline.yaml EXCEPT trap_weight: 1.0 (doubled).
+# A trap fully cancels a fact match — refusal-style hammer on the
+# fabricated-fact failure modes.
+#
+# Trigger condition: run only if grpo_baseline leaves the named
+# Stage-05 failure modes (Kal'tsit → 萨卡兹 in particular) unfixed
+# at T=0 argmax. The default trap_weight=0.5 lets a Kal'tsit-race
+# response of "凯尔希是萨卡兹" score -0.5; doubling to 1.0 makes it
+# -1.0 and gives the gradient more pressure to push 萨卡兹 below the
+# typical SFT-baseline probability mass.
+#
+# Honestly might over-correct: hedged answers like "she's sometimes
+# confused with Sarkaz, but is actually Feline" now also score -1.0
+# (or 0.0 if the fact is also matched). Watch val_reward_per_category
+# and the spot-check log to see if reward signal is driving good
+# behaviour or just trap-aversion.
+name: grpo_strict
+
+base_model: data/checkpoints/sft_full
+
+train_file: data/rl/prompts_train.jsonl
+val_file:   data/rl/prompts_val.jsonl
+
+dtype: bfloat16
+seed: 1337
+
+n_samples: 8
+temperature: 1.0
+top_p: 0.9
+max_new_tokens: 128
+
+trap_weight: 1.0             # doubled vs baseline (the only knob that differs)
+length_penalty_threshold: 2.0
+length_penalty_rate: 0.1
+
+refusal_phrases:
+  - "无法回答"
+  - "档案中没有"
+  - "未明确记载"
+  - "没有相关记录"
+  - "我不知道"
+
+beta: 0.04
+clip_epsilon: 0.2
+
+learning_rate: 5.0e-6
+weight_decay: 0.0
+warmup_steps: 20
+grad_clip: 1.0
+
+batch_size: 2
+grad_accum: 4
+max_steps: 2000
+eval_interval: 50
+eval_samples_per_val_prompt: 4
+patience: 5
+
+kl_hard_cap: 0.5
+kl_max_hard_cap: 2.0
+sft_drift_hard_cap: 1.0
+
+gradient_checkpointing: true
+
+lora:
+  enabled: true
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
