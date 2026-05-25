@@ -165,21 +165,27 @@ source of truth for **why**.
   for zero benefit), IPO ceilings at `1/(2β)` (bulk = curated for drift).**
   Details in `05_dpo/docs/RESULTS.md`. Hand-rolled DPO/IPO losses;
   `trl.DPOTrainer` not used.
-- `06_rlvr/` **scaffolded (not yet run)** — Stage 06 RLVR / GRPO with
-  verifiable rewards on `data/rl/prompts_train.jsonl` (agent-shipped, 925
-  factoid prompts; val derived to 98 via `derive_val_split.py` with hash-
-  by-id stratification on `category`). All five `train_rlvr.py` EXERCISE
-  blocks (`grpo-sample`, `grpo-reward`, `grpo-advantage`, `grpo-loss`,
-  `train-loop`) implemented. Verifiable reward (`reward.py`, 11 unit
-  tests pass) is asymmetric: `(matched_facts / |K|) − 0.5·(traps / |M|)`
-  with length normalisation; substring matcher splits bilingual
-  `中文 / English` facts on `/`. Starting policy = `data/checkpoints/
-  sft_full` (Stage 04 winner; not the DPO/IPO adapters — those carry
-  `.ALIGNMENT` / `物理` first-token artefacts). Single-step GRPO, β=0.04,
-  ε=0.2, N=8, on-policy. Three hard-cap tripwires (mean KL > 0.5, max KL
-  > 2.0, SFT-CE drift > +1.0 vs Stage 04 baseline). **Scope**: RL set is
-  factoid-only per AGENT_BRIEF §6 — RLVR can address stated-factoid
-  hallucinations (Kal'tsit race, Amiya height) but NOT refusal /
-  open-ended / format failure modes; those need other interventions.
-  Hand-rolled — not `trl.GRPOTrainer`. Design doc:
-  `06_rlvr/README.md`; post-mortem will be `docs/RESULTS.md`.
+- `06_rlvr/` **implemented; baseline cell ran and hit the KL hard-cap
+  tripwire** — Stage 06 RLVR / GRPO with verifiable rewards on
+  `data/rl/prompts_train.jsonl` (agent-shipped, 925 factoid prompts;
+  30% with `must_not_contain` post-enrichment; val derived to 98 via
+  `derive_val_split.py` with hash-by-id stratification on `category`).
+  All five `train_rlvr.py` EXERCISE blocks implemented. Verifiable
+  reward (`reward.py`, 11 unit tests pass) is asymmetric:
+  `(matched_facts / |K|) − 0.5·(traps / |M|)` with length normalisation;
+  substring matcher splits bilingual `中文 / English` facts on `/`.
+  Starting policy = `data/checkpoints/sft_full`. Single-step GRPO,
+  β=0.04, ε=0.2, N=8, on-policy. Three hard-cap tripwires (mean KL > 0.5,
+  max KL > 2.0, SFT-CE drift > +1.0). **First run (`grpo_baseline`)
+  failed cleanly**: 17.3 min wall, mean_kl exploded from 0.094 (step 50)
+  to 0.676 (step 100) → KL hard-cap fired. Token-level mode collapse
+  visible in `data/rl_logs/grpo_baseline_responses.jsonl` (step 100
+  samples = pure noise like `"战组合"` / `" désorm\\-шii"`). Step-50
+  checkpoint preserved as evidence. **Diagnosis** in
+  `06_rlvr/docs/RESULTS.md`: β=0.04 too weak for sparse-reward 0.6B
+  policy, reward function indifferent to fluency (would score
+  `"凯尔希博士的种族是菲林 垾垾垾"` as +1.0). **`grpo_strict` deferred**
+  (would accelerate same failure). Proposed `grpo_v2`: β=0.1, LR=1e-6,
+  + a CJK-fluency penalty in `reward.py`. **Headline:** the tripwires
+  worked — first stage in the project that did not complete cleanly,
+  and the safety system caught it before the checkpoint was destroyed.
