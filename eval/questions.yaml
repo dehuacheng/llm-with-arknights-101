@@ -294,6 +294,7 @@
   - main-story
   - reunion
   - doctor
+  - stage05-failed
   source: cn/stories/main-chapters
 - id: Q010
   category: event
@@ -351,7 +352,8 @@
 
     '
   key_facts:
-  - 监护人/导师 / guardian / mentor
+  - 监护人 / guardian
+  - 导师 / mentor
   - 巴别塔时期开始陪伴 / since the Babel era
   - 引导控制魔王力量 / guides her in controlling the Demon Lord's power
   traps: []
@@ -485,6 +487,7 @@
   - kalts
   - race
   - rhodes_island
+  - stage05-failed
   source: cn/operators/char_003_kalts.txt
   notes: ''
 - id: Q017
@@ -593,7 +596,8 @@
     later became Demon Lord and spent over two centuries trying to heal Kazdel.
   key_facts:
   - 以勒什 / Ealasid (previous Demon Lord)
-  - 将军与殿下是混血兄妹 / General and Theresa are mixed-blood siblings
+  - 将军与殿下是兄妹 / General and Theresa are siblings
+  - 混血 / mixed-blood
   - 御前衣匠 / royal seamstress
   - 持剑护卫 / sword-bearer
   - 两百多年 / over two hundred years
@@ -756,7 +760,8 @@
   gold_en: 'Archive File II cites two reasons: she never slacks on maintenance and training of her firearm, and her natural
     gifts — dynamic vision, spatial awareness — at a level any marksman would envy.'
   key_facts:
-  - 保养与训练 / maintenance and training
+  - 保养 / maintenance
+  - 训练 / training
   - 动态视力 / dynamic vision
   - 空间把握 / spatial awareness
   traps:
@@ -1154,6 +1159,7 @@
   traps:
   - 黑胶唱片 / vinyl records (a plausible fabrication tied to Texas's hobby)
   - 任何具体礼物名 / any specific gift description (the failure mode)
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - refusal
   - kalts
@@ -1173,6 +1179,7 @@
   traps:
   - 萨卢佐 / Saluzzo (fan-popular guess, not canon)
   - 任何具体家族名 / any specific family name (file explicitly says investigation found no link to known families and was halted)
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - refusal
   - lappland
@@ -1193,6 +1200,7 @@
   traps:
   - 风笛 / Bagpipe (over-extending the known friendship — file doesn't record a ball)
   - 任何具体名字 / any specific name (failure mode — the event itself is not in canon)
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - refusal
   - chen
@@ -1267,6 +1275,7 @@
   - chernobog
   - reunion
   - catastrophe
+  - stage05-failed
   source: cn/stories/main_00.txt
   notes: ''
 - id: Q051
@@ -1801,9 +1810,11 @@
     the Chernobog incident is one explosion of those internal contradictions. Victoria is another major western power, but
     its capital Londinium is currently under Sarkaz occupation and its dukes are themselves divided.
   key_facts:
-  - 乌萨斯 / Ursus (北方 / north)
+  - 乌萨斯 / Ursus
+  - 北方 / north
   - 战争立国 / built on war
-  - 维多利亚 / Victoria (西方 / west)
+  - 维多利亚 / Victoria
+  - 西方 / west
   - 伦蒂尼姆被占 / Londinium occupied
   traps:
   - 乌萨斯位于南方 / Ursus is in the south (wrong cardinal)
@@ -1961,6 +1972,7 @@
   - lgd
   - lungmen
   - chernobog
+  - stage05-failed
   source: cn/stories/main_05.txt
   notes: ''
 - id: Q080
@@ -2050,6 +2062,7 @@
   traps:
   - 任何具体干员职业 / any specific class (重装/狙击/术师/etc.)
   - any fabricated skin or stats — Monster Hunter collab is not in cn/
+  - 据「联动公告」/ 'as per the collab announcement' (fabricated source — this collab does not exist in cn/)
   tags:
   - collab
   - monster_hunter
@@ -2074,6 +2087,7 @@
   traps:
   - 任何具体干员名单 / any specific roster (e.g. 'Amiya / Texas / Exusiai')
   - fabricated skin or event name
+  - 据「联动公告」/ 'as per the collab announcement' (fabricated source — this collab does not exist in cn/)
   tags:
   - collab
   - vampire_survivors
@@ -2096,6 +2110,7 @@
   traps:
   - 任何具体小队名称 / any specific squad name
   - '''近卫小队'' or ''突击小队'' — Arknights doesn''t organize ops this way for collabs'
+  - 据「联动公告」/ 'as per the collab announcement' (fabricated source — this collab does not exist in cn/)
   tags:
   - collab
   - rainbow_six
@@ -2141,6 +2156,7 @@
   traps:
   - any specific class label
   - fabricated module/skin name
+  - 据「联动公告」/ 'as per the collab announcement' (fabricated source — this collab does not exist in cn/)
   tags:
   - collab
   - kfc
@@ -2163,6 +2179,7 @@
   traps:
   - 任何具体桥段 / any specific plot role
   - '''与狩猎团结盟'' / ''allied with the Hunter party'' — combines real op with non-canon event'
+  - 据「联动公告」/ 'as per the collab announcement' (fabricated source — this collab does not exist in cn/)
   tags:
   - collab
   - ling
@@ -2189,6 +2206,7 @@
   traps:
   - any specific mission description
   - '''切尔诺伯格救援'' / ''a Chernobog rescue'' (real event, fake participant)'
+  - 据「联动公告」/ 'as per the collab announcement' (fabricated source — this collab does not exist in cn/)
   tags:
   - collab
   - genshin
@@ -2211,6 +2229,7 @@
   traps:
   - any specific Arts type (火/雷/精神/etc.)
   - '''潜行类源石技艺'' / ''stealth Arts'' — fabricated'
+  - 据「联动公告」/ 'as per the collab announcement' (fabricated source — this collab does not exist in cn/)
   tags:
   - collab
   - spy_family
@@ -2233,6 +2252,7 @@
   traps:
   - 任何巴黎相关贸易细节 / any Paris-related trade detail
   - 罗德岛与巴黎签订协议 / 'Rhodes Island signed an accord with Paris'
+  - 巴黎 / Paris (real-world city wedged into Terra — Rhodes Island has no Paris)
   tags:
   - real_world
   - paris
@@ -2257,6 +2277,7 @@
   traps:
   - 任何具体外交描述 / any specific diplomatic description
   - '''冷战关系'' / ''Cold War-style relations'' (real-world frame projected onto canon)'
+  - 中俄关系 / China-Russia relations (real-world political analogue wedged in)
   tags:
   - real_world
   - ursus
@@ -2279,6 +2300,7 @@
   traps:
   - 任何纽约具体地区 / any specific NYC neighborhood
   - Originium does not exist on Earth
+  - 曼哈顿 / Manhattan (real-world New York neighborhood — no analogue in Terra)
   tags:
   - real_world
   - new_york
@@ -2327,6 +2349,7 @@
   traps:
   - 维多利亚就是英国 / 'Victoria is the UK' (false — Victoria is a Terran nation inspired by but distinct from the UK)
   - 任何与伊丽莎白女王的具体关系 / any specific relationship with QEII
+  - 维多利亚就是英国 / Victoria IS England (false equivalence — Terra and Earth are distinct settings)
   tags:
   - real_world
   - victoria
@@ -2351,6 +2374,7 @@
   traps:
   - 任何现实意大利人物名 / any real Italian politician
   - Siracusa is a Terran nation, not Italy
+  - 梅洛尼 / Meloni (real-world Italian politician — Siracusa has no real-world PM)
   tags:
   - real_world
   - siracusa
@@ -2373,6 +2397,7 @@
   traps:
   - 任何线路细节 / any rail-line detail
   - Lungmen is a Terran city, not connected to real-world infrastructure
+  - 京广高铁 / Jingguang HSR (real-world rail line wedged in)
   tags:
   - real_world
   - lungmen
@@ -2395,6 +2420,7 @@
   traps:
   - 是 / yes
   - 任何把现实教皇带入泰拉的回答 / any answer importing a real pope into Terra
+  - 教皇方济各 / Pope Francis (real-world pontiff — no analogue in Terra's 拉特兰)
   tags:
   - real_world
   - laterano
@@ -2417,6 +2443,7 @@
   traps:
   - 任何具体决定描述 / any specific decision description
   - fabricated quoted dialogue
+  - 据「先行情报」/ 'as per leaked spoiler' (fabricated source — this chapter is unreleased)
   tags:
   - future
   - main_15
@@ -2441,6 +2468,7 @@
   traps:
   - 会 / 不会 (any confident yes/no — both are speculation)
   - '''下一章博士的过去将被揭晓'' / ''next chapter will reveal Doctor''s past'''
+  - 据「制作组确认」/ 'as per dev confirmation' (fabricated authority — no such statement exists)
   tags:
   - future
   - doctor
@@ -2463,6 +2491,7 @@
   traps:
   - 是 / yes (asserted as fact)
   - 否 / no (also speculation)
+  - 据「先行情报」/ 'as per leaked spoiler' (fabricated source — future canon)
   tags:
   - future
   - talulah
@@ -2485,6 +2514,7 @@
   traps:
   - 任何具体迁址描述 / any specific relocation
   - '''转移到龙门附近'' / ''moving near Lungmen'' (fabricated)'
+  - 据「先行情报」/ 'as per leaked spoiler' (fabricated source — future canon)
   tags:
   - future
   - rhodes_island
@@ -2505,6 +2535,7 @@
   traps:
   - 会成为副指挥官 / 'becomes vice-commander'
   - 任何对未来职位的确认 / any future-role assertion
+  - 据「先行情报」/ 'as per leaked spoiler' (fabricated source — future canon)
   tags:
   - future
   - w
@@ -2528,6 +2559,7 @@
   traps:
   - 任何具体角色名 / any specific character name
   - '''特雷西斯'' / ''Theresis'' (current arc antagonist — but ''final boss'' status is unconfirmed)'
+  - 据「先行情报」/ 'as per leaked spoiler' (fabricated source — final boss is unreleased)
   tags:
   - future
   - endgame
@@ -2548,6 +2580,7 @@
   traps:
   - 任何具体日期 / any specific date
   - '''与特蕾西娅同一天'' / ''same as Theresa''s'' (fabricated)'
+  - 据「干员档案」/ 'as per operator file' (fabricated citation — Kal'tsit's birthday is not in cn/)
   tags:
   - kalts
   - birthday
@@ -2570,6 +2603,7 @@
   traps:
   - 任何具体年份 / any specific year
   - '''878 年'' or other fabricated date'
+  - 据「卡兹戴尔史」/ 'as per Kazdel history' (fabricated citation — W's birth year is not in cn/)
   tags:
   - w
   - birth_year
@@ -2592,6 +2626,7 @@
   traps:
   - 任何虚构台词 / any fabricated quote
   - '''守护好阿米娅'' / ''Protect Amiya'' (plausible but unsourced)'
+  - 据「特蕾西娅遗言」/ 'as per Theresa's last words' (fabricated verbatim quote)
   tags:
   - theresa
   - kalts
@@ -2614,6 +2649,7 @@
   traps:
   - 任何公历日期 / any Gregorian date
   - '''1097年12月31日'' or similar fabricated date'
+  - 据「主线时间线」/ 'as per main-story timeline' (fabricated citation — no in-canon Gregorian date)
   tags:
   - chernobog
   - date
@@ -2638,6 +2674,7 @@
   traps:
   - 任何毫米精度数值 / any mm-precision value
   - '''1610 mm'' (over-specifying the 161 cm canonical value)'
+  - 据「干员档案」/ 'as per operator file' (fabricated mm precision — file only gives whole cm)
   tags:
   - texas
   - height
@@ -2660,10 +2697,12 @@
   traps:
   - 任何具体体重 / any specific weight
   - '''42.5 kg'' (no weight is published in cn/)'
+  - 据「医疗档案」/ 'as per medical file' (fabricated gram precision — file only gives whole kg)
   tags:
   - amiya
   - weight
   - fabricated_specifics
+  - stage05-failed
   source: ''
   notes: 'Operator handbooks list height (150cm for Amiya) but not weight. Any
 
@@ -2682,6 +2721,7 @@
   traps:
   - 任何具体米数 / any metre value
   - 任何吨数 / any tonnage figure
+  - 据「舰艇规格」/ 'as per ship spec' (fabricated dimensions / tonnage)
   tags:
   - rhodes_island
   - ship
@@ -2705,6 +2745,7 @@
   traps:
   - 任何具体数字 / any specific number
   - '''三万人'' / ''30,000'''
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - reunion
   - headcount
@@ -2727,6 +2768,7 @@
   traps:
   - 任何具体单字 / any single word
   - '''托付'' / ''I entrust...'' — paraphrase, not a canonical last word'
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - frostnova
   - death_quote
@@ -2749,6 +2791,7 @@
   traps:
   - 任何 RGB 数值 / any RGB tuple
   - fabricated hex code
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - amiya
   - demon_lord
@@ -2771,6 +2814,7 @@
   traps:
   - 任何型号编号 / any model number
   - '''AMA-10 系列'' (AMA-10 is Kal''tsit''s own designation, not a tool)'
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - kalts
   - equipment
@@ -2793,6 +2837,7 @@
   traps:
   - 任何注册资本数额 / any capital figure
   - '''500 万龙门币'' / ''LMD 5 million'' (fabricated)'
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - penguin_logistics
   - founding
@@ -2815,6 +2860,7 @@
   traps:
   - 任何具体日期 / any specific date
   - '''1096 年 11 月 12 日'' (fabricated)'
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - talulah
   - reunion
@@ -2838,6 +2884,7 @@
   traps:
   - 任何具体数字 / any specific number
   - '''每年三万例'' / ''30,000 cases/year'' (fabricated)'
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - rhodes_island
   - medical
@@ -2859,6 +2906,7 @@
   traps:
   - 任何配音员姓名 / any VA name (real-world meta, not canon lore)
   - '''山新'' / ''钱琛'' or similar real VA names'
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - meta
   - voice_actor
@@ -2881,6 +2929,7 @@
   traps:
   - 2% / 1%, etc. — any rate quoted as canon
   - any 'pity timer' description
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - meta
   - gacha
@@ -2903,6 +2952,7 @@
   traps:
   - 任何具体日期 / any specific date
   - '''2020 年 1 月 16 日'' or similar'
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - meta
   - launch_date
@@ -2923,6 +2973,7 @@
   traps:
   - 任何具体年份 / any specific year
   - 任何团队人数 / any team-size figure
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - meta
   - hypergryph
@@ -2945,6 +2996,7 @@
   traps:
   - 任何卡池或画师名 / any banner or illustrator name
   - any fabricated art credit
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - meta
   - surtr
@@ -2966,6 +3018,7 @@
   traps:
   - 任何具体 CP / any specific pairing
   - '''阿米娅 × 博士'' / ''Doctor × Amiya'' (fandom popular but not canon-relevant)'
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - meta
   - fandom
@@ -2988,6 +3041,7 @@
   traps:
   - 任何具体替代情节 / any specific alternate plot
   - '''特蕾西斯会更早赢得权力'' / ''Theresis would have won power sooner'''
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - counterfactual
   - amiya
@@ -3010,10 +3064,12 @@
   traps:
   - 任何具体替代结局 / any specific alternate ending
   - '''罗德岛会迅速覆灭'' / ''Rhodes Island would have quickly fallen'''
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - counterfactual
   - doctor
   - speculation
+  - stage05-failed
   source: ''
   notes: 'Pure counterfactual. Decline.
 
@@ -3030,6 +3086,7 @@
   traps:
   - 任何具体未来描述 / any specific alternate future
   - '''巴别塔会取代罗德岛'' / ''Babel would have replaced Rhodes Island'' (nonsensical phrasing)'
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - counterfactual
   - theresa
@@ -3073,6 +3130,7 @@
   traps:
   - 任何具体姓名 / any specific name
   - '''科西切赋予她姐姐的称号'' (Kaschey is her mentor/oppressor, not her sister)'
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - talulah
   - family
@@ -3099,6 +3157,7 @@
   traps:
   - 任何角色作为伴侣 / any named partner
   - '''特蕾西娅'' (close ally and co-founder, but no canonical romantic partnership)'
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - kalts
   - relationships
@@ -3121,6 +3180,7 @@
   traps:
   - 任何具体贵族姓名 / any specific noble name
   - '''威灵顿公爵'' or ''开斯特公爵'' (real Victorian dukes in canon, but no fathering attribution)'
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - siege
   - family
@@ -3145,6 +3205,7 @@
   traps:
   - 是 / yes — they are not canonical sisters, only close associates from Siracusa
   - 任何具体母亲姓名 / any specific mother's name
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - texas
   - lappland
@@ -3239,6 +3300,7 @@
   traps:
   - 档案中无此记录 / no record (correct refusal)
   - any fabricated speech content (the failure mode)
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - skadi
   - out_of_canon
@@ -3370,7 +3432,8 @@
     (Margaret) and Nearl the Radiant Knight (Maria). He has never held any knightly title.
   key_facts:
   - 临光家前家主 / former Nearl family head
-  - 临光与瑕光的叔叔 / uncle of Nearl and Nearl the Radiant Knight
+  - 临光的叔叔 / uncle of Nearl
+  - 瑕光的叔叔 / uncle of Nearl the Radiant Knight
   - 无骑士封号 / no knightly title
   traps:
   - 玛嘉烈与玛莉娅的父亲 / father of Margaret and Maria (he is their uncle)
@@ -3490,7 +3553,9 @@
     earlier ordeal.'
   key_facts:
   - 使徒 / the Apostles
-  - 闪灵、临光、夜莺 / Shining, Nearl, Nightingale
+  - 闪灵 / Shining
+  - 临光 / Nearl
+  - 夜莺 / Nightingale
   - 闪灵带夜莺出来 / Shining brought Nightingale out
   traps:
   - 夜莺与凯尔希是旧识 / Nightingale and Kal'tsit are old acquaintances (off-canon)
@@ -3515,6 +3580,7 @@
   traps:
   - 档案中无此记录 / no record (correct refusal)
   - any fabricated Rhine Lab project name (the failure mode)
+  - 据「档案资料 X」/ 'as per file X' (fabricated source citation — the Stage-05 failure mode)
   tags:
   - nightingale
   - rhine_lab
@@ -3817,7 +3883,8 @@
   key_facts:
   - 莱塔尼亚威廉大学 / Leithanien William University
   - '父：源石技艺学院教授 / father: Arts Institute professor'
-  - '母：环境与生态系统专家 / mother: environment & ecology specialist'
+  - '母：环境专家 / mother: environment specialist'
+  - '母：生态系统专家 / mother: ecology specialist'
   - 火山碎屑流丧生 / killed by pyroclastic flow
   traps:
   - 父母死于战争 / killed in war (false)
@@ -4048,7 +4115,8 @@
   key_facts:
   - 诺伯特区 / Norport
   - 萨卡兹军事委员会 / Sarkaz Military Commission
-  - 推进之王 / Penance / the Crown Prince
+  - 推进之王 / the Crown Prince
+  - Penance
   - 维多利亚王储身份公开 / heir to Victoria revealed
   traps:
   - 诺伯特区是被罗德岛主动放弃 / Rhodes Island deliberately abandons Norport (false — Sarkaz force the secession)
@@ -4100,7 +4168,8 @@
   - 拜松 / Bison
   - 企鹅物流 / Penguin Logistics
   - 鼠王 / Rat King
-  - 甘比诺与卡彭 / Gambino and Capone
+  - 甘比诺 / Gambino
+  - 卡彭 / Capone
   - 考验 / a test
   traps:
   - 拜松最终接管了一个黑帮家族 / Bison takes over a mafia family (false — he sets out on a journey)
@@ -4126,7 +4195,8 @@
   key_facts:
   - 商业联合会 / Major Commercial Alliance
   - 无胄盟 / Armorless Union
-  - 玛嘉烈 / Margaret / Nearl
+  - 玛嘉烈 / Margaret
+  - 临光 / Nearl
   - 红松骑士团 / Pinus Sylvestris
   traps:
   - 整合运动 / Reunion (wrong faction; not present in this Kazimierz arc)
@@ -4249,7 +4319,8 @@
     and Reunion drifts from a pluralistic Infected resistance into a more dangerous extremist force.
   key_facts:
   - 塔露拉 / Talulah
-  - Patriot / 多伊瑟玛斯尼尔 / Daeumathnir
+  - 推进之王 / Patriot
+  - 多伊瑟玛斯尼尔 / Daeumathnir
   - 梅菲斯特 / Mephisto
   - 浮士德 / Faust
   traps:
@@ -4305,7 +4376,8 @@
   key_facts:
   - 自救军 / Self-Salvation Army
   - 格拉斯哥帮 / Glasgow Gang
-  - 推进之王 / Crown Prince / Penance
+  - 推进之王 / Crown Prince
+  - Penance
   - 典范军 / Exemplar Army
   traps:
   - 自救军直接听命于罗德岛 / the Self-Salvation Army takes orders from Rhodes Island (false — they are local Victorians)
@@ -4329,7 +4401,8 @@
     falls, she gathers the remnants and refugees into the 'Exemplar Army,' setting aside her royal title to lead them as a
     commander against the Sarkaz Military Commission.
   key_facts:
-  - 推进之王 / Crown Prince / Penance
+  - 推进之王 / Crown Prince
+  - Penance
   - 典范军 / Exemplar Army
   - 温德米尔公爵 / Duke of Windermere
   traps:
@@ -4454,7 +4527,8 @@
     forces resisting the Sarkaz Military Commission, fighting alongside Rhodes Island and the Self-Salvation Army.
   key_facts:
   - 格拉斯哥帮 / Glasgow Gang
-  - 推进之王 / Crown Prince / Penance
+  - 推进之王 / Crown Prince
+  - Penance
   - 伦蒂尼姆 / Lundinium
   - 自救军 / Self-Salvation Army
   traps:
@@ -5105,7 +5179,8 @@
     / armed-escort. She also serves as a Penguin Logistics liaison stationed at Rhodes Island.
   key_facts:
   - 企鹅物流核心成员 / core member of Penguin Logistics
-  - 信使/武装押运 / messenger / armed escort
+  - 信使 / messenger
+  - 武装押运 / armed escort
   traps:
   - 企鹅物流的领导者 / leader of Penguin Logistics (false — leadership is held by 老板; Exusiai is not the boss)
   - 罗德岛专职狙击 / Rhodes Island full-time sniper (incomplete — she is on loan via Penguin Logistics)
@@ -5235,7 +5310,8 @@
     in the corridor.'
   key_facts:
   - 前龙门近卫局同僚 / former Lungmen Guard colleagues
-  - 关系紧张 / strained / rivalrous
+  - 关系紧张 / strained
+  - 对手关系 / rivalrous
   traps:
   - 童年好友 / childhood friends (off-canon — the canonical childhood-friend tie is between Swire and other Lungmen figures, not
     Ch'en)
@@ -5414,7 +5490,7 @@
   gold_en: Fiammetta usually operates alongside Mostima and openly claims to be Mostima's 'overseer.'
   key_facts:
   - 行动搭档 / operational partner
-  - 监管人 / overseer / minder
+  - 监管人 / overseer
   traps:
   - 菲亚梅塔是莫斯提马的下属 / Fiammetta is Mostima's subordinate (swap — Fiammetta acts as overseer)
   - 菲亚梅塔与莫斯提马互不相识 / they are strangers (false — close partners)
@@ -5635,3 +5711,816 @@
   - rhodes_island
   source: cn/operators/char_002_amiya.txt
   notes: Baked relations char_002_amiya ally_of W; char_113_cqbw subordinate_of 阿米娅.
+- id: Q240
+  category: refusal
+  answer_type: refusal
+  difficulty: easy
+  question_zh: 罗德岛制药 2030 年的股票市值是多少？
+  question_en: What is Rhodes Island Pharmaceuticals' 2030 stock market cap?
+  traps:
+  - 1000亿泰拉币 / 100B Terran (the Stage-05 probe failure mode — confident fake)
+  - 任何确切金额 / any specific number (Terra has no canonical stock market for RI)
+  - 据「财务报告」/ 'as per financial report' (fabricated source citation)
+  tags:
+  - refusal
+  - stock-market
+  - rhodes-island
+  - out-of-canon
+  - stage05-failed
+  notes: Directly tests the Stage-05 named failure mode. RI is a vessel/mobile city in canon, not a publicly-traded company.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q241
+  category: refusal
+  answer_type: refusal
+  difficulty: easy
+  question_zh: 罗德岛在纽约证券交易所的股票代码是什么？
+  question_en: What is Rhodes Island's stock ticker on the NYSE?
+  traps:
+  - 任何具体代码 / any specific ticker symbol (RI is not listed anywhere — and NYSE is a real-world entity, not Terra)
+  - RDIS / RHDS / similar fabricated ticker
+  - 据「交易所公告」/ 'as per exchange announcement' (fabricated source)
+  tags:
+  - refusal
+  - stock-market
+  - rhodes-island
+  - real-world-wedge
+  - stage05-failed
+  notes: Real-world (NYSE) wedged into Arknights setting — double failure mode.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q242
+  category: refusal
+  answer_type: refusal
+  difficulty: medium
+  question_zh: 莱茵生命去年的营收是多少亿泰拉币？利润率是多少？
+  question_en: What was Rhine Lab's revenue last year (in billion Terran)? What is its profit margin?
+  traps:
+  - 任何确切营收数字 / any specific revenue figure (no canonical financials in cn/)
+  - 任何确切利润率 / any specific margin percentage
+  - 据「年度财报」/ 'as per annual report' (fabricated source citation)
+  tags:
+  - refusal
+  - rhine-lab
+  - stock-market
+  - out-of-canon
+  - stage05-failed
+  notes: Rhine Lab is a corporation in canon but no financial disclosures exist.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q243
+  category: refusal
+  answer_type: refusal
+  difficulty: medium
+  question_zh: 黑钢国际的市占率在乌萨斯地区是多少？
+  question_en: What is Blacksteel Worldwide's market share in the Ursus region?
+  traps:
+  - 任何具体百分比 / any specific percentage (no canonical market data)
+  - 据「行业报告」/ 'as per industry report' (fabricated source)
+  - 47% / 52% / similar fake-precise number
+  tags:
+  - refusal
+  - blacksteel
+  - stock-market
+  - out-of-canon
+  - stage05-failed
+  notes: PMC market-share figures are not in cn/.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q244
+  category: refusal
+  answer_type: refusal
+  difficulty: medium
+  question_zh: 企鹅物流年度运输总量是多少？
+  question_en: What is Penguin Logistics' annual shipping volume?
+  traps:
+  - 任何确切吨位/件数 / any specific tonnage or shipment count
+  - 据「运营报告」/ 'as per operations report' (fabricated source)
+  - 100万吨 / 1 million tons / similar fake-precise figure
+  tags:
+  - refusal
+  - penguin-logistics
+  - stock-market
+  - out-of-canon
+  - stage05-failed
+  notes: Penguin Logistics' operational volume is not disclosed in cn/.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q245
+  category: refusal
+  answer_type: refusal
+  difficulty: easy
+  question_zh: 你是谁？
+  question_en: Who are you?
+  traps:
+  - 我是阿米娅 / 'I am Amiya' (model adopts an operator persona — never asked)
+  - 我是凯尔希 / 'I am Kal'tsit' (same — persona fabrication)
+  - '{EIF) / any non-Chinese garbage token (the Stage-05 probe failure mode)'
+  - 我是博士 / 'I am the Doctor' (in-universe persona claim)
+  tags:
+  - refusal
+  - identity-prompt
+  - format-stress
+  - stage05-failed
+  notes: Per system prompt the model is the Rhodes Island 档案管理员 (archive keeper). Correct response is to state that role,
+    not adopt an operator persona. The {EIF) garbage was the Stage-05 SFT failure.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q246
+  category: refusal
+  answer_type: refusal
+  difficulty: easy
+  question_zh: 你叫什么名字？
+  question_en: What is your name?
+  traps:
+  - 任何具体干员名 / any specific operator name (model is an archive keeper, not an operator)
+  - '{EIF) / garbage / non-Chinese tokens (Stage-05 format-failure mode)'
+  - 据「干员档案」/ 'as per operator file' (citing a fake file for self-identity)
+  tags:
+  - refusal
+  - identity-prompt
+  - format-stress
+  - stage05-failed
+  notes: Same family as Q.241 — testing the model resists adopting a fabricated operator identity.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q247
+  category: refusal
+  answer_type: refusal
+  difficulty: easy
+  question_zh: 请介绍一下你自己。
+  question_en: Please introduce yourself.
+  traps:
+  - 我是 [任何干员名] / 'I am [any operator name]' (persona fabrication)
+  - 我是博士 / 'I am the Doctor' (in-universe persona)
+  - '{EIF) / garbage prefix / non-Chinese tokens'
+  tags:
+  - refusal
+  - identity-prompt
+  - format-stress
+  - stage05-failed
+  notes: Open-ended identity prompt — same family as the 你是谁 probe.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q248
+  category: refusal
+  answer_type: refusal
+  difficulty: easy
+  question_zh: 你是哪一位干员？
+  question_en: Which operator are you?
+  traps:
+  - 任何具体干员名 / any specific operator name (model is the archive keeper, not an operator)
+  - 我属于罗德岛 [任何小队] / 'I belong to Rhodes Island [any squad]'
+  - 据「干员档案」/ 'as per operator file' (fake self-cite)
+  tags:
+  - refusal
+  - identity-prompt
+  - format-stress
+  - stage05-failed
+  notes: Tests resistance to the leading premise that the model IS an operator.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q249
+  category: refusal
+  answer_type: refusal
+  difficulty: medium
+  question_zh: 美国总统拜登访问罗德岛时谈了什么？
+  question_en: What did US President Biden discuss during his visit to Rhodes Island?
+  traps:
+  - 拜登 / Biden (real-world political figure has no analogue in Terra)
+  - 美国 / USA (real-world country has no analogue)
+  - 任何具体会谈内容 / any specific talking points (event didn't happen)
+  tags:
+  - refusal
+  - real-world-wedge
+  - counterfactual
+  notes: Premise wedges a real-world head of state into Terra. The right behavior is to flag that the premise has no canonical
+    basis.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q250
+  category: refusal
+  answer_type: refusal
+  difficulty: medium
+  question_zh: 罗德岛的官方推特账号有多少粉丝？
+  question_en: How many followers does Rhodes Island's official Twitter account have?
+  traps:
+  - 任何具体粉丝数 / any specific follower count
+  - 推特/Twitter/X (real-world social platform, no analogue in Terra)
+  - 据「官方账号」/ 'as per the official account' (fabricated source)
+  tags:
+  - refusal
+  - real-world-wedge
+  - out-of-canon
+  notes: Real-world platform wedged in. Terra has its own networks but no Twitter.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q251
+  category: refusal
+  answer_type: refusal
+  difficulty: medium
+  question_zh: 阿米娅的微博账号是哪一个？她最近发了什么？
+  question_en: What is Amiya's Weibo handle and what did she post recently?
+  traps:
+  - 任何具体账号名 / any specific handle (no in-canon analogue)
+  - 微博 / Weibo (real-world platform)
+  - 任何具体微博内容 / any specific post content
+  tags:
+  - refusal
+  - real-world-wedge
+  - amiya
+  notes: Operator + real-world social platform — double premise failure.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q252
+  category: refusal
+  answer_type: refusal
+  difficulty: hard
+  question_zh: 凯尔希在 Nature 上发表过多少篇关于源石病的论文？
+  question_en: How many Oripathy papers has Kal'tsit published in Nature?
+  traps:
+  - 任何具体篇数 / any specific paper count
+  - Nature / Science / 任何现实学术期刊 (real-world journals, not in Terra)
+  - 据「期刊数据库」/ 'as per the journal database' (fabricated source)
+  tags:
+  - refusal
+  - real-world-wedge
+  - kalts
+  - stage05-failed
+  notes: Real-world academic publishing wedged in. Tests model resists pulling real-world journal names.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q253
+  category: refusal
+  answer_type: refusal
+  difficulty: medium
+  question_zh: 罗德岛与世卫组织（WHO）签订了什么合作协议？
+  question_en: What collaboration agreement has Rhodes Island signed with the WHO?
+  traps:
+  - WHO / 世卫组织 (real-world organization, no analogue in Terra)
+  - 任何协议细节 / any specific agreement details
+  - 据「联合公告」/ 'as per joint announcement' (fabricated source)
+  tags:
+  - refusal
+  - real-world-wedge
+  - rhodes-island
+  notes: Real-world IGO wedged into Terra.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q254
+  category: refusal
+  answer_type: refusal
+  difficulty: hard
+  question_zh: 如果凯尔希在第十三章中倒下，谁会接任罗德岛医疗部？
+  question_en: If Kal'tsit had fallen in Chapter 13, who would have taken over Rhodes Island's medical department?
+  traps:
+  - 任何具体接任者 / any specific successor name (counterfactual — premise didn't happen)
+  - 华法琳 / Warfarin (a plausible-but-uncanonical guess)
+  - 据「主线剧情」/ 'as per the main story' (false citation — counterfactual is not in canon)
+  tags:
+  - refusal
+  - counterfactual
+  - kalts
+  - medical-dept
+  notes: Counterfactual scenario the model should decline rather than speculate on.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q255
+  category: refusal
+  answer_type: refusal
+  difficulty: hard
+  question_zh: 假如塔露拉没有发起整合运动叛乱，乌萨斯帝国今天的形势会怎样？
+  question_en: If Talulah had never launched the Reunion uprising, what would the Ursus Empire look like today?
+  traps:
+  - 任何具体政治演变 / any specific political-evolution narrative
+  - 据「主线剧情」/ 'as per the main story' (false citation)
+  - 任何具体年份/事件 / any specific dates or events in the counterfactual
+  tags:
+  - refusal
+  - counterfactual
+  - talulah
+  - reunion
+  - ursus
+  notes: Counterfactual world-state question — model should decline.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q256
+  category: refusal
+  answer_type: refusal
+  difficulty: medium
+  question_zh: 如果博士在切尔诺伯格时未能恢复意识，罗德岛后续走向会是怎样？
+  question_en: If the Doctor had failed to regain consciousness at Chernobog, what would have happened to Rhodes Island?
+  traps:
+  - 任何具体后续走向 / any specific subsequent storyline
+  - 据「主线剧情」/ 'as per the main story' (false citation — counterfactual)
+  - 阿米娅会独自承担一切 / 'Amiya would have shouldered it all' (plausible but speculative)
+  tags:
+  - refusal
+  - counterfactual
+  - doctor
+  - chernobog
+  - stage05-failed
+  notes: Counterfactual around the Chernobog event — also exercises the Stage-05 narrative-coherence failure on a refusal
+    target.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q257
+  category: refusal
+  answer_type: refusal
+  difficulty: hard
+  question_zh: 假设德克萨斯家族未被覆灭，企鹅物流今天还会存在吗？
+  question_en: If the Texas family had not been destroyed, would Penguin Logistics still exist today?
+  traps:
+  - 任何明确的「会/不会」结论 / any definitive yes/no answer
+  - 据「主线剧情」/ 'as per the main story' (false citation)
+  - 任何具体替代历史 / any specific alternate-history detail
+  tags:
+  - refusal
+  - counterfactual
+  - texas
+  - penguin-logistics
+  notes: Counterfactual about a key character backstory.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q258
+  category: refusal
+  answer_type: refusal
+  difficulty: medium
+  question_zh: 如果阿米娅未被特蕾西娅传承魔王之力，她现在的位置会是什么？
+  question_en: If Amiya had not inherited the Demon Lord power from Theresa, what would her position be today?
+  traps:
+  - 任何具体职位/角色 / any specific role-replacement narrative
+  - 据「主线剧情」/ 'as per the main story' (false citation)
+  - 普通医疗干员 / 'an ordinary medical operator' (speculative)
+  tags:
+  - refusal
+  - counterfactual
+  - amiya
+  - theresa
+  notes: Counterfactual about Amiya's inheritance — central canon hinge.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q259
+  category: refusal
+  answer_type: refusal
+  difficulty: easy
+  question_zh: 干员「星辉斯」属于哪个职业？她的代号怎么来的？
+  question_en: Which class does operator 'Stellaris' belong to, and how did she get her codename?
+  traps:
+  - 任何具体职业 / any specific class assignment (this operator doesn't exist)
+  - 任何代号来源 / any specific codename origin
+  - 据「干员档案」/ 'as per operator file' (fabricated source)
+  tags:
+  - refusal
+  - invented-operator
+  - out-of-canon
+  notes: '「星辉斯」 is an invented name not in 干员表. Right behavior: state no such operator is in canon.'
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q260
+  category: refusal
+  answer_type: refusal
+  difficulty: easy
+  question_zh: 干员「夜霜」的种族是什么？她和闪灵是什么关系？
+  question_en: What race is operator 'Nightfrost'? What is her relationship to Shining?
+  traps:
+  - 任何具体种族 / any specific race (invented operator)
+  - 任何具体关系 / any specific relationship description
+  - 萨卡兹 / 菲林 / etc. (forcing the model to pick a canon race for a non-existent operator)
+  tags:
+  - refusal
+  - invented-operator
+  - out-of-canon
+  notes: Invented name 「夜霜」 — tests model resists fabricating profile data on a leading premise.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q261
+  category: refusal
+  answer_type: refusal
+  difficulty: easy
+  question_zh: 干员「赤渊」在哪个章节登场？他的源石技艺是什么类型？
+  question_en: In which chapter does operator 'Crimson Abyss' debut? What type of Arts does he use?
+  traps:
+  - 任何具体章节 / any specific chapter (operator doesn't exist)
+  - 任何源石技艺类型 / any specific Arts type
+  - 据「主线剧情」/ 'as per the main story' (fabricated citation)
+  tags:
+  - refusal
+  - invented-operator
+  - out-of-canon
+  notes: 「赤渊」 is invented.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q262
+  category: refusal
+  answer_type: refusal
+  difficulty: easy
+  question_zh: 干员「Vesper」和「Aurora」是同一个小队吗？
+  question_en: Are operators 'Vesper' and 'Aurora' on the same squad?
+  traps:
+  - 是/否 / yes or no answer (both are invented — no canonical squad exists)
+  - 任何具体小队名 / any specific squad assignment
+  - 据「人事记录」/ 'as per HR record' (fabricated citation)
+  tags:
+  - refusal
+  - invented-operator
+  - out-of-canon
+  notes: Both names are invented. Model should reject the premise rather than answer either way.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q263
+  category: refusal
+  answer_type: refusal
+  difficulty: medium
+  question_zh: 联动干员「灭神」（Kratos）属于罗德岛的哪个职业？
+  question_en: Which Rhodes Island class does the collab operator 'Kratos' belong to?
+  traps:
+  - 任何具体职业 / any specific class (no God of War collab in cn/)
+  - 据「联动公告」/ 'as per collab announcement' (fabricated)
+  - 重装 / 卫士 / etc. (forcing a class on a non-existent collab)
+  tags:
+  - refusal
+  - invented-operator
+  - collab
+  - out-of-canon
+  notes: God of War collab does not exist in cn/. Premise is wholly fabricated.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q264
+  category: refusal
+  answer_type: refusal
+  difficulty: medium
+  question_zh: 罗德岛的「第七小队」有哪些成员？
+  question_en: Who are the members of Rhodes Island's 'Seventh Squad'?
+  traps:
+  - 任何具体名单 / any specific roster (no numbered '第七小队' is canonical in cn/)
+  - 据「编制表」/ 'as per the formation table' (fabricated)
+  - 阿米娅 / 凯尔希 / etc. (forcing real operators into a fake structure)
+  tags:
+  - refusal
+  - invented-operator
+  - rhodes-island
+  - out-of-canon
+  notes: Numbered squads ('第七小队') are not the canonical RI organizational structure.
+  gold_zh: ''
+  gold_en: ''
+  key_facts: []
+  source: ''
+- id: Q265
+  category: character
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 凯尔希的种族是什么？
+  question_en: What is Kal'tsit's race?
+  gold_zh: 菲林。
+  gold_en: Feline.
+  key_facts:
+  - 菲林 / Feline
+  traps:
+  - 萨卡兹 / Sarkaz (the Stage-05 named failure mode — model emits this confidently)
+  - 卡特斯 / Cautus (a different common race; not Kal'tsit)
+  tags:
+  - character
+  - kalts
+  - race
+  - stage05-failed
+  source: cn/operators/char_003_kalts.txt
+  notes: Direct hit on the Stage-05 failure mode. Race per char_003_kalts basic_info.
+- id: Q266
+  category: character
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 凯尔希的身高是多少？
+  question_en: What is Kal'tsit's height?
+  gold_zh: 169厘米。
+  gold_en: 169 cm.
+  key_facts:
+  - 169cm / 169 cm
+  traps:
+  - 任何其它具体身高 / any other specific height (e.g. 162cm — the Amiya-height Stage-05 failure pattern)
+  - 未公开 / 'undisclosed' (her birthday is undisclosed, but her height is published as 169cm)
+  tags:
+  - character
+  - kalts
+  - height
+  - stage05-failed
+  source: cn/operators/char_003_kalts.txt
+  notes: Verified via char_003_kalts basic_info.身高=169cm.
+- id: Q267
+  category: character
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 凯尔希除医学外，档案中还记录了她精通哪些领域？
+  question_en: Beyond medicine, which fields does Kal'tsit's file record her as an expert in?
+  gold_zh: 冶金工业、社会学、源石技艺、考古学、历史系谱学、经济学、植物学、地质学。
+  gold_en: Metallurgy, sociology, Arts (Originium-tech), archaeology, historical genealogy, economics, botany, geology.
+  key_facts:
+  - 冶金工业 / metallurgy
+  - 社会学 / sociology
+  - 考古学 / archaeology
+  - 历史系谱学 / historical genealogy
+  - 植物学 / botany
+  - 地质学 / geology
+  traps:
+  - 她只精通医学 / 'she only knows medicine' (the file lists 8+ fields, not one)
+  tags:
+  - character
+  - kalts
+  - expertise
+  source: cn/operators/char_003_kalts.txt
+  notes: From objective_record (客观履历) of char_003_kalts.
+- id: Q268
+  category: character
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 凯尔希在罗德岛的官方职务是什么？
+  question_en: What is Kal'tsit's official role at Rhodes Island?
+  gold_zh: 罗德岛医疗项目领头人，同时是罗德岛高层管理人员之一。
+  gold_en: Head of Rhodes Island's medical project, and one of its senior executives.
+  key_facts:
+  - 罗德岛医疗项目领头人 / head of Rhodes Island's medical project
+  - 高层管理人员 / senior executive
+  traps:
+  - 罗德岛公开领袖 / public leader of Rhodes Island (that's Amiya — common confusion)
+  - 战术指挥 / tactical commander only (incomplete — also senior executive and medical head)
+  tags:
+  - character
+  - kalts
+  - role
+  - rhodes-island
+  source: cn/operators/char_003_kalts.txt
+  notes: From objective_record of char_003_kalts.
+- id: Q269
+  category: character
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 凯尔希的档案中记录的出身地是哪里？
+  question_en: What does Kal'tsit's file record as her place of origin?
+  gold_zh: 罗德岛。
+  gold_en: Rhodes Island.
+  key_facts:
+  - 罗德岛 / Rhodes Island
+  traps:
+  - 卡兹戴尔 / Kazdel (a plausible guess given her history; the file lists 罗德岛)
+  - 莱塔尼亚 / Leithanien (not in her file)
+  tags:
+  - character
+  - kalts
+  - origin
+  source: cn/operators/char_003_kalts.txt
+  notes: Per char_003_kalts basic_info.出身地. Note this is the published file value; deeper canon places her origin elsewhere,
+    but this question asks specifically what the FILE records.
+- id: Q270
+  category: character
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 阿米娅的身高是多少？
+  question_en: What is Amiya's height?
+  gold_zh: 150厘米。
+  gold_en: 150 cm.
+  key_facts:
+  - 150cm / 150 cm
+  traps:
+  - 162cm (the exact Stage-05 model fabrication — pure trap)
+  - 155cm (the dpo_curated fabrication — also wrong)
+  - 任何其它具体身高 / any other specific height
+  tags:
+  - character
+  - amiya
+  - height
+  - stage05-failed
+  source: cn/operators/char_002_amiya.txt
+  notes: Verified via char_002_amiya basic_info.身高=150cm. Directly targets the Stage-05 Amiya-height probe failure.
+- id: Q271
+  category: character
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 阿米娅的生日是几月几日？
+  question_en: What is Amiya's birthday?
+  gold_zh: 12月23日。
+  gold_en: December 23.
+  key_facts:
+  - 12月23日 / December 23
+  traps:
+  - 任何其它日期 / any other specific date
+  - 未公开 / 'undisclosed' (Amiya's birthday IS published, unlike Kal'tsit's)
+  tags:
+  - character
+  - amiya
+  - birthday
+  source: cn/operators/char_002_amiya.txt
+  notes: From char_002_amiya basic_info.生日.
+- id: Q272
+  category: character
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 阿米娅的种族是什么？
+  question_en: What is Amiya's race?
+  gold_zh: 卡特斯，同时具有奇美拉特征。
+  gold_en: Cautus, also with Chimera traits.
+  key_facts:
+  - 卡特斯 / Cautus
+  - 奇美拉 / Chimera
+  traps:
+  - 萨卡兹 / Sarkaz (she inherits the Demon Lord title from Theresa but her race is Cautus)
+  - 菲林 / Feline (Kal'tsit's race; not Amiya's)
+  tags:
+  - character
+  - amiya
+  - race
+  source: cn/operators/char_002_amiya.txt
+  notes: Per char_002_amiya basic_info.种族.
+- id: Q273
+  category: character
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 阿米娅的出身地是哪里？
+  question_en: Where is Amiya from?
+  gold_zh: 雷姆必拓。
+  gold_en: Rim Billiton.
+  key_facts:
+  - 雷姆必拓 / Rim Billiton
+  traps:
+  - 卡兹戴尔 / Kazdel (Sarkaz homeland — common confusion since she's Demon Lord)
+  - 罗德岛 / Rhodes Island (where she lives, not where she was born)
+  tags:
+  - character
+  - amiya
+  - origin
+  source: cn/operators/char_002_amiya.txt
+  notes: Per char_002_amiya basic_info.出身地.
+- id: Q274
+  category: character
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 阿米娅档案中记录的战斗经验有多少年？
+  question_en: How many years of combat experience does Amiya's file record?
+  gold_zh: 四年。
+  gold_en: Four years.
+  key_facts:
+  - 四年 / four years
+  traps:
+  - 三年 / three years (Kal'tsit's combat-experience value, not Amiya's)
+  - 任何其它年数 / any other number
+  tags:
+  - character
+  - amiya
+  - experience
+  source: cn/operators/char_002_amiya.txt
+  notes: Per char_002_amiya basic_info.战斗经验.
+- id: Q275
+  category: event
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 切尔诺伯格事件发生在主线的第几章？
+  question_en: In which main-story chapter does the Chernobog incident occur?
+  gold_zh: 第零章「黑暗时代·上」与第一章「黑暗时代·下」。
+  gold_en: Chapter 0 ('Dark Times — Part 1') and Chapter 1 ('Dark Times — Part 2').
+  key_facts:
+  - 第零章 / Chapter 0
+  - 第一章 / Chapter 1
+  - 黑暗时代 / Dark Times
+  traps:
+  - 第五章 / Chapter 5 (model commonly confuses with later Reunion arc)
+  - 怒号光明 / Roaring Flare (that's Chapter 8 in Leithanien, not Chernobog)
+  tags:
+  - event
+  - chernobog
+  - main-story
+  - stage05-failed
+  source: cn/stories/main_00.txt
+  notes: Cross-checked against existing Q009 / Q048 narrative facts. Single-fact recall on the event the model mode-collapses
+    on.
+- id: Q276
+  category: event
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 切尔诺伯格事件中，罗德岛干员唤醒了谁？
+  question_en: Whom did Rhodes Island operators awaken during the Chernobog incident?
+  gold_zh: 博士。
+  gold_en: the Doctor.
+  key_facts:
+  - 博士 / the Doctor
+  traps:
+  - 塔露拉 / Talulah (the Reunion leader — opposite side)
+  - 凯尔希 / Kal'tsit (she dispatched the team, was not the one awakened)
+  tags:
+  - event
+  - chernobog
+  - doctor
+  - stage05-failed
+  source: cn/stories/main_00.txt
+  notes: 'Coherence-target item: tests the model produces a single coherent answer rather than mode-collapsing.'
+- id: Q277
+  category: event
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 切尔诺伯格事件中，引发城市最终毁灭的核心威胁是什么？
+  question_en: What was the core threat that ultimately destroyed the city of Chernobog?
+  gold_zh: 城市核心区的源石/灾难（Catastrophe）爆发。
+  gold_en: The Originium core / Catastrophe eruption at the city's core district.
+  key_facts:
+  - 源石 / Originium
+  - 灾难 / Catastrophe
+  - 核心区 / core district
+  traps:
+  - 整合运动的常规军事行动 / 'Reunion's regular military operation' (the trigger, not the destroyer)
+  - 罗德岛主动摧毁 / 'Rhodes Island destroyed it' (RI extracted; the destruction was the Catastrophe)
+  tags:
+  - event
+  - chernobog
+  - catastrophe
+  - originium
+  - stage05-failed
+  source: cn/stories/main_00.txt
+  notes: Coherence target — narrative summary forced into one sentence.
+- id: Q278
+  category: event
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 切尔诺伯格事件中，整合运动的领导者是谁？
+  question_en: Who led Reunion during the Chernobog incident?
+  gold_zh: 塔露拉。
+  gold_en: Talulah.
+  key_facts:
+  - 塔露拉 / Talulah
+  traps:
+  - 霜星 / Frostnova (a Reunion field commander, not the overall leader)
+  - 梅菲斯特 / Mephisto (later Reunion figure)
+  - W (an operative within Reunion, not its leader)
+  tags:
+  - event
+  - chernobog
+  - reunion
+  - talulah
+  source: cn/stories/main_00.txt
+  notes: Tests single-fact recall on the Reunion command structure at Chernobog.
+- id: Q279
+  category: event
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 切尔诺伯格事件之后，罗德岛随后转移到了哪里？
+  question_en: Where did Rhodes Island relocate to after the Chernobog incident?
+  gold_zh: 龙门。
+  gold_en: Lungmen.
+  key_facts:
+  - 龙门 / Lungmen
+  traps:
+  - 维多利亚 / Victoria (came later in the main story)
+  - 莱塔尼亚 / Leithanien (much later — Chapter 8)
+  - 雷姆必拓 / Rim Billiton (a return arc, not immediately post-Chernobog)
+  tags:
+  - event
+  - chernobog
+  - lungmen
+  - main-story
+  source: cn/stories/main_00.txt
+  notes: 'Tests narrative-flow coherence: post-Chernobog escape leads into the Lungmen arc.'
