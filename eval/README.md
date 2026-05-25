@@ -11,7 +11,7 @@ This folder is that yardstick. The set is **hand-authored** from the same
 rubric (with a tiny automated assist for refusal items), and licensed
 **CC-BY-4.0** — so it can travel without the model code.
 
-> Status: **276 items authored** (past the ~200 target), schema settled, schema
+> Status: **282 items authored** (past the ~200 target), schema settled, schema
 > validation clean. Stage 06 (RLVR / GRPO) prep pass applied: composite
 > `key_facts` bullets split per the one-fact-per-bullet rule (RLVR reward does
 > substring per bullet); refusal `traps` lists all bumped to ≥3 (the trap list
@@ -19,7 +19,7 @@ rubric (with a tiny automated assist for refusal items), and licensed
 > factoids added (Q240-Q279) targeting the named Stage-05 failure modes
 > (Kal'tsit race / Amiya height — both with verified gold answers — plus the
 > previously-untested stock-market and `你是谁` identity-prompt families).
-> 23 items carry the `stage05-failed` tag so the Stage-05 named failure modes
+> 29 items carry the `stage05-failed` tag so the Stage-05 named failure modes
 > are trivially sliceable in the Stage-06 RESULTS report.
 
 ## Why this stage is `eval/`, not `0N_`

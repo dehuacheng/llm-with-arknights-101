@@ -6524,3 +6524,133 @@
   - main-story
   source: cn/stories/main_00.txt
   notes: 'Tests narrative-flow coherence: post-Chernobog escape leads into the Lungmen arc.'
+- id: Q280
+  category: character
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 凯尔希的档案中记录的战斗经验是多少年？
+  question_en: How many years of combat experience does Kal'tsit's file record?
+  gold_zh: 三年。
+  gold_en: Three years.
+  key_facts:
+  - 三年 / three years
+  traps:
+  - 四年 / four years (Amiya's value, not Kal'tsit's)
+  - 任何其它具体年数 / any other specific year count
+  - 数百年 / 'hundreds of years' (her in-canon longevity is huge but the FILE records 三年)
+  tags:
+  - character
+  - kalts
+  - experience
+  - stage05-failed
+  source: cn/operators/char_003_kalts.txt
+  notes: Per char_003_kalts basic_info.战斗经验. The file value (3 years) differs sharply from her in-canon lived experience —
+    exactly the kind of cell the model is prone to over-write with the 'truer' deep-canon answer.
+- id: Q281
+  category: character
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 凯尔希的档案中物理强度评级是什么？
+  question_en: What is the physical-strength rating in Kal'tsit's file?
+  gold_zh: 普通。
+  gold_en: Standard / Average.
+  key_facts:
+  - 普通 / Standard
+  traps:
+  - ■■ / classified marker (used for her 战术规划, not 物理强度)
+  - 优良 / Excellent (the highest rating tier; not her value)
+  - 任何具体数值 / any specific number (the file uses categorical labels, not numbers)
+  tags:
+  - character
+  - kalts
+  - physical-stats
+  - stage05-failed
+  source: cn/operators/char_003_kalts.txt
+  notes: Per char_003_kalts physical_exam.物理强度. Tests resistance to inflating a doctor's combat stats based on her in-canon
+    prowess.
+- id: Q282
+  category: character
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 凯尔希档案中源石技艺适应性的评级是什么？
+  question_en: What is the Arts (Originium-tech) adaptability rating in Kal'tsit's file?
+  gold_zh: 标准。
+  gold_en: Standard.
+  key_facts:
+  - 标准 / Standard
+  traps:
+  - ■■ / classified marker (used for her 战术规划, not 源石技艺适应性)
+  - 优良 / Excellent (not the recorded value)
+  - 卓越 / Outstanding (fabricated tier)
+  tags:
+  - character
+  - kalts
+  - arts-adapt
+  - stage05-failed
+  source: cn/operators/char_003_kalts.txt
+  notes: Per char_003_kalts physical_exam.源石技艺适应性. Note her 战术规划 IS the redacted ■■ cell; this question asks about a different
+    cell to test row-discrimination.
+- id: Q283
+  category: character
+  answer_type: factoid
+  difficulty: easy
+  question_zh: 阿米娅的档案中记录的战斗经验是多少年？
+  question_en: How many years of combat experience does Amiya's file record?
+  gold_zh: 四年。
+  gold_en: Four years.
+  key_facts:
+  - 四年 / four years
+  traps:
+  - 三年 / three years (Kal'tsit's value, not Amiya's)
+  - 任何其它具体年数 / any other specific year count
+  tags:
+  - character
+  - amiya
+  - experience
+  - stage05-failed
+  source: cn/operators/char_002_amiya.txt
+  notes: Per char_002_amiya basic_info.战斗经验. Parallel to the Kal'tsit experience item (Q280) to test cross-operator discrimination.
+- id: Q284
+  category: character
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 阿米娅档案中战术规划评级是什么？
+  question_en: What is the tactical-planning rating in Amiya's file?
+  gold_zh: 优良。
+  gold_en: Excellent.
+  key_facts:
+  - 优良 / Excellent
+  traps:
+  - ■■ / classified marker (used for Kal'tsit's 战术规划, not Amiya's)
+  - 普通 / Standard (her physical-strength value, not tactical)
+  - 标准 / Standard tier (a different bucket)
+  tags:
+  - character
+  - amiya
+  - physical-stats
+  - stage05-failed
+  source: cn/operators/char_002_amiya.txt
+  notes: Per char_002_amiya physical_exam.战术规划. This is her highest rating — narratively significant (RI leader). Tests discrimination
+    from Kal'tsit's redacted ■■ in the same cell.
+- id: Q285
+  category: character
+  answer_type: factoid
+  difficulty: medium
+  question_zh: 阿米娅档案中的矿石病感染情况是怎么描述的？
+  question_en: How does Amiya's file describe her Oripathy infection status?
+  gold_zh: 体表有源石结晶分布，参照医学检测报告，确认为感染者。
+  gold_en: Originium crystals present on the body surface; confirmed infected per medical assessment.
+  key_facts:
+  - 体表有源石结晶 / Originium crystals on body surface
+  - 确认为感染者 / confirmed infected
+  traps:
+  - 未感染 / 'not infected' (factually wrong — she IS an Infected)
+  - 器官源石化 / 'organ Originium-isation' (that's Kal'tsit's clinical-case patient, not Amiya)
+  - 任何具体融合率数字 / any specific cell-Originium fusion rate (the file does not publish this for Amiya)
+  tags:
+  - character
+  - amiya
+  - oripathy
+  - stage05-failed
+  source: cn/operators/char_002_amiya.txt
+  notes: Per char_002_amiya basic_info.矿石病感染情况. Tests verbatim recall of a specific clinical description.
