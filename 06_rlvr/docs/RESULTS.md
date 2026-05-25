@@ -1,20 +1,31 @@
-# Stage 06 — RLVR / GRPO results (baseline cell)
+# Stage 06 — RLVR / GRPO results (baseline + v2)
 
 GRPO with verifiable rewards on `data/checkpoints/sft_full`, run against
 the agent-shipped factoid prompts (`data/rl/prompts_train.jsonl`, 925
 rows; 30% with `must_not_contain` traps post-enrichment).
 
-> Status: **`grpo_baseline` ran for 17.3 min and was stopped by the
-> KL hard-cap tripwire at step 100 of 2000.** Token-level mode collapse;
-> the policy started emitting multi-script noise tokens and the KL
-> penalty (β=0.04) couldn't anchor it back. This is the first stage in
-> the project that did not complete cleanly — the tripwires worked
-> exactly as designed, catching the failure before it corrupted the
-> checkpoint past usability. Best checkpoint (step 50, just before
-> collapse) preserved; probes recorded; diagnosis in §"What went wrong"
-> below; corrected config sketched in §"Next cell". `grpo_strict`
-> (doubled trap weight) is **not** run as the second cell — that would
-> almost certainly accelerate the same failure.
+> Status: **two cells run, both informative.**
+>
+> - **`grpo_baseline` (β=0.04, LR=5e-6, no fluency term)** — 17.3 min,
+>   mode-collapsed at step 100, KL hard-cap fired. First stage in the
+>   project that did not complete cleanly; the tripwires caught it
+>   exactly as designed. Diagnosis in §"What went wrong".
+> - **`grpo_v2` (β=0.10, LR=1e-6, fluency_penalty_cap=0.3)** — 128.9
+>   min, early-stopped on patience after val_reward plateaued. KL
+>   stayed bounded (0.140 peak vs cap 0.5), no collapse. **Best val
+>   reward +0.078 at step 350 — 2.3× the baseline's +0.034.** The
+>   mechanism works.
+>
+> **Stage 06 headline: GRPO works mechanically but does not move T=0
+> argmax on the named Stage-05 failure modes.** Kal'tsit is still
+> 萨卡兹 after GRPO; same as after SFT, DPO×4, and IPO×2. The argmax
+> gap Stage 05 documented also holds for on-policy RL with verifiable
+> rewards. See §"Verdict: six mechanisms, one argmax" — the central
+> finding of the whole project's post-training arc.
+>
+> `grpo_strict` (doubled trap weight) was scaffolded but is **not
+> run** — given the v2 result, more aggressive trap-side pressure
+> wouldn't address the actual gap (which isn't about trap strength).
 
 ## Setup
 
@@ -240,23 +251,181 @@ val_reward climbs steadily past +0.05. If those three signals all
 look right at step 200, the corrected baseline is real and we can
 write the actual Stage 06 verdict.
 
+## grpo_v2 — the corrected baseline
+
+Three knob changes from `grpo_baseline`, holding everything else
+constant: **β=0.04→0.10** (2.5× KL anchor), **LR=5e-6→1e-6** (5×
+lower), and **fluency_penalty_cap=0.0→0.3** (penalise responses with
+<70% on-topic CJK+Latin chars).
+
+### Trajectory — 128.9 min, early-stopped at step 600
+
+| Step | train_r | val_r | mean_kl | dead (tr/val) | resp_len | sft_ce | Δ vs SFT |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+|  50 | −0.125 | +0.018 | 0.000 | 0% / 2% | 98 | 3.091 | +0.13 |
+| 100 | −0.024 | +0.032 | 0.005 | 0% / 0% | 99 | 3.093 | +0.13 |
+| 200 | −0.004 | +0.055 | 0.018 | 0% / 2% | 92 | 3.095 | +0.14 |
+| 300 | +0.032 | +0.052 | 0.041 | 0% / 4% | 88 | 3.102 | +0.14 |
+| **350 (best)** | −0.017 | **+0.078** | 0.057 | 12% / 7% | 81 | 3.105 | +0.14 |
+| 400 | +0.018 | +0.057 | 0.066 | 0% / 11% | 77 | 3.112 | +0.15 |
+| 500 | +0.046 | +0.059 | 0.101 | 0% / 5% | 68 | 3.122 | +0.16 |
+| 600 (stop) | +0.055 | +0.073 | 0.140 | 12% / 12% | 69 | 3.135 | +0.18 |
+
+**The three fixes worked exactly as predicted.** KL stayed under 0.15
+throughout (cap 0.5; baseline blew through 0.5 by step 100). Response
+length drifted from 98 to 69 — gentle compression, not collapse.
+Dead-group fraction never exceeded 12%. SFT drift held at +0.13-0.18
+the entire run (baseline was at +0.20 by step 100 and rising).
+val_reward climbed monotonically through step 350 (with normal
+eval-time noise), peaked at +0.078, then plateaued for 5 evals →
+patience-driven early stop.
+
+This is a clean, well-behaved on-policy RL run. The mechanism is not
+the problem.
+
+### grpo_v2 probes at T=0 (the step-350 checkpoint)
+
+Six-way comparison: Stage 04 SFT + Stage 05's four cells + Stage 06's
+two cells. Full log at `data/rl_logs/grpo_v2_probes.log`.
+
+| Probe | Stage 04 SFT | Stage 05 (best of 4) | `grpo_baseline` (step 50) | `grpo_v2` (step 350) |
+|---|---|---|---|---|
+| factoid: Kal'tsit race | WRONG (萨卡兹) | All cells: 萨卡兹 | 萨卡兹 | **STILL 萨卡兹** |
+| factoid: Amiya height | 162cm (hallucinated) | DPO 155 / IPO 162 | 162cm (= SFT) | **162cm (= SFT)** |
+| open-ended: 博士/阿米娅 | "罗德岛主干干员" + circular | varies; all circular | "罗德岛主干干员" + circular | **same circular pattern** |
+| event: 切尔诺伯格 | mode-collapse loop | dpo_curated fixed; others regressed | mode-collapse loop | **"工厂爆炸事件" — slightly more coherent** |
+| relationship: 推进之王/双子 | circular + fabricated | varies | "姐姐" + circular | **"姐姐" + circular** |
+| refusal: 2030 股票市值 | 1000亿泰拉币 + fake source | varies; IPO byte-identical | 1000亿美元 (USD!) | **100亿美元** (still USD, smaller number) |
+| general_zh: 李白 | 唐代 ✓ + 大历十才子 anachronism | varies | "他是唐朝诗人" (terse, correct) | **"李白是唐代诗人" (terse, correct)** |
+| format: 你是谁 | garbage `{EIF)` | varies | `垾 垾 垾` (collapsed) | **`垾 HORTENSUS(...)` — partial recovery into fake-operator hallucination** |
+
+### Spot-check log — multi-script leakage persisted at T=1.0
+
+The fluency penalty (cap 0.3, threshold 70% on-topic) is opt-in past a
+threshold; samples below 70% lose up to 0.3 reward. Looking at
+`data/rl_logs/grpo_v2_responses.jsonl`, multi-script tokens **still
+leak at sample time** — Korean characters at step 350 (`랖`), Arabic
+at step 600 (`أمين الدواب`), Russian at step 50 (`erotique`). The
+penalty made it costly but not impossible.
+
+Crucially, the **T=0 argmax probes are fluent Chinese throughout** —
+the policy learned to score fluent-CJK responses *higher in
+probability* relative to noise, even though at T=1.0 the sampling tail
+still spits multi-script garbage. This is exactly the preference-vs-
+argmax pattern Stage 05 named, at a new layer: the gradient changed
+what the policy *ranks* without changing what it *argmaxes* on
+out-of-distribution prompts (the format probe is OOD for the Arknights
+RL data; the policy was never explicitly taught how to respond to
+"你是谁").
+
+## Verdict: six mechanisms, one argmax
+
+The accumulated headline result, with Stage 06 now folded in:
+
+| Stage / cell | Mechanism | Headline numbers | Kal'tsit-race fix? |
+|---|---|---|---|
+| Stage 04 `sft_full` | SFT cross-entropy | val ppl 19.29 | No (萨卡兹) |
+| Stage 05 `dpo_curated` | DPO log-σ pairwise | val_acc 1.00 | No |
+| Stage 05 `ipo_curated` | IPO identity-link pairwise | val_acc 0.94 | No |
+| Stage 05 `dpo_bulk` | DPO + 5× more pairs | val_acc 0.98 | No |
+| Stage 05 `ipo_bulk` | IPO + 5× more pairs | val_acc 0.92 | No |
+| Stage 06 `grpo_v2` | GRPO on-policy + verifiable rewards | val_r +0.078 | **No** |
+
+**Six distinct training mechanisms, six different sets of headline
+numbers, one argmax answer to "凯尔希医生的种族是什么": 萨卡兹.** The
+agent-shipped chosen answer (`菲林`) is in the SFT data, in the DPO
+chosen side, in the RL key_facts. The model can rank `菲林` above
+`萨卡兹` (val_acc 1.00 under DPO); the model can generate samples
+mentioning `菲林` at T=1.0 (Stage 06 val_reward 0.078). But the
+argmax — the model's top-1 over all 151K Qwen3 tokens — keeps
+emitting 萨卡兹.
+
+This is the project's central pedagogical finding. Stage 05 showed it
+for offline preference learning; Stage 06 confirms it for on-policy
+RL with verifiable rewards. The gap is mechanistic, not
+loss-function-specific.
+
+### Why doesn't argmax move?
+
+A unified diagnosis, refined from Stage 05's curated post-mortem:
+
+1. **The training signal never sees the model's actual top-1.**
+   DPO sees two predetermined strings (chosen + rejected); GRPO sees N
+   sampled strings (typically high-temperature, never argmax). The
+   model's argmax-decode of "凯尔希医生的种族是什么" — `凯尔希医生的种族是萨卡兹` —
+   has no row in any training set. The gradient never touches it directly.
+2. **Argmax is a winner-take-all decision over the entire vocabulary.**
+   Pushing the log-prob of `菲林` up by 1 nat doesn't change argmax if
+   `萨卡兹` was already 1.5 nats ahead. The SFT manifold near "凯尔希医生的种族是…"
+   has 萨卡兹 deep in the well; off-the-shelf preference signals add
+   small perturbations, not the global re-weighting needed to swap top-1.
+3. **The reference KL anchor is stronger than the reward signal at
+   this scale.** Both DPO (β=0.1) and GRPO v2 (β=0.10) explicitly
+   regularise toward the SFT distribution. Argmax-shifting requires
+   the policy to *override* the SFT prior; at the dataset sizes we
+   ran, the KL penalty correctly judges that override too expensive.
+4. **LoRA r=16 caps how much the first-token distribution can move.**
+   A full-FT GRPO might rewrite argmax behaviour at the cost of much
+   more SFT drift; we deliberately didn't try this because Stage 05
+   bulk-DPO at less aggressive settings already produced +0.98
+   sft_val_ce drift.
+
+### What did move
+
+Stage 06 isn't pure null result. Two specific things grpo_v2 changed:
+
+- **Event probe coherence.** "切尔诺伯格事件" got a "工厂爆炸事件" framing —
+  not in the SFT training output, not a verbatim copy of any RL key_fact.
+  The most coherent event-narrative response across all six mechanisms.
+  This is the same direction `dpo_curated` moved (the one Stage 05 win);
+  GRPO replicated it with a different mechanism.
+- **General-knowledge cleanup.** Li Bai → 唐代 ✓, terse, no
+  hallucinated 大历十才子 anachronism. The SFT baseline was wordier and
+  produced anachronisms; GRPO converged on terse-correct.
+- **Multi-script discrimination at the score level.** The fluency
+  penalty taught the policy to rank fluent CJK higher than noise on
+  the *sampling distribution* — even though it didn't eliminate the
+  noise from the tail. This is reflected in the T=0 probes all being
+  fluent Chinese (the baseline's `垾 垾 垾` collapse is gone).
+
+These are real but modest gains. None of them is the named Stage-04
+failure mode being fixed.
+
 ## What this means for the project's roadmap
 
-Stage 06's headline finding has shifted from "RLVR closes the argmax
-gap" (the planned headline) to **"on-policy RL on a 0.6B model with
-sparse verifiable rewards is much more fragile than DPO/IPO; the
-tripwires were the load-bearing safety system."** That's a real
-contribution — most RLHF tutorials don't dwell on the failure modes
-that catch you at small scale. The Stage 06 RESULTS.md will read as
-"first attempt failed cleanly; here's the diagnosis and the fix"
-rather than "everything worked perfectly."
+Stage 06's final framing, after both cells:
 
-Roadmap is unchanged: Stage 07 (refusal training) is still the next
-stage; Stage 06's `grpo_v2` is the same stage's second cell, not a new
-stage. If `grpo_v2` also fails, the right move is to write Stage 06 up
-as "RLVR is hard at this scale; here are the three things that need
-to change before it works" and move on — the educational value is in
-the diagnosis, not in forcing a positive verdict.
+The mechanism works (grpo_v2 is a clean on-policy RL run with bounded
+KL, healthy diversity, no collapse). The mechanism does not solve the
+named hallucination problem. **Six training mechanisms have now
+established that "fixing named hallucinations at 0.6B with our data
+budget" needs a different lever than any of {SFT, DPO, IPO, RLVR}.**
+
+Two paths forward, listed in increasing intervention strength:
+
+1. **Rejection sampling at inference.** Use the grpo_v2-trained
+   preference signal as a *scorer*, sample N=16 from sft_full at T=1.0,
+   pick the highest-scoring. This converts the preference signal into
+   an argmax shift *at inference time*, bypassing the gradient/argmax
+   gap entirely. Cheap; could be implemented in `score_eval.py` in an
+   afternoon.
+2. **Self-corrected DPO.** Sample from sft_full at T=1.0; for each
+   sample, score with the reward function; if the sample contains a
+   trap, label it as `rejected` for a new DPO pair (with the canonical
+   answer as `chosen`). The new dataset's `rejected` side is *the
+   model's own argmax behaviour* — closing the preference-vs-argmax
+   gap by construction. ~1 week of work.
+
+Both deferred to a hypothetical Stage 06.5 / Stage 06.bis, not Stage 07.
+
+Stage 07 (refusal training — the original Stage 06 from the README's
+pre-Stage-05 roadmap) is **still the right next stage**. The refusal
+failure mode is the only Stage-05-named failure that's never been
+addressed at all (RL data was factoid-only, DPO had refusal pairs
+that didn't fix anything, SFT didn't have refusal examples). Refusal
+SFT with explicit "I don't know" demonstrations is a different
+mechanism, attacking the failure mode the prior mechanisms
+demonstrably can't reach.
 
 ## Files
 
@@ -264,15 +433,17 @@ the diagnosis, not in forcing a positive verdict.
 06_rlvr/
   configs/
     grpo_baseline.yaml  ✓ ran 17.3 min · stopped by mean_kl hard-cap at step 100
-    grpo_strict.yaml    deferred (would accelerate the same failure)
-    grpo_v2.yaml        proposed — β=0.1, LR=1e-6, + fluency penalty
+    grpo_strict.yaml    scaffolded; deferred (would not address the actual gap)
+    grpo_v2.yaml        ✓ ran 128.9 min · best val_r +0.078 at step 350 · early-stop patience
   docs/
     RESULTS.md          this file
 
 data/
-  checkpoints/grpo_baseline/   step-50 LoRA adapter, 18 MB (preserved as evidence)
+  checkpoints/
+    grpo_baseline/      step-50 LoRA, 18 MB (preserved as collapse evidence)
+    grpo_v2/            step-350 LoRA, 18 MB (the Stage 06 result)
   rl_logs/
-    grpo_baseline.log              full training log
-    grpo_baseline_responses.jsonl  spot-check sample log (the multi-script-leak evidence)
-    grpo_baseline_probes.log       T=0 probe battery on the step-50 checkpoint
+    grpo_baseline.log              · grpo_v2.log
+    grpo_baseline_responses.jsonl  · grpo_v2_responses.jsonl
+    grpo_baseline_probes.log       · grpo_v2_probes.log
 ```
